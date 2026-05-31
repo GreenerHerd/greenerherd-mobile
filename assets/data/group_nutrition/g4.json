@@ -1,0 +1,181 @@
+{
+  "group_id": "g4",
+  "profile_code": "CATTLE_BEEF_FEEDER_CALVES_11_MONTHS_OF_AGE_GROWING_W400",
+  "match_reason": "beef growth Feeder Calves <11 months of age",
+  "head_count": 6,
+  "required": {
+    "dry_matter_kg": 27.215519999999998,
+    "protein_kg": 4.354483200000001,
+    "energy_mj": 97.90559999999999,
+    "ndf_kg": 0
+  },
+  "plan": {
+    "dry_matter_kg": 31.297848,
+    "protein_kg": 5.007656,
+    "energy_mj": 78.32448,
+    "ndf_kg": 3.08816
+  },
+  "current": {
+    "dry_matter_kg": 21.772416,
+    "protein_kg": 3.483586560000001,
+    "energy_mj": 78.32448,
+    "ndf_kg": 0
+  },
+  "optimizer_pass": "complete",
+  "nutrient_gaps": [
+    {
+      "nutrient": "calcium",
+      "target": 3.4019399999999997,
+      "actual": 2.721552,
+      "unit": "kg/day",
+      "percent_of_target": 0.8,
+      "shortfall": 0.6803879999999998,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "nem",
+      "target": 23.4,
+      "actual": 18.72,
+      "unit": "Mcal/day",
+      "percent_of_target": 0.8,
+      "shortfall": 4.68,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "phosphorus",
+      "target": 0.141520704,
+      "actual": 0.113217,
+      "unit": "kg/day",
+      "percent_of_target": 0.8000030864741883,
+      "shortfall": 0.028303704,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    }
+  ],
+  "catalog_achievement": {
+    "primary_min_ratio": 0.8,
+    "needs_market_supplement": true
+  },
+  "recommendation": {
+    "solution": {
+      "Corn": 4.728449,
+      "Soybean": 5.083245,
+      "Wheat grain": 16.893544,
+      "Limestone": 7.515328,
+      "Meat and Bone Meal": 0.298166
+    },
+    "totals": {
+      "kgAsFed": 34.518732,
+      "cost": 42.40613,
+      "dryMatterKg": 31.297848,
+      "crudeProteinKg": 5.007656,
+      "fibreKg": 1.347441,
+      "ndfKg": 3.08816,
+      "calciumKg": 2.721552,
+      "phosphorusKg": 0.113217,
+      "nemMcal": 18.72,
+      "negMcal": 60.854889
+    },
+    "cost_per_day": 42.4061,
+    "cost_currency": "SAR",
+    "constraints": {
+      "dryMatterKg": {
+        "min": 21.772416,
+        "max": 31.297847999999995
+      },
+      "crudeProteinKg": {
+        "min": 3.483586560000001,
+        "max": 5.00765568
+      },
+      "calciumKg": {
+        "min": 2.721552,
+        "max": 3.9122309999999993
+      },
+      "phosphorusKg": {
+        "min": 0.11321656320000001,
+        "max": 0.1627488096
+      },
+      "nemMcal": {
+        "min": 18.72,
+        "max": 26.909999999999997
+      },
+      "Barley- raw (MaxIntake)": {
+        "max": 15.64110344827586,
+        "reason": "50% of DM"
+      },
+      "Barley- Flakes (MaxIntake)": {
+        "max": 12.51288275862069,
+        "reason": "40% of DM"
+      },
+      "Wheat bran (MaxIntake)": {
+        "max": 6.047893333333333,
+        "reason": "20% of DM"
+      },
+      "Cotton meal (MaxIntake)": {
+        "max": 4.43731304347826,
+        "reason": "15% of DM"
+      },
+      "Beetroot pellets (MaxIntake)": {
+        "max": 7.559866666666666,
+        "reason": "25% of DM"
+      },
+      "Soybean meal (MaxIntake)": {
+        "max": 6.047893333333333,
+        "reason": "20% of DM"
+      },
+      "Molasses (MaxIntake)": {
+        "max": 3.628736,
+        "reason": "10% of DM"
+      },
+      "Limestone (MaxIntake)": {
+        "max": 0.49482763636363625,
+        "reason": "1.5% of DM (relaxed)"
+      },
+      "Corn Gluten Meal (MaxIntake)": {
+        "max": 4.535919999999999,
+        "reason": "15% of DM"
+      },
+      "Salt (MaxIntake)": {
+        "max": 0.32658623999999997,
+        "reason": "1% of DM (relaxed)"
+      }
+    }
+  },
+  "eligible_count": 58,
+  "feed_lines": [
+    {
+      "product_number": 1024,
+      "name": "Wheat grain",
+      "kg_per_day": 16.893544,
+      "cost_per_day": 20.753639392617316,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1035,
+      "name": "Limestone",
+      "kg_per_day": 7.515328,
+      "cost_per_day": 9.23254512074198,
+      "feed_type": "CONCENTRATE"
+    },
+    {
+      "product_number": 1003,
+      "name": "Soybean",
+      "kg_per_day": 5.083245,
+      "cost_per_day": 6.244742587720197,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1002,
+      "name": "Corn",
+      "kg_per_day": 4.728449,
+      "cost_per_day": 5.808877369507664,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1070,
+      "name": "Meat and Bone Meal",
+      "kg_per_day": 0.298166,
+      "cost_per_day": 0.3662955294128417,
+      "feed_type": "CONCENTRATE"
+    }
+  ]
+}

@@ -1,0 +1,898 @@
+{
+  "@@locale": "fr",
+  "activeIllnessDetail": "Mastitis · day 3 of 5 of treatment. Penicillin G — 5 ml IM daily.",
+  "activeIngredient": "Principe actif",
+  "activeStatus": "Active",
+  "activeTreatments": "Traitements actifs",
+  "addAi": "Add AI",
+  "addAnimalTitle": "Add animal",
+  "addAnotherAnimal": "Add another",
+  "addAtLeastOneAnimal": "Add at least one animal to sell",
+  "addEntry": "Ajouter une entrée",
+  "addFeed": "Ajouter aliment",
+  "addFeedProduct": "Ajouter produit alimentaire",
+  "addLivestockLabel": "Add {label}",
+  "@addLivestockLabel": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "addMedicine": "Ajouter médicament",
+  "addNew": "Ajouter",
+  "addTaskForAnimal": "Add task for {name}",
+  "@addTaskForAnimal": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addToInventory": "Ajouter au stock",
+  "addToSale": "Add",
+  "addedManually": "Ajoutée manuellement",
+  "addingCountToGroupOnSave": "Adding {count} to the group on save",
+  "@addingCountToGroupOnSave": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageNew": "Nouveau",
+  "ageRange": "Age range",
+  "ageRangeIfUnknown": "Age range (if DOB unknown)",
+  "aiAttemptTitle": "Artificial insemination · Attempt {n}",
+  "@aiAttemptTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiAttempts30d": "AI attempts (30d)",
+  "aiProviderPerformance": "AI provider performance",
+  "alerts": "Alertes",
+  "alertsAndTasks": "Alertes et tâches",
+  "allSpecies": "Toutes espèces",
+  "allTasks": "All",
+  "amount": "Montant",
+  "animalAlreadyInSaleList": "Already added to this sale",
+  "animalInGroup": "Animal {index}",
+  "@animalInGroup": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "animalIsTwin": "This animal is a twin",
+  "animalNotFound": "Animal introuvable",
+  "animals": "Animaux",
+  "animalsAvailable": "{count} {species} available",
+  "@animalsAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "animalsCount": "Animaux",
+  "animalsPurchased": "Animaux achetés",
+  "animalsToSell": "Animals to sell",
+  "appSettings": "App settings",
+  "appTitle": "GreenerHerd",
+  "applyToMorningMix": "Appliquer au mélange du matin",
+  "artificialInseminations": "Artificial inseminations",
+  "assistanceCSection": "C-section",
+  "assistanceEasyPull": "Easy pull (1 person)",
+  "assistanceHardPull": "Hard pull (2+ people)",
+  "assistanceNone": "None — natural birth",
+  "assistanceVet": "Vet assisted",
+  "attemptNumberLabel": "Attempt #",
+  "auditableDetail": "Auditable detail",
+  "availableReports": "Available reports",
+  "avgLitresMilking": "Moy. {avg} L/tête · {count} traite(s)",
+  "@avgLitresMilking": {
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "avgPerHead": "Moy. / tête",
+  "avgWithdrawalRemaining": "Moy. {days} j restants",
+  "@avgWithdrawalRemaining": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "backButton": "Back",
+  "birthDateOptional": "Date de naissance (facultatif)",
+  "birthRecordedFor": "Naissance enregistrée pour #{tag}",
+  "@birthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "birthSizeLarge": "Large",
+  "birthSizeMedium": "Medium",
+  "birthSizeSmall": "Small",
+  "birthWeightHint": "Birth weight",
+  "birthingAssistance": "Birthing assistance",
+  "bornAlive": "Né vivant",
+  "bornAliveSubtitle": "Gestation levée ; tag lactation si absent",
+  "bornOnDate": "Né le {day}/{month}/{year}",
+  "@bornOnDate": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "month": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "bornOnFarm": "Born on farm",
+  "breed": "Race",
+  "breedForSpecies": "Breed ({species})",
+  "@breedForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "breedingFemalesOnly": "Breeding history is shown for females only.",
+  "breedingHistory": "Historique reproduction",
+  "breedingKpis": "Breeding KPIs",
+  "breedingOpen": "Libre",
+  "breedingOverview": "Aperçu reproduction",
+  "breedingStatus": "Statut",
+  "breedingStatusUpdated": "Statut reproduction mis à jour",
+  "buyAnimals": "Acheter des animaux",
+  "buyAnimalsInventorySubtitle": "Record a purchase and add animals to the herd",
+  "cancel": "Annuler",
+  "catalogGaps": "Écarts catalogue",
+  "catalogueProduct": "Produit catalogue",
+  "category": "Catégorie",
+  "categoryOptionalPreset": "Catégorie (préréglage facultatif)",
+  "cattle": "Bovins",
+  "channelEmail": "e-mail",
+  "channelWhatsapp": "WhatsApp",
+  "chartDayLitres": "Jour {day}\n{litres} L",
+  "chooseHowToAddAnimals": "Choisissez comment ajouter vos premiers animaux. Vous pourrez le faire plus tard depuis l'onglet Animaux.",
+  "clearCullFlag": "Retirer marque réforme",
+  "clearReadyToBreed": "Retirer prête à reproduire",
+  "complete": "Terminer",
+  "confirmMiscarriage": "Confirmer fausses couches",
+  "confirmSale": "Confirm sale",
+  "confirmed": "Confirmed",
+  "continueButton": "Continuer",
+  "continueWithApple": "Continuer avec Apple",
+  "continueWithFacebook": "Continuer avec Facebook",
+  "continueWithGoogle": "Continuer avec Google",
+  "couldNotApplyFeedPlan": "Impossible d'appliquer le plan",
+  "createGroupAction": "Create group",
+  "createGroupWithAnimals": "Create group · {count} animal",
+  "createGroupWithAnimalsPlural": "Create group · {count} animals",
+  "@createGroupWithAnimalsPlural": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@createGroupWithAnimals": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "createVaccinationEvent": "Create vaccination event",
+  "crudeProtein": "Protéine brute",
+  "crudeProteinPercent": "Protéine brute %",
+  "cullFlagged": "Réforme signalée",
+  "currency": "Devise",
+  "currentStockKg": "Stock actuel (kg)",
+  "currentWeightLabel": "Current",
+  "custom": "Personnalisé",
+  "customMedicineName": "Nom personnalisé",
+  "dailyCostPerHead": "Coût journalier / tête",
+  "damOptional": "Dam (optional)",
+  "dateOfBirth": "Date de naissance",
+  "dateOfSale": "Date of sale",
+  "dateRange": "Date range",
+  "delete": "Supprimer",
+  "description": "Description",
+  "descriptionHeading": "DESCRIPTION",
+  "descriptionOptional": "Description (facultatif)",
+  "dismiss": "Ignorer",
+  "dobIfKnown": "Date of birth (if known)",
+  "dobOrAgeRangeHint": "Or pick an age range below.",
+  "dosage": "Dosage",
+  "downloadPdf": "Download PDF",
+  "dryMatter": "Matière sèche",
+  "dryMatterPercent": "Matière sèche %",
+  "earTag": "Ear tag",
+  "earTagHint": "e.g. 0473",
+  "edit": "Modifier",
+  "editTask": "Edit task",
+  "email": "E-mail",
+  "energyGapDetected": "Déficit énergétique détecté",
+  "energyMe": "Énergie (ME)",
+  "enterAnimalsIndividually": "Saisir les animaux individuellement",
+  "enterAsGroup": "Saisir en groupe",
+  "enterPurchaserAndPrice": "Enter purchaser and price paid",
+  "enterSupplierAndPrice": "Enter where animals were bought from and purchase price",
+  "enterValidEmail": "Entrez un e-mail valide",
+  "enterValidPhone": "Entrez un téléphone valide",
+  "errorGeneric": "Une erreur s'est produite",
+  "expense": "Dépenses",
+  "exportCsv": "Exporter CSV",
+  "exportPdf": "Exporter PDF",
+  "exportPdfCsvSubtitle": "Exporter PDF / CSV",
+  "exportReport": "Export",
+  "failedToApplyPlan": "Échec d'application : {error}",
+  "@failedToApplyPlan": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "farmHand": "Ouvrier agricole",
+  "farmName": "Nom de la ferme",
+  "farmOwner": "Propriétaire de la ferme",
+  "farmSection": "Farm",
+  "feed": "Alimentation",
+  "feedAndMedicalStock": "Stock alimentation et médical",
+  "feedPlanApplied": "Plan alimentaire appliqué",
+  "feedType": "Type d'aliment",
+  "female": "Femelle",
+  "females": "Femelles",
+  "finance": "Finance",
+  "finishGroup": "Complete group",
+  "finishPurchase": "Complete purchase",
+  "fixTheGap": "Combler l'écart",
+  "flagForCull": "Marquer pour réforme",
+  "fromDate": "From",
+  "fromProductList": "Depuis la liste",
+  "fullAccess": "Full access",
+  "fullName": "Nom complet",
+  "gaveBirth": "A mis bas",
+  "general": "Général",
+  "generated": "Generated",
+  "generatedToday": "Today, 09:14",
+  "gestation": "Gestation",
+  "gestationMonths": "Gestation (mois)",
+  "gestationMonthsSubtitle": "{months} mois de gestation",
+  "@gestationMonthsSubtitle": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "gestationMonthsValue": "{months} mois",
+  "@gestationMonthsValue": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "goat": "Goat",
+  "goats": "Chèvres",
+  "goodMorning": "Bonjour, {name}",
+  "group": "Groupe",
+  "groupAverage": "Moyenne du groupe",
+  "groupDescriptionHint": "Housing, feeding cadence, notes",
+  "groupName": "Nom du groupe",
+  "groupNameHint": "e.g. Milking B",
+  "groupNotFound": "Groupe introuvable",
+  "groupOfLivestock": "Group of livestock",
+  "groupSpeciesLabel": "{name} · {species}",
+  "@groupSpeciesLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "groupTitle": "Groupe",
+  "groupWizardAnimals": "Individual animals",
+  "groupWizardSummary": "Group summary",
+  "addAMeal": "Add a meal",
+  "addAnotherGroup": "Add another group",
+  "saveMeal": "Save meal",
+  "searchMeals": "Search meals",
+  "mealAmountKg": "Amount (kg)",
+  "groupCreatedMessage": "Your group is ready. Add a meal now or skip and set feeding up later.",
+  "groupWizardDetails": "Group details",
+  "groupWizardHerd": "Herd profile",
+  "groups": "Groupes",
+  "headCount": "Number in group",
+  "headline": "Headline",
+  "healthcareHistory": "Healthcare history",
+  "heightCm": "Height",
+  "help": "Aide",
+  "helpSupport": "Help & support",
+  "hold": "Maintenir",
+  "howDidPregnancyEnd": "Comment s'est terminée la gestation ?",
+  "inSelectedRange": "In the selected range",
+  "inStockLabel": "En stock",
+  "income": "Revenus",
+  "individualTasks": "Individual tasks",
+  "inventory": "Inventaire",
+  "inventoryBurgerSubtitle": "Feed, medical & livestock",
+  "inviteCreated": "Invitation créée. Lien : {link}",
+  "@inviteCreated": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteFailed": "Échec de l'invitation : {error}",
+  "@inviteFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteManageTeam": "Inviter et gérer votre équipe",
+  "inviteSentOpen": "Invitation envoyée — ouvrez {channel} pour terminer",
+  "@inviteSentOpen": {
+    "placeholders": {
+      "channel": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteTeamMember": "Inviter un membre",
+  "inviteTeamSubtitle": "Envoyez un lien par e-mail ou WhatsApp pour rejoindre votre ferme.",
+  "joinFarmSubject": "Rejoindre {farmName} sur GreenerHerd",
+  "@joinFarmSubject": {
+    "placeholders": {
+      "farmName": {
+        "type": "String"
+      }
+    }
+  },
+  "lactating": "En lactation",
+  "lactatingPostCalving": "Lactation / post-mise bas",
+  "lactationCalvingExpected": "Vêlage {date} · ~{litres} L attendus aujourd'hui",
+  "lactationChartNeedsData": "Enregistrez au moins deux traites pour afficher la courbe.",
+  "lactationCurveLegend": "Trait plein = lait enregistré · pointillé = attendu (moyenne race)",
+  "lactationCurveTitle": "Courbe de lactation (lait vs jour de lactation)",
+  "lactationDayOf305": "{stage} · Jour {day} sur 305",
+  "lactationNumber": "Lactation {number}",
+  "lactationStageDry": "Tarissement",
+  "lactationStageFresh": "Début de lactation",
+  "lactationStageLate": "Fin de lactation",
+  "lactationStageMid": "Mi-lactation",
+  "lactationStagePeak": "Pic de lactation",
+  "language": "Langue",
+  "languageArabic": "العربية",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+  "languageUrdu": "اردو",
+  "last90Days": "Last 90 days",
+  "last90DaysRange": "Feb 07 – May 08",
+  "legendAction": "Action",
+  "legendOk": "OK",
+  "legendWarning": "Alerte",
+  "linkedToAccount": "Lié au compte {provider}",
+  "@linkedToAccount": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "litresValue": "{litres} L",
+  "live": "En direct",
+  "livestockExisting": "Existing",
+  "livestockNewBorn": "New (born)",
+  "livestockNewPurchased": "New (purchased)",
+  "livestockValue": "Valeur du cheptel",
+  "loadedCount": "{count} chargés",
+  "@loadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loading": "Chargement",
+  "loadingBreeds": "Chargement des races…",
+  "location": "Location",
+  "lowStock": "Stock bas",
+  "lowStockFeedBanner": "{count} aliment(s) sous une semaine de réserve",
+  "@lowStockFeedBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "male": "Mâle",
+  "manageGroups": "Gérer les groupes",
+  "manageTeam": "Manage",
+  "manager": "Gestionnaire",
+  "markCull": "Cull",
+  "markCured": "Mark cured",
+  "recordDeath": "Record death",
+  "deathReason": "Cause of death",
+  "deathReasonHint": "Illness, injury, unknown…",
+  "confirmRecordDeath": "Confirm death",
+  "confirmRecordDeathMessage": "Record {animal} as deceased?\n\nReason: {reason}\n\nThe animal will be removed from its group. This cannot be undone.",
+  "animalRecordedDeceased": "Death recorded",
+  "deceased": "Deceased",
+  "removedFromGroupNote": "Removed from group",
+  "cullType": "Cull type",
+  "cullReason": "Cull reason",
+  "markPregnant": "Marquer gestante",
+  "markReadyToBreed": "Marquer prête à la reproduction",
+  "markSick": "Sick",
+  "markSold": "Marquer vendu",
+  "markedReadyToBreed": "Marquée prête à reproduire",
+  "marketplace": "Marché",
+  "marketplaceListingName": "Nom annonce marché",
+  "mealPlans": "Plans de repas",
+  "viewMealPlans": "Voir les plans de repas",
+  "medicine": "Médicament",
+  "medicineCatalogueSearchHint": "Rechercher parmi {count} produits du catalogue",
+  "@medicineCatalogueSearchHint": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "medicineName": "Nom du médicament",
+  "medicineProductSource": "Produit",
+  "medicineProductsAvailable": "correspondances",
+  "medicineTypeLabel": "Type (ex. ANTIBIOTIC)",
+  "methaneAgeMonths": "{months} mois",
+  "methaneByAnimal": "Par animal (CH₄ / jour)",
+  "methaneCh4Grams": "{grams} g CH₄",
+  "methaneCo2eSummary": "{co2e} kg éq. CO₂ · {weight} kg poids vif moy.",
+  "methaneEmissions": "Émissions de méthane",
+  "methaneGramsShort": "{grams} g",
+  "methaneMoreAnimals": "+ {count} animaux supplémentaires",
+  "methaneRegionMiddleEast": "Moyen-Orient (CCG)",
+  "methodLabel": "Method",
+  "fertilityMethodLabel": "Fertility method",
+  "readyToBreedMethodHint": "Choose how this animal will be bred. Sponges synchronize heat for timed insemination in goats and sheep.",
+  "breedingMethodNatural": "Natural service",
+  "breedingMethodAi": "Artificial insemination",
+  "breedingMethodEmbryonic": "Embryo transfer",
+  "breedingMethodSponges": "Sponges",
+  "milkBlockedWithdrawal": "Enregistrement lait bloqué pendant retrait médicament",
+  "milkSale": "Vente de lait",
+  "milkingKpis": "Indicateurs de traite",
+  "milkingTodayVolume": "Volume du jour",
+  "miscarriage": "Fausses couches",
+  "miscarriageConfirmBody": "Cela retire le statut gestant et ajoute un flag pour suivi Santé et rapports.",
+  "miscarriageRecorded": "Fausses couches enregistrées",
+  "miscarriageRecordedFor": "Fausses couches enregistrées pour #{tag}",
+  "@miscarriageRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "miscarriageSubtitle": "Retirer la gestation et signaler pour suivi",
+  "miscarriagesCount": "Miscarriages",
+  "miscarriagesSection": "Miscarriages",
+  "monthsPregnant": "Months pregnant",
+  "mothersTag": "Mother's tag",
+  "myFarm": "Ma ferme",
+  "nameOptional": "Name (optional)",
+  "nameOptionalHint": "You can add this later.",
+  "nameOptionalPlaceholder": "e.g. Salwa",
+  "ndf": "NDF",
+  "calcium": "Calcium",
+  "phosphorus": "Phosphorus",
+  "nemMcalPerKg": "NEm (Mcal/kg)",
+  "net": "Net",
+  "newAnimal": "Nouvel animal",
+  "newFarmSetup": "Nouvelle ferme",
+  "newGroup": "Nouveau groupe",
+  "newTask": "Nouvelle tâche",
+  "newbornAnimalN": "Newborn #{n}",
+  "@newbornAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "newbornDetails": "Newborn details",
+  "noActiveVaccinationEvents": "No active vaccination events in the last 48 hours",
+  "noAiRecordsHint": "Log inseminations or natural services to track attempts and outcomes.",
+  "noAiRecordsYet": "No AI records yet",
+  "noAnimalsForSpecies": "No {species} on the farm yet.",
+  "@noAnimalsForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "noAnimalsInGroup": "Aucun animal assigné à ce groupe.",
+  "noAnimalsMatchTag": "No active animals match this tag",
+  "noBreedingEventsYet": "Aucun événement reproduction enregistré.",
+  "noDescriptionRecorded": "Aucune description enregistrée.",
+  "noFeedInInventory": "Pas encore d'aliment en stock.",
+  "noFeedToday": "Aucun aliment enregistré aujourd'hui.",
+  "noLossesRecorded": "No losses recorded",
+  "noMedicineInInventory": "Pas encore de médicaments en stock.",
+  "noMilkToday": "Aucun enregistrement de lait aujourd'hui.",
+  "noMiscarriagesHint": "Log a pregnancy loss to track gestation day, cause and follow-up.",
+  "noMiscarriagesYet": "No miscarriages recorded",
+  "noTasksForAnimal": "No upcoming tasks for this animal.",
+  "noVaccinationEvents": "No vaccination events on file",
+  "notFound": "Introuvable",
+  "notRecorded": "Non enregistré",
+  "notes": "Notes",
+  "notesHint": "Anything else worth recording",
+  "nothingForFilter": "Nothing for this filter.",
+  "notificationsDigestAt": "Daily digest at 06:00",
+  "notificationsRecommended": "Notifications et tâches recommandées",
+  "notificationsSubtitle": "Rappels alimentation, reproduction, santé, météo",
+  "numberOfAnimalsPurchased": "Number of animals purchased",
+  "nutritionalInformation": "Informations nutritionnelles",
+  "onWithdrawal": "En retrait",
+  "onboardNewAnimal": "Onboard new animal",
+  "onboardNewGroup": "Onboard new group",
+  "onboardingAnimalsTitle": "Ajouter des animaux",
+  "onboardingFarmTitle": "Configurer votre ferme",
+  "onboardingSpeciesTitle": "Votre bétail",
+  "openAnimalProfiles": "Ouvrir les profils animaux",
+  "openAnimalsForBreeding": "Ouvrez les profils pour les actions de reproduction.",
+  "origin": "Origin",
+  "overdue": "En retard",
+  "parentSearchHint": "Search or enter",
+  "people": "Personnes",
+  "perGroup": "Per-group",
+  "perHead": "Par tête",
+  "phoneWithCountryCode": "Téléphone (indicatif pays)",
+  "pickAgeRange": "Pick a range…",
+  "preferences": "Preferences",
+  "pregnancyConfirmed": "Gestation confirmée",
+  "pregnancyConfirmedMo": "Gestation confirmée ({months} mois)",
+  "@pregnancyConfirmedMo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "pregnancyOutcome": "Issue de la gestation",
+  "pregnancyRate": "Pregnancy rate",
+  "pregnant": "Gestante",
+  "pregnantAnimals": "Animaux gestants",
+  "previousTodayMilk": "Aujourd'hui précédent : {litres} L",
+  "@previousTodayMilk": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      }
+    }
+  },
+  "pricePaidSar": "Price paid (SAR)",
+  "primaryPurpose": "Objectif principal",
+  "printReport": "Imprimer le rapport",
+  "productName": "Nom du produit",
+  "profile": "Profil",
+  "providerApple": "Apple",
+  "providerFacebook": "Facebook",
+  "providerGoogle": "Google",
+  "providerLabel": "Provider",
+  "purchaseDate": "Purchase date",
+  "purchasePrice": "Purchase price",
+  "purchaseRecorded": "Purchase recorded",
+  "purchaseWizardAnimals": "Individual animals",
+  "purchaseWizardDetails": "Purchase details",
+  "purchaseWizardLivestock": "Livestock profile",
+  "purchased": "Purchased",
+  "purchasedAnimalN": "Purchased #{n}",
+  "@purchasedAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "purchasedVolumeKg": "Volume acheté (kg)",
+  "inventoryPreviousUnitCost": "Coût unitaire précédent : {cost} SAR/kg",
+  "stockUpdated": "Stock mis à jour",
+  "purchaser": "Purchaser",
+  "purpose": "Objectif",
+  "groupPurpose": "Group purpose",
+  "animalPurpose": "Animal purpose",
+  "purposeForSpecies": "Primary purpose for {species}",
+  "@purposeForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "purposeHeading": "OBJECTIF",
+  "purposeMeat": "Viande",
+  "purposeMilk": "Lait",
+  "purposeMilkMeat": "Lait et viande",
+  "quantity": "Quantité",
+  "readyToBreed": "Prête à reproduire",
+  "recentEntries": "Entrées récentes",
+  "recentMiscarriage": "Fausses couches récentes",
+  "recentVaccinations": "Vaccinations récentes",
+  "recommendedFeeds": "Aliments recommandés",
+  "recordAction": "Enregistrer",
+  "updateAction": "Update",
+  "updateFeeding": "Update feeding",
+  "updatingFeeding": "Updating…",
+  "recordAi": "Record AI",
+  "recordBirth": "Enregistrer la naissance",
+  "recordBirthSubtitle": "Enregistrer naissance vivante ou mort-né",
+  "recordBulkMilkSale": "Vente de lait en vrac (revenu)",
+  "recordExpense": "Enregistrer dépense",
+  "recordFeeding": "Enregistrer l'alimentation",
+  "recordIncome": "Enregistrer revenu",
+  "recordMilk": "Enregistrer le lait",
+  "recordMilkSaleIncome": "Enregistrer revenu vente lait",
+  "recordMilkSaleIncomeSubtitle": "Ajoute un revenu dans l'onglet Finance",
+  "recordMiscarriage": "Enregistrer fausses couches",
+  "recordPregnancyOutcome": "Enregistrer issue gestation",
+  "recordPurchase": "Enregistrer achat",
+  "recordTreatment": "Record treatment",
+  "recordedMilkFor": "Enregistré {litres} L pour #{tag}",
+  "@recordedMilkFor": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "recordsIncluded": "Records included",
+  "recordsOnFile": "{count} records on file",
+  "@recordsOnFile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurring": "Recurring",
+  "removeAnimal": "Remove",
+  "removeFromSaleList": "Remove",
+  "reportPreview": "Report preview",
+  "reports": "Rapports",
+  "reportsSubtitle": "PDF · downloadable",
+  "resolved": "Resolved",
+  "resultDateLabel": "RESULT DATE",
+  "role": "Rôle",
+  "routeOfAdministration": "Voie d'administration",
+  "saleAmountSar": "Montant vente (SAR)",
+  "salePurposeOptional": "Purpose of sale (optional)",
+  "saleRecorded": "Sale recorded",
+  "save": "Enregistrer",
+  "saveAnimal": "Enregistrer l'animal",
+  "saveBirthRecord": "Enregistrer la naissance",
+  "saveGroup": "Enregistrer le groupe",
+  "searchCatalogue": "Rechercher dans le catalogue",
+  "searchFarmTags": "Search tags on the farm",
+  "selectAtLeastOneAnimal": "Select at least one animal",
+  "selectAtLeastOneSpecies": "Sélectionnez au moins une espèce",
+  "selectGroupRequired": "Select a group or create a new one",
+  "selectMedicineOrEnterName": "Choisissez un produit dans la liste ci-dessus",
+  "selectMedicineProduct": "Sélectionner un médicament",
+  "selectProduct": "Choisir le produit",
+  "selectSpeciesOnFarm": "Sélectionnez les espèces de votre ferme",
+  "selectVaccinationEvent": "Select vaccination event",
+  "sellAnimals": "Vendre des animaux",
+  "sellAnimalsInventorySubtitle": "Sell animals and update herd inventory",
+  "semenBatchLabel": "SEMEN BATCH",
+  "sendInvite": "Envoyer l'invitation",
+  "setThePurposeForEachSpecies": "Set the primary purpose for each species",
+  "settings": "Paramètres",
+  "sex": "Sexe",
+  "sheep": "Moutons",
+  "sick": "Malade",
+  "sickAnimals": "Animaux malades",
+  "sickDescription": "Illness description",
+  "signIn": "Connexion",
+  "signOut": "Déconnexion",
+  "signatureLineNote": "Includes signature line for veterinary / auditor handoff.",
+  "sireLabel": "SIRE",
+  "sireOptional": "Sire (optional)",
+  "sizeAtBirth": "Size at birth",
+  "skipForNow": "Passer pour l'instant",
+  "source": "Source",
+  "species": "Espèce",
+  "speciesCovered": "Species covered",
+  "speciesCoveredValue": "Cattle · Goat · Sheep",
+  "standard": "Standard",
+  "stillbirthRecorded": "Mort-né enregistré",
+  "stillbirthRecordedFor": "Mort-né enregistré pour #{tag}",
+  "@stillbirthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "stillborn": "Mort-né",
+  "stillbornSubtitle": "Gestation levée ; mort-né enregistré",
+  "subscription": "Abonnement",
+  "successRate": "Success rate",
+  "summaryOriginBorn": "Born on farm",
+  "summaryOriginPurchased": "Purchased",
+  "summaryOriginPurchasedFrom": "Purchased from {supplier}",
+  "@summaryOriginPurchasedFrom": {
+    "placeholders": {
+      "supplier": {
+        "type": "String"
+      }
+    }
+  },
+  "supplier": "Fournisseur",
+  "supplierHint": "e.g. Al-Wafi Genetics, market, neighbour…",
+  "supplierName": "Nom du fournisseur",
+  "supplierPhone": "Téléphone fournisseur",
+  "supplierSource": "Supplier / source",
+  "supportTopics": "Support et sujets",
+  "switchFarm": "Switch",
+  "switchFarmMock": "Farm switching is not available in this demo.",
+  "tabAnimals": "Animaux",
+  "tabBreeding": "Reproduction",
+  "tabFinance": "Finance",
+  "tabHealth": "Santé",
+  "tabHome": "Accueil",
+  "tabMedia": "Médias",
+  "tabMilking": "Traite",
+  "tabNutrition": "Nutrition",
+  "tabOverview": "Aperçu",
+  "tabReports": "Rapports",
+  "tabTasks": "Tâches",
+  "tabWeight": "Poids",
+  "tag": "Étiquette",
+  "tagNumber": "Numéro d'étiquette",
+  "tapToRegisterLivestock": "Tap Add {label} to register one or more {species} now.",
+  "@tapToRegisterLivestock": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "taskTitle": "Titre",
+  "tasksDueSubtitle": "{due} due · {overdue} overdue",
+  "@tasksDueSubtitle": {
+    "placeholders": {
+      "due": {
+        "type": "int"
+      },
+      "overdue": {
+        "type": "int"
+      }
+    }
+  },
+  "tasksToday": "Tâches du jour",
+  "technicianLabel": "TECHNICIAN",
+  "thisWeek": "Cette semaine",
+  "toDate": "To",
+  "today": "Aujourd'hui",
+  "todayTotal": "Total du jour",
+  "todayVsRequirement": "Aujourd'hui vs besoins",
+  "todaysFeed": "Alimentation du jour",
+  "todaysMilkLitres": "Lait du jour (litres)",
+  "todaysVolume": "Volume du jour",
+  "tomorrow": "Tomorrow",
+  "topProducers": "Meilleures productrices",
+  "totalSar": "Total (SAR)",
+  "totalWeightKgOptional": "Total weight (kg, optional)",
+  "unit": "Unité",
+  "unitCostSar": "Coût unitaire (SAR/kg)",
+  "user": "Utilisateur",
+  "userRoleFarmHand": "Farm hand",
+  "userRoleManager": "Manager",
+  "userRoleOwner": "Owner",
+  "userRoleVet": "Vet",
+  "vaccinated": "Vaccinated",
+  "vaccinationEvent": "Vaccination event",
+  "vaccinationsSection": "Vaccinations",
+  "validMilkVolume": "Entrez un volume de lait valide (litres)",
+  "veterinarian": "Vétérinaire",
+  "vigour": "Vigour",
+  "vigourAverage": "Average",
+  "vigourStrong": "Strong",
+  "vigourWeak": "Weak",
+  "voiceAddTask": "Ajouter une tâche vocale",
+  "voiceHoldMock": "Maintenir pour parler (simulation)",
+  "voiceLanguages": "EN · AR · UR · FR · transcribed by AI",
+  "weaned": "Weaned",
+  "weight": "Poids",
+  "weightDeltaKg": "+{kg} kg",
+  "@weightDeltaKg": {
+    "placeholders": {
+      "kg": {
+        "type": "int"
+      }
+    }
+  },
+  "weightGrowthPct": "+{pct}%",
+  "@weightGrowthPct": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "weightHint": "ex. 412",
+  "weightKg": "Poids (kg)",
+  "weightMonthsTitle": "Weight · 5 months",
+  "welcomeBrand": "Greener Herd",
+  "welcomeTo": "Bienvenue sur",
+  "whatsapp": "WhatsApp",
+  "window": "Window",
+  "withdrawalPrefilledHint": "Les périodes de retrait sont préremplies — modifiez si votre vétérinaire l'indique.",
+  "withdrawalDays": "Retrait · {days} j",
+  "@withdrawalDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "withdrawalMilkBlocked": "Période de retrait active — le lait ne peut pas être vendu ni enregistré pour consommation humaine.",
+  "withdrawalMilkSafe": "Milk safe from {date}. Do not sell this animal's milk until cleared.",
+  "@withdrawalMilkSafe": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawalPeriodActive": "Withdrawal period active",
+  "wizardStepOf": "Step {current} of {total}",
+  "@wizardStepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "youreAdding": "You're adding"
+}

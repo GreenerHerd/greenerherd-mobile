@@ -1,0 +1,128 @@
+{
+  "group_id": "g9",
+  "profile_code": "SHEEP_SMALL_RUMINANT_MAINTENANCE",
+  "match_reason": "small ruminant: Maintenance",
+  "head_count": 14,
+  "required": {
+    "dry_matter_kg": 21,
+    "protein_kg": 2.52,
+    "energy_mj": 144.9
+  },
+  "plan": {
+    "dry_matter_kg": 23.519999740000003,
+    "protein_kg": 2.8224005950000004,
+    "energy_mj": 162.28800023
+  },
+  "current": {
+    "dry_matter_kg": 15.75,
+    "protein_kg": 1.8900000000000001,
+    "energy_mj": 108.67500000000001
+  },
+  "optimizer_pass": "complete",
+  "nutrient_gaps": [
+    {
+      "nutrient": "phosphorus",
+      "target": 49,
+      "actual": 46.550004,
+      "unit": "g/day",
+      "percent_of_target": 0.950000081632653,
+      "shortfall": 2.4499959999999987,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    }
+  ],
+  "catalog_achievement": {
+    "primary_min_ratio": 1.1199999876190478,
+    "nutrient_floor_used": 0.95,
+    "needs_market_supplement": true
+  },
+  "recommendation": {
+    "solution": {
+      "Cotton Seed": 0.28891,
+      "Wheat Straw": 14.223253,
+      "Salt": 0.845412,
+      "Urea": 0.471708,
+      "Corn (Cracked)": 6.766625,
+      "Ponicum (Hay)": 3.765873
+    },
+    "totals": {
+      "dryMatterKg": 23.519999740000003,
+      "proteinKg": 2.8224005950000004,
+      "tdnKg": 14.11200002,
+      "calciumG": 62.719997500000005,
+      "phosphorusG": 46.550004
+    },
+    "cost_per_day": 45.25,
+    "cost_currency": "SAR",
+    "constraints": {
+      "dryMatterKg": {
+        "min": 19.95,
+        "max": 23.520000000000003
+      },
+      "proteinKg": {
+        "min": 2.3939999999999997,
+        "max": 2.8224000000000005
+      },
+      "tdnKg": {
+        "min": 11.969999999999999,
+        "max": 14.112
+      },
+      "calciumG": {
+        "min": 0.0532,
+        "max": 0.06272000000000001
+      },
+      "phosphorusG": {
+        "min": 0.04655,
+        "max": 0.054880000000000005
+      },
+      "fodderDmMinRatio": 0.275,
+      "concentrateDmMaxRatio": 0.392,
+      "additiveDmMaxRatio": 0.05600000000000001,
+      "nutrientFloorUsed": 0.95
+    }
+  },
+  "eligible_count": 59,
+  "feed_lines": [
+    {
+      "product_number": 1039,
+      "name": "Wheat Straw",
+      "kg_per_day": 14.223253,
+      "cost_per_day": 24.414215346451744,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1053,
+      "name": "Corn (Cracked)",
+      "kg_per_day": 6.766625,
+      "cost_per_day": 11.61491256034636,
+      "feed_type": "CONCENTRATE"
+    },
+    {
+      "product_number": 1072,
+      "name": "Ponicum (Hay)",
+      "kg_per_day": 3.765873,
+      "cost_per_day": 6.464121420703709,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1045,
+      "name": "Salt",
+      "kg_per_day": 0.845412,
+      "cost_per_day": 1.451149791434805,
+      "feed_type": "ADDITIVE"
+    },
+    {
+      "product_number": 1047,
+      "name": "Urea",
+      "kg_per_day": 0.471708,
+      "cost_per_day": 0.809686834133096,
+      "feed_type": "ADDITIVE"
+    },
+    {
+      "product_number": 1005,
+      "name": "Cotton Seed",
+      "kg_per_day": 0.28891,
+      "cost_per_day": 0.49591404693028907,
+      "feed_type": "FODDER"
+    }
+  ]
+}

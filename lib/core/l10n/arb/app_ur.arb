@@ -1,0 +1,898 @@
+{
+  "@@locale": "ur",
+  "activeIllnessDetail": "Mastitis · day 3 of 5 of treatment. Penicillin G — 5 ml IM daily.",
+  "activeIngredient": "فعال جزو",
+  "activeStatus": "Active",
+  "activeTreatments": "فعال علاج",
+  "addAi": "Add AI",
+  "addAnimalTitle": "Add animal",
+  "addAnotherAnimal": "Add another",
+  "addAtLeastOneAnimal": "Add at least one animal to sell",
+  "addEntry": "انٹری شامل کریں",
+  "addFeed": "چارہ شامل کریں",
+  "addFeedProduct": "چارے کی مصنوعات شامل کریں",
+  "addLivestockLabel": "Add {label}",
+  "@addLivestockLabel": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "addMedicine": "دوا شامل کریں",
+  "addNew": "نیا شامل کریں",
+  "addTaskForAnimal": "Add task for {name}",
+  "@addTaskForAnimal": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addToInventory": "انوینٹری میں شامل",
+  "addToSale": "Add",
+  "addedManually": "دستی شامل",
+  "addingCountToGroupOnSave": "Adding {count} to the group on save",
+  "@addingCountToGroupOnSave": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageNew": "نیا",
+  "ageRange": "Age range",
+  "ageRangeIfUnknown": "Age range (if DOB unknown)",
+  "aiAttemptTitle": "Artificial insemination · Attempt {n}",
+  "@aiAttemptTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiAttempts30d": "AI attempts (30d)",
+  "aiProviderPerformance": "AI provider performance",
+  "alerts": "انتباہات",
+  "alertsAndTasks": "الرٹس اور کام",
+  "allSpecies": "تمام اقسام",
+  "allTasks": "All",
+  "amount": "رقم",
+  "animalAlreadyInSaleList": "Already added to this sale",
+  "animalInGroup": "Animal {index}",
+  "@animalInGroup": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "animalIsTwin": "This animal is a twin",
+  "animalNotFound": "جانور نہیں ملا",
+  "animals": "جانور",
+  "animalsAvailable": "{count} {species} available",
+  "@animalsAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "animalsCount": "جانور",
+  "animalsPurchased": "خریدے گئے جانور",
+  "animalsToSell": "Animals to sell",
+  "appSettings": "App settings",
+  "appTitle": "GreenerHerd",
+  "applyToMorningMix": "صبح کے مکس پر لاگو کریں",
+  "artificialInseminations": "Artificial inseminations",
+  "assistanceCSection": "C-section",
+  "assistanceEasyPull": "Easy pull (1 person)",
+  "assistanceHardPull": "Hard pull (2+ people)",
+  "assistanceNone": "None — natural birth",
+  "assistanceVet": "Vet assisted",
+  "attemptNumberLabel": "Attempt #",
+  "auditableDetail": "Auditable detail",
+  "availableReports": "Available reports",
+  "avgLitresMilking": "اوسط {avg} L/سر · {count} دودھ",
+  "@avgLitresMilking": {
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "avgPerHead": "اوسط/سر",
+  "avgWithdrawalRemaining": "اوسط {days} دن باقی",
+  "@avgWithdrawalRemaining": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "backButton": "Back",
+  "birthDateOptional": "تاریخ پیدائش (اختیاری)",
+  "birthRecordedFor": "پیدائش #{tag} کے لیے درج",
+  "@birthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "birthSizeLarge": "Large",
+  "birthSizeMedium": "Medium",
+  "birthSizeSmall": "Small",
+  "birthWeightHint": "Birth weight",
+  "birthingAssistance": "Birthing assistance",
+  "bornAlive": "زندہ پیدا",
+  "bornAliveSubtitle": "حمل ختم؛ دودھ کا ٹیگ صرف اگر نہ ہو",
+  "bornOnDate": "پیدائش {day}/{month}/{year}",
+  "@bornOnDate": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "month": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "bornOnFarm": "Born on farm",
+  "breed": "نسل",
+  "breedForSpecies": "Breed ({species})",
+  "@breedForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "breedingFemalesOnly": "Breeding history is shown for females only.",
+  "breedingHistory": "نسل کشی کی تاریخ",
+  "breedingKpis": "Breeding KPIs",
+  "breedingOpen": "کھلا",
+  "breedingOverview": "نسل کشی کا جائزہ",
+  "breedingStatus": "حیثیت",
+  "breedingStatusUpdated": "نسل کشی کی حیثیت اپ ڈیٹ",
+  "buyAnimals": "جانور خریدیں",
+  "buyAnimalsInventorySubtitle": "Record a purchase and add animals to the herd",
+  "cancel": "منسوخ",
+  "catalogGaps": "کیٹلاگ خلا",
+  "catalogueProduct": "کیٹلاگ مصنوعات",
+  "category": "زمرہ",
+  "categoryOptionalPreset": "زمرہ (اختیاری)",
+  "cattle": "گائے",
+  "channelEmail": "ای میل",
+  "channelWhatsapp": "واٹس ایپ",
+  "chartDayLitres": "دن {day}\n{litres} L",
+  "chooseHowToAddAnimals": "پہلے جانور کیسے شامل کریں۔ بعد میں جانور ٹیب سے بھی کر سکتے ہیں۔",
+  "clearCullFlag": "ذبح کا نشان ہٹائیں",
+  "clearReadyToBreed": "تیار نشان ہٹائیں",
+  "complete": "مکمل",
+  "confirmMiscarriage": "اسقاط حمل کی تصدیق",
+  "confirmSale": "Confirm sale",
+  "confirmed": "Confirmed",
+  "continueButton": "جاری رکھیں",
+  "continueWithApple": "Apple کے ساتھ جاری رکھیں",
+  "continueWithFacebook": "Facebook کے ساتھ جاری رکھیں",
+  "continueWithGoogle": "Google کے ساتھ جاری رکھیں",
+  "couldNotApplyFeedPlan": "منصوبہ لاگو نہیں ہو سکا",
+  "createGroupAction": "Create group",
+  "createGroupWithAnimals": "Create group · {count} animal",
+  "createGroupWithAnimalsPlural": "Create group · {count} animals",
+  "@createGroupWithAnimalsPlural": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@createGroupWithAnimals": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "createVaccinationEvent": "Create vaccination event",
+  "crudeProtein": "خام پروٹین",
+  "crudeProteinPercent": "خام پروٹین %",
+  "cullFlagged": "ذبح کے لیے نشان زد",
+  "currency": "کرنسی",
+  "currentStockKg": "موجودہ اسٹاک (کلو)",
+  "currentWeightLabel": "Current",
+  "custom": "اپنی مرضی",
+  "customMedicineName": "اپنا نام",
+  "dailyCostPerHead": "روزانہ لاگت / سر",
+  "damOptional": "Dam (optional)",
+  "dateOfBirth": "تاریخ پیدائش",
+  "dateOfSale": "Date of sale",
+  "dateRange": "Date range",
+  "delete": "حذف",
+  "description": "تفصیل",
+  "descriptionHeading": "تفصیل",
+  "descriptionOptional": "تفصیل (اختیاری)",
+  "dismiss": "رد کریں",
+  "dobIfKnown": "Date of birth (if known)",
+  "dobOrAgeRangeHint": "Or pick an age range below.",
+  "dosage": "مقدار",
+  "downloadPdf": "Download PDF",
+  "dryMatter": "خشک مادہ",
+  "dryMatterPercent": "خشک مادہ %",
+  "earTag": "Ear tag",
+  "earTagHint": "e.g. 0473",
+  "edit": "ترمیم",
+  "editTask": "Edit task",
+  "email": "ای میل",
+  "energyGapDetected": "توانائی کی کمی",
+  "energyMe": "توانائی (ME)",
+  "enterAnimalsIndividually": "جانور الگ الگ درج کریں",
+  "enterAsGroup": "گروپ کے طور پر درج کریں",
+  "enterPurchaserAndPrice": "Enter purchaser and price paid",
+  "enterSupplierAndPrice": "Enter where animals were bought from and purchase price",
+  "enterValidEmail": "درست ای میل درج کریں",
+  "enterValidPhone": "درست فون درج کریں",
+  "errorGeneric": "کچھ غلط ہو گیا",
+  "expense": "خرچ",
+  "exportCsv": "CSV برآمد",
+  "exportPdf": "PDF برآمد",
+  "exportPdfCsvSubtitle": "PDF / CSV برآمد",
+  "exportReport": "Export",
+  "failedToApplyPlan": "ناکام: {error}",
+  "@failedToApplyPlan": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "farmHand": "فارم ہینڈ",
+  "farmName": "فارم کا نام",
+  "farmOwner": "فارم مالک",
+  "farmSection": "Farm",
+  "feed": "چارہ",
+  "feedAndMedicalStock": "چارہ اور دوا کا اسٹاک",
+  "feedPlanApplied": "چارے کا منصوبہ لاگو",
+  "feedType": "چارے کی قسم",
+  "female": "مادہ",
+  "females": "مادیاں",
+  "finance": "مالیات",
+  "finishGroup": "Complete group",
+  "finishPurchase": "Complete purchase",
+  "fixTheGap": "خلا پُر کریں",
+  "flagForCull": "ذبح کے لیے نشان",
+  "fromDate": "From",
+  "fromProductList": "فہرست سے",
+  "fullAccess": "Full access",
+  "fullName": "پورا نام",
+  "gaveBirth": "بچہ پیدا ہوا",
+  "general": "عام",
+  "generated": "Generated",
+  "generatedToday": "Today, 09:14",
+  "gestation": "حمل",
+  "gestationMonths": "حمل (مہینے)",
+  "gestationMonthsSubtitle": "{months} مہینے حمل",
+  "@gestationMonthsSubtitle": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "gestationMonthsValue": "{months} مہینے",
+  "@gestationMonthsValue": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "goat": "Goat",
+  "goats": "بکریاں",
+  "goodMorning": "صبح بخیر، {name}",
+  "group": "گروپ",
+  "groupAverage": "گروپ اوسط",
+  "groupDescriptionHint": "Housing, feeding cadence, notes",
+  "groupName": "گروپ کا نام",
+  "groupNameHint": "e.g. Milking B",
+  "groupNotFound": "گروپ نہیں ملا",
+  "groupOfLivestock": "Group of livestock",
+  "groupSpeciesLabel": "{name} · {species}",
+  "@groupSpeciesLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "groupTitle": "گروپ",
+  "groupWizardAnimals": "Individual animals",
+  "groupWizardSummary": "Group summary",
+  "addAMeal": "Add a meal",
+  "addAnotherGroup": "Add another group",
+  "saveMeal": "Save meal",
+  "searchMeals": "Search meals",
+  "mealAmountKg": "Amount (kg)",
+  "groupCreatedMessage": "Your group is ready. Add a meal now or skip and set feeding up later.",
+  "groupWizardDetails": "Group details",
+  "groupWizardHerd": "Herd profile",
+  "groups": "گروپس",
+  "headCount": "Number in group",
+  "headline": "Headline",
+  "healthcareHistory": "Healthcare history",
+  "heightCm": "Height",
+  "help": "مدد",
+  "helpSupport": "Help & support",
+  "hold": "دبائیں",
+  "howDidPregnancyEnd": "حمل کیسے ختم ہوا؟",
+  "inSelectedRange": "In the selected range",
+  "inStockLabel": "اسٹاک میں",
+  "income": "آمدنی",
+  "individualTasks": "Individual tasks",
+  "inventory": "انوینٹری",
+  "inventoryBurgerSubtitle": "Feed, medical & livestock",
+  "inviteCreated": "دعوت بنی۔ لنک: {link}",
+  "@inviteCreated": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteFailed": "دعوت ناکام: {error}",
+  "@inviteFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteManageTeam": "ٹیم کو مدعو اور منظم کریں",
+  "inviteSentOpen": "دعوت بھیجی — {channel} کھولیں",
+  "@inviteSentOpen": {
+    "placeholders": {
+      "channel": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteTeamMember": "ٹیم ممبر کو مدعو کریں",
+  "inviteTeamSubtitle": "ای میل یا واٹس ایپ سے لنک بھیجیں۔",
+  "joinFarmSubject": "{farmName} پر GreenerHerd میں شامل ہوں",
+  "@joinFarmSubject": {
+    "placeholders": {
+      "farmName": {
+        "type": "String"
+      }
+    }
+  },
+  "lactating": "دودھ والی",
+  "lactatingPostCalving": "دودھ / پیدائش کے بعد",
+  "lactationCalvingExpected": "بچھڑا {date} · آج ~{litres} L متوقع",
+  "lactationChartNeedsData": "منحنی دکھانے کے لیے کم از کم دو دودھ ریکارڈ کریں۔",
+  "lactationCurveLegend": "ٹھوس لائن = ریکارڈ شدہ · ٹیڑھی = متوقع (نسل اوسط)",
+  "lactationCurveTitle": "دودھ کا منحنی (دودھ بمقابلہ دن)",
+  "lactationDayOf305": "{stage} · دن {day} از 305",
+  "lactationNumber": "دودھ کی مدت {number}",
+  "lactationStageDry": "خشک مدت",
+  "lactationStageFresh": "ابتدائی دودھ",
+  "lactationStageLate": "آخری دودھ",
+  "lactationStageMid": "درمیانی دودھ",
+  "lactationStagePeak": "دودھ کی چوٹی",
+  "language": "زبان",
+  "languageArabic": "العربية",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+  "languageUrdu": "اردو",
+  "last90Days": "Last 90 days",
+  "last90DaysRange": "Feb 07 – May 08",
+  "legendAction": "عمل",
+  "legendOk": "ٹھیک",
+  "legendWarning": "انتباہ",
+  "linkedToAccount": "{provider} اکاؤنٹ سے منسلک",
+  "@linkedToAccount": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "litresValue": "{litres} L",
+  "live": "لائیو",
+  "livestockExisting": "Existing",
+  "livestockNewBorn": "New (born)",
+  "livestockNewPurchased": "New (purchased)",
+  "livestockValue": "مویشیوں کی قیمت",
+  "loadedCount": "{count} لوڈ",
+  "@loadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loading": "لوڈ ہو رہا ہے",
+  "loadingBreeds": "نسلیں لوڈ ہو رہی ہیں…",
+  "location": "Location",
+  "lowStock": "کم اسٹاک",
+  "lowStockFeedBanner": "{count} چارے کی اشیاء ایک ہفتے سے کم",
+  "@lowStockFeedBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "male": "نر",
+  "manageGroups": "گروپس منظم کریں",
+  "manageTeam": "Manage",
+  "manager": "مینیجر",
+  "markCull": "Cull",
+  "markCured": "Mark cured",
+  "recordDeath": "Record death",
+  "deathReason": "Cause of death",
+  "deathReasonHint": "Illness, injury, unknown…",
+  "confirmRecordDeath": "Confirm death",
+  "confirmRecordDeathMessage": "Record {animal} as deceased?\n\nReason: {reason}\n\nThe animal will be removed from its group. This cannot be undone.",
+  "animalRecordedDeceased": "Death recorded",
+  "deceased": "Deceased",
+  "removedFromGroupNote": "Removed from group",
+  "cullType": "Cull type",
+  "cullReason": "Cull reason",
+  "markPregnant": "حاملہ نشان لگائیں",
+  "markReadyToBreed": "نسل کشی کے لیے تیار",
+  "markSick": "Sick",
+  "markSold": "فروخت درج کریں",
+  "markedReadyToBreed": "نسل کشی کے لیے تیار نشان",
+  "marketplace": "مارکیٹ",
+  "marketplaceListingName": "مارکیٹ لسٹنگ نام",
+  "mealPlans": "کھانے کے منصوبے",
+  "viewMealPlans": "کھانے کے منصوبے دیکھیں",
+  "medicine": "دوا",
+  "medicineCatalogueSearchHint": "{count} مصنوعات کی فہرست میں تلاش کریں",
+  "@medicineCatalogueSearchHint": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "medicineName": "دوا کا نام",
+  "medicineProductSource": "مصنوعات",
+  "medicineProductsAvailable": "مماثل",
+  "medicineTypeLabel": "قسم (مثلاً ANTIBIOTIC)",
+  "methaneAgeMonths": "{months} ماہ",
+  "methaneByAnimal": "جانور کے حساب سے (CH₄ / دن)",
+  "methaneCh4Grams": "{grams} g CH₄",
+  "methaneCo2eSummary": "{co2e} kg CO₂e · {weight} kg اوسط وزن",
+  "methaneEmissions": "میتھین اخراج",
+  "methaneGramsShort": "{grams} g",
+  "methaneMoreAnimals": "+ {count} مزید جانور",
+  "methaneRegionMiddleEast": "مشرق وسطی (خلیجی)",
+  "methodLabel": "Method",
+  "fertilityMethodLabel": "Fertility method",
+  "readyToBreedMethodHint": "Choose how this animal will be bred. Sponges synchronize heat for timed insemination in goats and sheep.",
+  "breedingMethodNatural": "Natural service",
+  "breedingMethodAi": "Artificial insemination",
+  "breedingMethodEmbryonic": "Embryo transfer",
+  "breedingMethodSponges": "Sponges",
+  "milkBlockedWithdrawal": "دوا واپسی کے دوران دودھ درج نہیں",
+  "milkSale": "دودھ کی فروخت",
+  "milkingKpis": "دودھ کے اشاریے",
+  "milkingTodayVolume": "آج کا حجم",
+  "miscarriage": "اسقاط حمل",
+  "miscarriageConfirmBody": "یہ حاملہ حیثیت ختم کرے گا اور صحت/رپورٹس میں فالو اپ کے لیے نشان لگائے گا۔",
+  "miscarriageRecorded": "اسقاط حمل درج",
+  "miscarriageRecordedFor": "اسقاط حمل #{tag} کے لیے درج",
+  "@miscarriageRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "miscarriageSubtitle": "حمل ختم کریں اور فالو اپ کے لیے نشان لگائیں",
+  "miscarriagesCount": "Miscarriages",
+  "miscarriagesSection": "Miscarriages",
+  "monthsPregnant": "Months pregnant",
+  "mothersTag": "Mother's tag",
+  "myFarm": "میرا فارم",
+  "nameOptional": "Name (optional)",
+  "nameOptionalHint": "You can add this later.",
+  "nameOptionalPlaceholder": "e.g. Salwa",
+  "ndf": "NDF",
+  "calcium": "Calcium",
+  "phosphorus": "Phosphorus",
+  "nemMcalPerKg": "NEm (Mcal/کلو)",
+  "net": "خالص",
+  "newAnimal": "نیا جانور",
+  "newFarmSetup": "نیا فارم سیٹ اپ",
+  "newGroup": "نیا گروپ",
+  "newTask": "نیا کام",
+  "newbornAnimalN": "Newborn #{n}",
+  "@newbornAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "newbornDetails": "Newborn details",
+  "noActiveVaccinationEvents": "No active vaccination events in the last 48 hours",
+  "noAiRecordsHint": "Log inseminations or natural services to track attempts and outcomes.",
+  "noAiRecordsYet": "No AI records yet",
+  "noAnimalsForSpecies": "No {species} on the farm yet.",
+  "@noAnimalsForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "noAnimalsInGroup": "اس گروپ میں ابھی کوئی جانور نہیں۔",
+  "noAnimalsMatchTag": "No active animals match this tag",
+  "noBreedingEventsYet": "ابھی کوئی نسل کشی واقعہ نہیں۔",
+  "noDescriptionRecorded": "کوئی تفصیل درج نہیں۔",
+  "noFeedInInventory": "ابھی کوئی چارہ نہیں۔",
+  "noFeedToday": "آج کوئی چارہ درج نہیں۔",
+  "noLossesRecorded": "No losses recorded",
+  "noMedicineInInventory": "ابھی کوئی دوا نہیں۔",
+  "noMilkToday": "آج کوئی دودھ ریکارڈ نہیں۔",
+  "noMiscarriagesHint": "Log a pregnancy loss to track gestation day, cause and follow-up.",
+  "noMiscarriagesYet": "No miscarriages recorded",
+  "noTasksForAnimal": "No upcoming tasks for this animal.",
+  "noVaccinationEvents": "No vaccination events on file",
+  "notFound": "نہیں ملا",
+  "notRecorded": "ریکارڈ نہیں",
+  "notes": "Notes",
+  "notesHint": "Anything else worth recording",
+  "nothingForFilter": "Nothing for this filter.",
+  "notificationsDigestAt": "Daily digest at 06:00",
+  "notificationsRecommended": "اطلاعات اور تجویز کردہ کام",
+  "notificationsSubtitle": "چارہ، نسل، صحت، موسم کی یاددہانی",
+  "numberOfAnimalsPurchased": "Number of animals purchased",
+  "nutritionalInformation": "غذائی معلومات",
+  "onWithdrawal": "واپسی کی مدت",
+  "onboardNewAnimal": "Onboard new animal",
+  "onboardNewGroup": "Onboard new group",
+  "onboardingAnimalsTitle": "جانور شامل کریں",
+  "onboardingFarmTitle": "فارم سیٹ اپ",
+  "onboardingSpeciesTitle": "آپ کے مویشی",
+  "openAnimalProfiles": "جانور پروفائل کھولیں",
+  "openAnimalsForBreeding": "ہر پروفائل سے نسل کشی کے اقدامات کریں۔",
+  "origin": "Origin",
+  "overdue": "تاخیر",
+  "parentSearchHint": "Search or enter",
+  "people": "لوگ",
+  "perGroup": "Per-group",
+  "perHead": "فی سر",
+  "phoneWithCountryCode": "فون (ملک کوڈ کے ساتھ)",
+  "pickAgeRange": "Pick a range…",
+  "preferences": "Preferences",
+  "pregnancyConfirmed": "حمل کی تصدیق",
+  "pregnancyConfirmedMo": "حمل کی تصدیق ({months} مہینے)",
+  "@pregnancyConfirmedMo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "pregnancyOutcome": "حمل کا نتیجہ",
+  "pregnancyRate": "Pregnancy rate",
+  "pregnant": "حاملہ",
+  "pregnantAnimals": "حاملہ جانور",
+  "previousTodayMilk": "پہلے آج: {litres} L",
+  "@previousTodayMilk": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      }
+    }
+  },
+  "pricePaidSar": "Price paid (SAR)",
+  "primaryPurpose": "بنیادی مقصد",
+  "printReport": "رپورٹ پرنٹ",
+  "productName": "مصنوعات کا نام",
+  "profile": "پروفائل",
+  "providerApple": "Apple",
+  "providerFacebook": "Facebook",
+  "providerGoogle": "Google",
+  "providerLabel": "Provider",
+  "purchaseDate": "Purchase date",
+  "purchasePrice": "Purchase price",
+  "purchaseRecorded": "Purchase recorded",
+  "purchaseWizardAnimals": "Individual animals",
+  "purchaseWizardDetails": "Purchase details",
+  "purchaseWizardLivestock": "Livestock profile",
+  "purchased": "Purchased",
+  "purchasedAnimalN": "Purchased #{n}",
+  "@purchasedAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "purchasedVolumeKg": "خریدا حجم (کلو)",
+  "inventoryPreviousUnitCost": "پچھلی یونٹ لاگت: {cost} SAR/کلو",
+  "stockUpdated": "اسٹاک اپ ڈیٹ ہو گیا",
+  "purchaser": "Purchaser",
+  "purpose": "مقصد",
+  "groupPurpose": "Group purpose",
+  "animalPurpose": "Animal purpose",
+  "purposeForSpecies": "Primary purpose for {species}",
+  "@purposeForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "purposeHeading": "مقصد",
+  "purposeMeat": "گوشت",
+  "purposeMilk": "دودھ",
+  "purposeMilkMeat": "دودھ اور گوشت",
+  "quantity": "مقدار",
+  "readyToBreed": "نسل بڑھانے کے لیے تیار",
+  "recentEntries": "حالیہ انٹریاں",
+  "recentMiscarriage": "حالیہ اسقاط",
+  "recentVaccinations": "حالیہ ویکسین",
+  "recommendedFeeds": "تجویز کردہ چارہ",
+  "recordAction": "درج کریں",
+  "updateAction": "Update",
+  "updateFeeding": "Update feeding",
+  "updatingFeeding": "Updating…",
+  "recordAi": "Record AI",
+  "recordBirth": "پیدائش درج کریں",
+  "recordBirthSubtitle": "زندہ پیدائش یا مردہ پیدائش درج کریں",
+  "recordBulkMilkSale": "بلک دودھ فروخت (آمدنی)",
+  "recordExpense": "خرچ درج کریں",
+  "recordFeeding": "کھلانا درج کریں",
+  "recordIncome": "آمدنی درج کریں",
+  "recordMilk": "دودھ ریکارڈ کریں",
+  "recordMilkSaleIncome": "دودھ فروخت کی آمدنی درج کریں",
+  "recordMilkSaleIncomeSubtitle": "مالیہ ٹیب میں آمدنی شامل",
+  "recordMiscarriage": "اسقاط حمل درج کریں",
+  "recordPregnancyOutcome": "حمل کا نتیجہ درج کریں",
+  "recordPurchase": "خریداری درج کریں",
+  "recordTreatment": "Record treatment",
+  "recordedMilkFor": "{litres} L #{tag} کے لیے درج",
+  "@recordedMilkFor": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "recordsIncluded": "Records included",
+  "recordsOnFile": "{count} records on file",
+  "@recordsOnFile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurring": "Recurring",
+  "removeAnimal": "Remove",
+  "removeFromSaleList": "Remove",
+  "reportPreview": "Report preview",
+  "reports": "رپورٹس",
+  "reportsSubtitle": "PDF · downloadable",
+  "resolved": "Resolved",
+  "resultDateLabel": "RESULT DATE",
+  "role": "کردار",
+  "routeOfAdministration": "استعمال کا طریقہ",
+  "saleAmountSar": "فروخت رقم (SAR)",
+  "salePurposeOptional": "Purpose of sale (optional)",
+  "saleRecorded": "Sale recorded",
+  "save": "محفوظ",
+  "saveAnimal": "جانور محفوظ کریں",
+  "saveBirthRecord": "پیدائش کا ریکارڈ محفوظ کریں",
+  "saveGroup": "گروپ محفوظ کریں",
+  "searchCatalogue": "فہرست میں تلاش",
+  "searchFarmTags": "Search tags on the farm",
+  "selectAtLeastOneAnimal": "Select at least one animal",
+  "selectAtLeastOneSpecies": "کم از کم ایک قسم منتخب کریں",
+  "selectGroupRequired": "Select a group or create a new one",
+  "selectMedicineOrEnterName": "اوپر کی فہرست سے مصنوعات منتخب کریں",
+  "selectMedicineProduct": "دوا منتخب کریں",
+  "selectProduct": "مصنوعات منتخب کریں",
+  "selectSpeciesOnFarm": "فارم پر اقسام منتخب کریں",
+  "selectVaccinationEvent": "Select vaccination event",
+  "sellAnimals": "جانور بیچیں",
+  "sellAnimalsInventorySubtitle": "Sell animals and update herd inventory",
+  "semenBatchLabel": "SEMEN BATCH",
+  "sendInvite": "دعوت بھیجیں",
+  "setThePurposeForEachSpecies": "Set the primary purpose for each species",
+  "settings": "ترتیبات",
+  "sex": "جنس",
+  "sheep": "بھیڑیں",
+  "sick": "بیمار",
+  "sickAnimals": "بیمار جانور",
+  "sickDescription": "Illness description",
+  "signIn": "سائن ان",
+  "signOut": "سائن آؤٹ",
+  "signatureLineNote": "Includes signature line for veterinary / auditor handoff.",
+  "sireLabel": "SIRE",
+  "sireOptional": "Sire (optional)",
+  "sizeAtBirth": "Size at birth",
+  "skipForNow": "ابھی چھوڑیں",
+  "source": "ماخذ",
+  "species": "قسم",
+  "speciesCovered": "Species covered",
+  "speciesCoveredValue": "Cattle · Goat · Sheep",
+  "standard": "معیاری",
+  "stillbirthRecorded": "مردہ پیدائش درج",
+  "stillbirthRecordedFor": "مردہ پیدائش #{tag} کے لیے درج",
+  "@stillbirthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "stillborn": "مردہ پیدائش",
+  "stillbornSubtitle": "حمل ختم؛ مردہ پیدائش درج",
+  "subscription": "سبسکرپشن",
+  "successRate": "Success rate",
+  "summaryOriginBorn": "Born on farm",
+  "summaryOriginPurchased": "Purchased",
+  "summaryOriginPurchasedFrom": "Purchased from {supplier}",
+  "@summaryOriginPurchasedFrom": {
+    "placeholders": {
+      "supplier": {
+        "type": "String"
+      }
+    }
+  },
+  "supplier": "سپلائر",
+  "supplierHint": "e.g. Al-Wafi Genetics, market, neighbour…",
+  "supplierName": "سپلائر نام",
+  "supplierPhone": "سپلائر فون",
+  "supplierSource": "Supplier / source",
+  "supportTopics": "سپورٹ اور موضوعات",
+  "switchFarm": "Switch",
+  "switchFarmMock": "Farm switching is not available in this demo.",
+  "tabAnimals": "جانور",
+  "tabBreeding": "نسل بڑھانا",
+  "tabFinance": "مالیات",
+  "tabHealth": "صحت",
+  "tabHome": "ہوم",
+  "tabMedia": "میڈیا",
+  "tabMilking": "دودھ",
+  "tabNutrition": "غذائیت",
+  "tabOverview": "جائزہ",
+  "tabReports": "رپورٹس",
+  "tabTasks": "کام",
+  "tabWeight": "وزن",
+  "tag": "ٹیگ",
+  "tagNumber": "ٹیگ نمبر",
+  "tapToRegisterLivestock": "Tap Add {label} to register one or more {species} now.",
+  "@tapToRegisterLivestock": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "taskTitle": "عنوان",
+  "tasksDueSubtitle": "{due} due · {overdue} overdue",
+  "@tasksDueSubtitle": {
+    "placeholders": {
+      "due": {
+        "type": "int"
+      },
+      "overdue": {
+        "type": "int"
+      }
+    }
+  },
+  "tasksToday": "آج کے کام",
+  "technicianLabel": "TECHNICIAN",
+  "thisWeek": "اس ہفتے",
+  "toDate": "To",
+  "today": "آج",
+  "todayTotal": "آج کا کل",
+  "todayVsRequirement": "آج بمقابلہ ضرورت",
+  "todaysFeed": "آج کا چارہ",
+  "todaysMilkLitres": "آج کا دودھ (لیٹر)",
+  "todaysVolume": "آج کا حجم",
+  "tomorrow": "Tomorrow",
+  "topProducers": "بہترین پیداوار",
+  "totalSar": "کل (SAR)",
+  "totalWeightKgOptional": "Total weight (kg, optional)",
+  "unit": "یونٹ",
+  "unitCostSar": "یونٹ لاگت (SAR/کلو)",
+  "user": "صارف",
+  "userRoleFarmHand": "Farm hand",
+  "userRoleManager": "Manager",
+  "userRoleOwner": "Owner",
+  "userRoleVet": "Vet",
+  "vaccinated": "Vaccinated",
+  "vaccinationEvent": "Vaccination event",
+  "vaccinationsSection": "Vaccinations",
+  "validMilkVolume": "درست دودھ کا حجم (لیٹر) درج کریں",
+  "veterinarian": "ویٹرنری",
+  "vigour": "Vigour",
+  "vigourAverage": "Average",
+  "vigourStrong": "Strong",
+  "vigourWeak": "Weak",
+  "voiceAddTask": "آواز سے کام شامل کریں",
+  "voiceHoldMock": "بولنے کے لیے دبائیں (نمونہ)",
+  "voiceLanguages": "EN · AR · UR · FR · transcribed by AI",
+  "weaned": "Weaned",
+  "weight": "وزن",
+  "weightDeltaKg": "+{kg} kg",
+  "@weightDeltaKg": {
+    "placeholders": {
+      "kg": {
+        "type": "int"
+      }
+    }
+  },
+  "weightGrowthPct": "+{pct}%",
+  "@weightGrowthPct": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "weightHint": "مثال: 412",
+  "weightKg": "وزن (کلو)",
+  "weightMonthsTitle": "Weight · 5 months",
+  "welcomeBrand": "Greener Herd",
+  "welcomeTo": "خوش آمدید",
+  "whatsapp": "واٹس ایپ",
+  "window": "Window",
+  "withdrawalPrefilledHint": "واپسی کی مدتیں مصنوعات سے پہلے سے بھرتی ہیں — اگر آپ کے ڈاکٹر نے کہا ہو تو تبدیل کریں۔",
+  "withdrawalDays": "واپسی · {days} دن",
+  "@withdrawalDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "withdrawalMilkBlocked": "واپسی کی مدت — انسانی استعمال کے لیے دودھ فروخت یا ریکارڈ نہیں ہو سکتا۔",
+  "withdrawalMilkSafe": "Milk safe from {date}. Do not sell this animal's milk until cleared.",
+  "@withdrawalMilkSafe": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawalPeriodActive": "Withdrawal period active",
+  "wizardStepOf": "Step {current} of {total}",
+  "@wizardStepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "youreAdding": "You're adding"
+}

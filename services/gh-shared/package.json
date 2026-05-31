@@ -1,0 +1,45 @@
+{
+  "name": "@greenerherd/shared-db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./pool": "./db/pool.ts",
+    "./catalog-i18n": "./db/catalog-i18n.ts",
+    "./breed-catalog": "./db/breed-catalog.ts",
+    "./feed-catalog": "./db/feed-catalog.ts",
+    "./feed-eligibility": "./db/feed-eligibility.ts",
+    "./feed-pricing-catalog": "./db/feed-pricing-catalog.ts",
+    "./nutrition-requirements-catalog": "./db/nutrition-requirements-catalog.ts",
+    "./nutrition-profile-resolver": "./db/nutrition-profile-resolver.ts",
+    "./feed-recommendation": "./db/feed-recommendation.ts",
+    "./feed-recommendation-validation": "./db/feed-recommendation-validation.ts",
+    "./feed-recommendation-gaps": "./db/feed-recommendation-gaps.ts",
+    "./group-nutrition-status": "./db/group-nutrition-status.ts",
+    "./nutrition-bdd-scenarios": "./db/nutrition-bdd-scenarios.ts",
+    "./notification-task-catalog": "./db/notification-task-catalog.ts",
+    "./notification-preferences": "./db/notification-preferences.ts",
+    "./notification-trigger-registry": "./db/notification-trigger-registry.ts",
+    "./notification-due-date": "./db/notification-due-date.ts",
+    "./notification-trigger-engine": "./db/notification-trigger-engine.ts",
+    "./domain-event-client": "./notifications/domain-event-client.ts",
+    "./optimizers": "./optimizers/index.ts",
+    "./test-fixtures/bdd-breed-catalog": "./test-fixtures/bdd-breed-catalog.ts",
+    "./test-fixtures/bdd-nutrition-requirements-catalog": "./test-fixtures/bdd-nutrition-requirements-catalog.ts",
+    "./test-fixtures/bdd-feed-catalog": "./test-fixtures/bdd-feed-catalog.ts",
+    "./test-fixtures/bdd-notification-task-catalog": "./test-fixtures/bdd-notification-task-catalog.ts",
+    "./test-fixtures/bdd-feed-pricing-catalog": "./test-fixtures/bdd-feed-pricing-catalog.ts",
+    "./fastify-logger": "./lib/fastify-logger.ts"
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/**/*.test.ts"
+  },
+  "dependencies": {
+    "javascript-lp-solver": "^0.4.24",
+    "pg": "^8.14.1"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.11",
+    "tsx": "^4.19.3"
+  }
+}

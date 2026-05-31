@@ -1,0 +1,187 @@
+/* ============================================================
+   Greener Herd — Colors & Type
+   Source of truth: uploads/greenerherd-design-system.json
+   Spec mirror:     uploads/11_GREENER_HERD_DESIGN_SYSTEM.md
+   ============================================================ */
+
+/* Webfonts -------------------------------------------------- */
+/* Helvetica is the brand display face. We do NOT bundle a
+   Helvetica file (license). On Apple/Microsoft systems the
+   system Helvetica/Helvetica Neue is used; elsewhere we fall
+   back to Arial then sans-serif. Roboto (Google Fonts) is the
+   licensed open substitute and is loaded for data labels. */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+:root {
+  /* ---- Brand palette --------------------------------------- */
+  --gh-primary:           #3B5A2A;   /* deep forest green — CTAs, headings */
+  --gh-primary-hover:     #2F4822;   /* button hover/press */
+  --gh-primary-light:     #ABCF98;   /* chips, selection fills */
+  --gh-secondary:         #1A107A;   /* links, data highlights */
+  --gh-secondary-light:   #877BEE;   /* secondary buttons, tags */
+
+  /* ---- Status --------------------------------------------- */
+  --gh-success:           #16A34A;
+  --gh-success-light:     #BBF7D0;
+  --gh-warning:           #D97706;
+  --gh-warning-light:     #FDE68A;
+  --gh-error:             #DC2626;
+  --gh-error-light:       #FECACA;
+
+  /* ---- Neutrals & surfaces --------------------------------- */
+  --gh-fg:                #111111;   /* primary text on light bg */
+  --gh-fg-muted:          #525252;   /* neutral.dark — secondary text */
+  --gh-fg-faint:          #A3A3A3;   /* neutral.light — placeholder */
+  --gh-surface:           #FFFFFF;   /* card / modal bg */
+  --gh-surface-grey:      #F6F6F6;   /* page bg, alt rows */
+  --gh-border:            #E6E6E6;   /* dividers, inactive bg */
+  --gh-black:             #000000;
+
+  /* ---- Dark-mode surfaces (per spec section 6) ------------ */
+  --gh-dark-bg:           #111111;
+  --gh-dark-surface:      #1A1A1A;
+
+  /* ---- Green scale (brand-aligned data viz) --------------- */
+  --gh-green-00:          #D2E5C7;
+  --gh-green-05:          #C3D7B7;
+  --gh-green-10:          #B4C9A8;
+  --gh-green-15:          #A5BB98;
+  --gh-green-20:          #96AD88;
+  --gh-green-30:          #779269;
+  --gh-green-40:          #597649;
+  --gh-green-50:          #3B5A2A;
+  --gh-green-60:          #2F4822;
+  --gh-green-70:          #233619;
+  --gh-green-80:          #182411;
+  --gh-green-85:          #121B0D;
+  --gh-green-90:          #0C1208;
+
+  /* ---- Blue scale (primary data series) ------------------- */
+  --gh-blue-05:           #F2F6FE;
+  --gh-blue-10:           #E6EDFE;
+  --gh-blue-15:           #D9E4FD;
+  --gh-blue-20:           #CCDBFD;
+  --gh-blue-30:           #B3C9FB;
+  --gh-blue-40:           #99B7FA;
+  --gh-blue-50:           #80A5F9;
+  --gh-blue-60:           #6789D7;
+  --gh-blue-70:           #4E6DB5;
+  --gh-blue-80:           #365292;
+  --gh-blue-85:           #294481;
+  --gh-blue-90:           #1D3670;
+  --gh-blue-95:           #10285F;
+  --gh-blue-100:          #041A4E;
+
+  /* ---- Pink/Purple scale (secondary data series) ---------- */
+  --gh-pink-05:           #FDEFFD;
+  --gh-pink-10:           #FADFFB;
+  --gh-pink-15:           #F8CEF9;
+  --gh-pink-20:           #F6BEF7;
+  --gh-pink-30:           #F19EF2;
+  --gh-pink-40:           #ED7DEE;
+  --gh-pink-50:           #E85DEA;
+  --gh-pink-60:           #BF4BC1;
+  --gh-pink-70:           #963998;
+  --gh-pink-80:           #6D286E;
+  --gh-pink-85:           #591F5A;
+  --gh-pink-90:           #441645;
+
+  /* ---- Type families -------------------------------------- */
+  --gh-font-display:      "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --gh-font-body:         "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --gh-font-data:         "Roboto", "Helvetica Neue", Arial, sans-serif;
+
+  /* ---- Desktop type scale (Helvetica Bold 700) ----------- */
+  --gh-display:           700 48px/56px var(--gh-font-display);
+  --gh-h01:               700 40px/48px var(--gh-font-display);
+  --gh-h02:               700 32px/40px var(--gh-font-display);
+  --gh-h03:               700 28px/36px var(--gh-font-display);
+  --gh-h04:               700 24px/32px var(--gh-font-display);
+  --gh-h05:               700 20px/28px var(--gh-font-display);
+  --gh-h06:               700 18px/24px var(--gh-font-display);
+  --gh-b01:               700 24px/32px var(--gh-font-display);
+  --gh-b02:               700 20px/28px var(--gh-font-display);
+  --gh-b03:               700 18px/24px var(--gh-font-display);
+  --gh-b04:               700 16px/24px var(--gh-font-display);
+  /* Regular-weight body (not in token set, but needed for prose) */
+  --gh-body:              400 16px/24px var(--gh-font-body);
+  --gh-body-sm:           400 14px/20px var(--gh-font-body);
+
+  /* ---- Mobile type scale ---------------------------------- */
+  --gh-m-display:         700 32px/40px var(--gh-font-display);
+  --gh-m-h01:             700 24px/32px var(--gh-font-display);
+  --gh-m-h02:             700 18px/24px var(--gh-font-display);
+  --gh-m-h03:             700 16px/24px var(--gh-font-display);
+  --gh-m-h04:             700 14px/20px var(--gh-font-display);
+  --gh-m-h05:             700 12px/16px var(--gh-font-display);
+  --gh-m-h06:             700 10px/14px var(--gh-font-display);
+  --gh-m-b01:             700 16px/24px var(--gh-font-display);
+  --gh-m-b02:             700 14px/20px var(--gh-font-display);
+  --gh-m-b03:             700 12px/16px var(--gh-font-display);
+  --gh-m-b04:             700 10px/14px var(--gh-font-display);
+  --gh-m-body:            400 14px/20px var(--gh-font-body);
+
+  /* ---- Data labels (Roboto) ------------------------------- */
+  --gh-axis-label:        700 12px/16px var(--gh-font-data);
+  --gh-bar-label:         400 10px/16px var(--gh-font-data);
+
+  /* ---- Spacing scale -------------------------------------- */
+  --gh-space-xs:          4px;
+  --gh-space-sm:          8px;
+  --gh-space-md:          16px;
+  --gh-space-lg:          24px;
+  --gh-space-xl:          32px;
+  --gh-space-2xl:         48px;
+
+  /* ---- Radii ---------------------------------------------- */
+  --gh-radius-sm:         6px;       /* web buttons */
+  --gh-radius-md:         8px;       /* mobile buttons, inputs */
+  --gh-radius-lg:         12px;      /* cards */
+  --gh-radius-pill:       99px;      /* badges, progress tracks */
+
+  /* ---- Elevation ------------------------------------------ */
+  --gh-shadow-card:       0 2px 8px rgba(0, 0, 0, 0.06);
+  --gh-shadow-elevated:   0 8px 24px rgba(0, 0, 0, 0.10);
+  --gh-shadow-focus:      0 0 0 3px rgba(59, 90, 42, 0.20);
+
+  /* ---- Motion --------------------------------------------- */
+  --gh-ease-standard:     cubic-bezier(0.2, 0.0, 0.0, 1.0);
+  --gh-dur-fast:          120ms;
+  --gh-dur-base:          200ms;
+}
+
+/* ============================================================
+   Semantic class helpers (apply tokens to common roles)
+   ============================================================ */
+
+.gh-display     { font: var(--gh-display);  letter-spacing: -0.01em; color: var(--gh-fg); }
+.gh-h1          { font: var(--gh-h01);      letter-spacing: -0.01em; color: var(--gh-fg); }
+.gh-h2          { font: var(--gh-h02);      color: var(--gh-fg); }
+.gh-h3          { font: var(--gh-h03);      color: var(--gh-fg); }
+.gh-h4          { font: var(--gh-h04);      color: var(--gh-fg); }
+.gh-h5          { font: var(--gh-h05);      color: var(--gh-fg); }
+.gh-h6          { font: var(--gh-h06);      color: var(--gh-fg); }
+.gh-body        { font: var(--gh-body);     color: var(--gh-fg); }
+.gh-body-sm     { font: var(--gh-body-sm);  color: var(--gh-fg-muted); }
+.gh-caption     { font: var(--gh-m-h06);    color: var(--gh-fg-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.gh-mobile-display { font: var(--gh-m-display); color: var(--gh-fg); }
+.gh-mobile-h1   { font: var(--gh-m-h01);    color: var(--gh-fg); }
+.gh-mobile-h2   { font: var(--gh-m-h02);    color: var(--gh-fg); }
+.gh-mobile-h3   { font: var(--gh-m-h03);    color: var(--gh-fg); }
+.gh-mobile-body { font: var(--gh-m-b01);    color: var(--gh-fg); }
+
+/* ============================================================
+   Optional element-level resets (opt-in via class on <html>)
+   ============================================================ */
+.gh-typeset h1 { font: var(--gh-h01); margin: 0 0 var(--gh-space-md); color: var(--gh-fg); }
+.gh-typeset h2 { font: var(--gh-h02); margin: 0 0 var(--gh-space-md); color: var(--gh-fg); }
+.gh-typeset h3 { font: var(--gh-h03); margin: 0 0 var(--gh-space-sm); color: var(--gh-fg); }
+.gh-typeset h4 { font: var(--gh-h04); margin: 0 0 var(--gh-space-sm); color: var(--gh-fg); }
+.gh-typeset h5 { font: var(--gh-h05); margin: 0 0 var(--gh-space-sm); color: var(--gh-fg); }
+.gh-typeset h6 { font: var(--gh-h06); margin: 0 0 var(--gh-space-sm); color: var(--gh-fg); }
+.gh-typeset p  { font: var(--gh-body); margin: 0 0 var(--gh-space-md); color: var(--gh-fg); }
+.gh-typeset small { font: var(--gh-body-sm); color: var(--gh-fg-muted); }
+
+/* RTL helper — design system supports AR/UR */
+[dir="rtl"] { text-align: right; }

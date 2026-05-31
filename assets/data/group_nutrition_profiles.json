@@ -1,0 +1,106 @@
+{
+  "g1": {
+    "current_intake_ratio": 0.76,
+    "request": {
+      "species": "CATTLE",
+      "age_months": 48,
+      "production_focus": "MILK",
+      "lactating": true,
+      "months_since_calving": 2,
+      "head_count": 22,
+      "country_code": "SA"
+    }
+  },
+  "g2": {
+    "current_intake_ratio": 0.95,
+    "request": {
+      "species": "CATTLE",
+      "age_months": 37,
+      "production_focus": "BOTH",
+      "lactating": false,
+      "pregnant": false,
+      "head_count": 8,
+      "country_code": "SA"
+    }
+  },
+  "g3": {
+    "current_intake_ratio": 0.92,
+    "request": {
+      "species": "CATTLE",
+      "age_months": 54,
+      "production_focus": "MILK",
+      "lactating": false,
+      "pregnant": true,
+      "head_count": 6,
+      "country_code": "SA"
+    }
+  },
+  "g4": {
+    "current_intake_ratio": 0.8,
+    "request": {
+      "species": "CATTLE",
+      "age_months": 8,
+      "production_focus": "MEAT",
+      "lactating": false,
+      "head_count": 6,
+      "country_code": "SA"
+    }
+  },
+  "g5": {
+    "current_intake_ratio": 0.88,
+    "request": {
+      "species": "GOAT",
+      "age_months": 24,
+      "production_focus": "MILK",
+      "lactating": false,
+      "head_count": 48,
+      "country_code": "SA"
+    }
+  },
+  "g6": {
+    "current_intake_ratio": 0.9,
+    "request": {
+      "species": "GOAT",
+      "age_months": 24,
+      "production_focus": "MILK",
+      "lactating": false,
+      "pregnant": true,
+      "head_count": 22,
+      "country_code": "SA"
+    }
+  },
+  "g7": {
+    "current_intake_ratio": 0.85,
+    "request": {
+      "species": "GOAT",
+      "age_months": 12,
+      "production_focus": "MEAT",
+      "lactating": false,
+      "fattening": true,
+      "head_count": 26,
+      "country_code": "SA"
+    }
+  },
+  "g8": {
+    "current_intake_ratio": 0.9,
+    "request": {
+      "species": "SHEEP",
+      "age_months": 32,
+      "production_focus": "MEAT",
+      "lactating": false,
+      "head_count": 32,
+      "country_code": "SA"
+    }
+  },
+  "g9": {
+    "current_intake_ratio": 0.75,
+    "request": {
+      "species": "SHEEP",
+      "age_months": 38,
+      "production_focus": "MEAT",
+      "lactating": false,
+      "head_count": 14,
+      "country_code": "SA"
+    }
+  }
+}

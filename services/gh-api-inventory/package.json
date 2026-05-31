@@ -1,0 +1,31 @@
+{
+  "name": "gh-api-inventory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "npm run test:unit && npm run test:bdd",
+    "test:unit": "node --import tsx --test test/**/*.test.ts",
+    "test:bdd": "node --import tsx node_modules/@cucumber/cucumber/bin/cucumber.js"
+  },
+  "dependencies": {
+    "@greenerherd/shared-db": "file:../gh-shared",
+    "@fastify/cors": "^10.0.2",
+    "fastify": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.14.1",
+    "uuid": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.11.11",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

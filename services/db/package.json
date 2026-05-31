@@ -1,0 +1,32 @@
+{
+  "name": "gh-db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "db:reset": "tsx scripts/reset.ts && npm run db:setup",
+    "db:extract-breeds": "python3 scripts/extract_breeds_from_xlsx.py \"$HOME/Documents/Obsidian/GreenerHerd/Breed Information.xlsx\" --sheep-chars sources/Sheep_Characteristics.xlsx",
+    "db:extract-feeds": "python3 scripts/extract_feed_products_from_xlsx.py sources/Generic_Products_Nutrition_Combined.xlsx",
+    "db:extract-pricing": "python3 scripts/extract_feed_pricing_from_xlsx.py sources/Generic_Products_Indicative_Pricing.xlsx",
+    "db:extract-feed-catalog": "npm run db:extract-feeds && npm run db:extract-pricing",
+    "db:extract-marketplace": "python3 scripts/extract_marketplace_products.py",
+    "db:extract-requirements": "python3 scripts/extract_nutrition_requirements_from_xlsx.py sources/Livestock_Nutrition_Requirements.xlsx",
+    "db:extract-nutrition": "npm run db:extract-requirements",
+    "db:extract-notifications": "python3 scripts/extract_notification_tasks_from_xlsx.py sources/Notification_Events.xlsx",
+    "db:export-group-nutrition": "node --import tsx scripts/export_group_nutrition_assets.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.14.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/pg": "^8.11.11",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

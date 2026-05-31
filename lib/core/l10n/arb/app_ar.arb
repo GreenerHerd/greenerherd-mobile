@@ -1,0 +1,898 @@
+{
+  "@@locale": "ar",
+  "activeIllnessDetail": "Mastitis · day 3 of 5 of treatment. Penicillin G — 5 ml IM daily.",
+  "activeIngredient": "المادة الفعالة",
+  "activeStatus": "Active",
+  "activeTreatments": "علاجات نشطة",
+  "addAi": "Add AI",
+  "addAnimalTitle": "Add animal",
+  "addAnotherAnimal": "Add another",
+  "addAtLeastOneAnimal": "Add at least one animal to sell",
+  "addEntry": "إضافة قيد",
+  "addFeed": "إضافة علف",
+  "addFeedProduct": "إضافة منتج علف",
+  "addLivestockLabel": "Add {label}",
+  "@addLivestockLabel": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "addMedicine": "إضافة دواء",
+  "addNew": "إضافة",
+  "addTaskForAnimal": "Add task for {name}",
+  "@addTaskForAnimal": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addToInventory": "إضافة للمخزون",
+  "addToSale": "Add",
+  "addedManually": "أُضيفت يدوياً",
+  "addingCountToGroupOnSave": "Adding {count} to the group on save",
+  "@addingCountToGroupOnSave": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageNew": "جديد",
+  "ageRange": "Age range",
+  "ageRangeIfUnknown": "Age range (if DOB unknown)",
+  "aiAttemptTitle": "Artificial insemination · Attempt {n}",
+  "@aiAttemptTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiAttempts30d": "AI attempts (30d)",
+  "aiProviderPerformance": "AI provider performance",
+  "alerts": "التنبيهات",
+  "alertsAndTasks": "التنبيهات والمهام",
+  "allSpecies": "كل الأنواع",
+  "allTasks": "All",
+  "amount": "المبلغ",
+  "animalAlreadyInSaleList": "Already added to this sale",
+  "animalInGroup": "Animal {index}",
+  "@animalInGroup": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "animalIsTwin": "This animal is a twin",
+  "animalNotFound": "الحيوان غير موجود",
+  "animals": "الحيوانات",
+  "animalsAvailable": "{count} {species} available",
+  "@animalsAvailable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "animalsCount": "الحيوانات",
+  "animalsPurchased": "حيوانات مشتراة",
+  "animalsToSell": "Animals to sell",
+  "appSettings": "App settings",
+  "appTitle": "GreenerHerd",
+  "applyToMorningMix": "تطبيق على خليط الصباح",
+  "artificialInseminations": "Artificial inseminations",
+  "assistanceCSection": "C-section",
+  "assistanceEasyPull": "Easy pull (1 person)",
+  "assistanceHardPull": "Hard pull (2+ people)",
+  "assistanceNone": "None — natural birth",
+  "assistanceVet": "Vet assisted",
+  "attemptNumberLabel": "Attempt #",
+  "auditableDetail": "Auditable detail",
+  "availableReports": "Available reports",
+  "avgLitresMilking": "متوسط {avg} ل/رأس · {count} حلب",
+  "@avgLitresMilking": {
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "avgPerHead": "متوسط/رأس",
+  "avgWithdrawalRemaining": "متوسط {days} ي متبقية",
+  "@avgWithdrawalRemaining": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "backButton": "Back",
+  "birthDateOptional": "تاريخ الميلاد (اختياري)",
+  "birthRecordedFor": "سُجلت الولادة للوسم #{tag}",
+  "@birthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "birthSizeLarge": "Large",
+  "birthSizeMedium": "Medium",
+  "birthSizeSmall": "Small",
+  "birthWeightHint": "Birth weight",
+  "birthingAssistance": "Birthing assistance",
+  "bornAlive": "ولد حياً",
+  "bornAliveSubtitle": "إزالة الحمل؛ إضافة علامة الإدرار إن لم تكن موجودة",
+  "bornOnDate": "ولد {day}/{month}/{year}",
+  "@bornOnDate": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "month": {
+        "type": "int"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "bornOnFarm": "Born on farm",
+  "breed": "السلالة",
+  "breedForSpecies": "Breed ({species})",
+  "@breedForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "breedingFemalesOnly": "Breeding history is shown for females only.",
+  "breedingHistory": "سجل التربية",
+  "breedingKpis": "Breeding KPIs",
+  "breedingOpen": "غير مخصّص",
+  "breedingOverview": "نظرة التربية",
+  "breedingStatus": "الحالة",
+  "breedingStatusUpdated": "تم تحديث حالة التربية",
+  "buyAnimals": "شراء حيوانات",
+  "buyAnimalsInventorySubtitle": "Record a purchase and add animals to the herd",
+  "cancel": "إلغاء",
+  "catalogGaps": "فجوات الكتالوج",
+  "catalogueProduct": "منتج الكتالوج",
+  "category": "الفئة",
+  "categoryOptionalPreset": "الفئة (اختياري)",
+  "cattle": "أبقار",
+  "channelEmail": "البريد",
+  "channelWhatsapp": "واتساب",
+  "chartDayLitres": "اليوم {day}\n{litres} ل",
+  "chooseHowToAddAnimals": "اختر كيفية إضافة أول حيواناتك. يمكنك لاحقاً من تبويب الحيوانات.",
+  "clearCullFlag": "إزالة علامة الذبح",
+  "clearReadyToBreed": "إزالة جاهز للتزاوج",
+  "complete": "إكمال",
+  "confirmMiscarriage": "تأكيد الإجهاض",
+  "confirmSale": "Confirm sale",
+  "confirmed": "Confirmed",
+  "continueButton": "متابعة",
+  "continueWithApple": "المتابعة مع Apple",
+  "continueWithFacebook": "المتابعة مع Facebook",
+  "continueWithGoogle": "المتابعة مع Google",
+  "couldNotApplyFeedPlan": "تعذر تطبيق خطة العلف",
+  "createGroupAction": "Create group",
+  "createGroupWithAnimals": "Create group · {count} animal",
+  "createGroupWithAnimalsPlural": "Create group · {count} animals",
+  "@createGroupWithAnimalsPlural": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@createGroupWithAnimals": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "createVaccinationEvent": "Create vaccination event",
+  "crudeProtein": "البروتين الخام",
+  "crudeProteinPercent": "البروتين الخام %",
+  "cullFlagged": "محدد للذبح",
+  "currency": "العملة",
+  "currentStockKg": "المخزون الحالي (كغ)",
+  "currentWeightLabel": "Current",
+  "custom": "مخصص",
+  "customMedicineName": "اسم مخصص",
+  "dailyCostPerHead": "التكلفة اليومية / رأس",
+  "damOptional": "Dam (optional)",
+  "dateOfBirth": "تاريخ الميلاد",
+  "dateOfSale": "Date of sale",
+  "dateRange": "Date range",
+  "delete": "حذف",
+  "description": "الوصف",
+  "descriptionHeading": "الوصف",
+  "descriptionOptional": "الوصف (اختياري)",
+  "dismiss": "تجاهل",
+  "dobIfKnown": "Date of birth (if known)",
+  "dobOrAgeRangeHint": "Or pick an age range below.",
+  "dosage": "الجرعة",
+  "downloadPdf": "Download PDF",
+  "dryMatter": "المادة الجافة",
+  "dryMatterPercent": "المادة الجافة %",
+  "earTag": "Ear tag",
+  "earTagHint": "e.g. 0473",
+  "edit": "تعديل",
+  "editTask": "Edit task",
+  "email": "البريد",
+  "energyGapDetected": "فجوة طاقة مكتشفة",
+  "energyMe": "الطاقة (ME)",
+  "enterAnimalsIndividually": "إدخال الحيوانات فردياً",
+  "enterAsGroup": "إدخال كمجموعة",
+  "enterPurchaserAndPrice": "Enter purchaser and price paid",
+  "enterSupplierAndPrice": "Enter where animals were bought from and purchase price",
+  "enterValidEmail": "أدخل بريداً صالحاً",
+  "enterValidPhone": "أدخل هاتفاً صالحاً",
+  "errorGeneric": "حدث خطأ",
+  "expense": "مصروف",
+  "exportCsv": "تصدير CSV",
+  "exportPdf": "تصدير PDF",
+  "exportPdfCsvSubtitle": "تصدير PDF / CSV",
+  "exportReport": "Export",
+  "failedToApplyPlan": "فشل التطبيق: {error}",
+  "@failedToApplyPlan": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "farmHand": "عامل مزرعة",
+  "farmName": "اسم المزرعة",
+  "farmOwner": "مالك المزرعة",
+  "farmSection": "Farm",
+  "feed": "العلف",
+  "feedAndMedicalStock": "مخزون العلف والأدوية",
+  "feedPlanApplied": "تم تطبيق خطة العلف",
+  "feedType": "نوع العلف",
+  "female": "أنثى",
+  "females": "الإناث",
+  "finance": "المالية",
+  "finishGroup": "Complete group",
+  "finishPurchase": "Complete purchase",
+  "fixTheGap": "سد الفجوة",
+  "flagForCull": "تحديد للذبح",
+  "fromDate": "From",
+  "fromProductList": "من القائمة",
+  "fullAccess": "Full access",
+  "fullName": "الاسم الكامل",
+  "gaveBirth": "ولدت",
+  "general": "عام",
+  "generated": "Generated",
+  "generatedToday": "Today, 09:14",
+  "gestation": "الحمل",
+  "gestationMonths": "مدة الحمل (أشهر)",
+  "gestationMonthsSubtitle": "{months} أشهر حمل",
+  "@gestationMonthsSubtitle": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "gestationMonthsValue": "{months} أشهر",
+  "@gestationMonthsValue": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "goat": "Goat",
+  "goats": "ماعز",
+  "goodMorning": "صباح الخير، {name}",
+  "group": "المجموعة",
+  "groupAverage": "متوسط المجموعة",
+  "groupDescriptionHint": "Housing, feeding cadence, notes",
+  "groupName": "اسم المجموعة",
+  "groupNameHint": "e.g. Milking B",
+  "groupNotFound": "المجموعة غير موجودة",
+  "groupOfLivestock": "Group of livestock",
+  "groupSpeciesLabel": "{name} · {species}",
+  "@groupSpeciesLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "groupTitle": "المجموعة",
+  "groupWizardAnimals": "Individual animals",
+  "groupWizardSummary": "Group summary",
+  "addAMeal": "Add a meal",
+  "addAnotherGroup": "Add another group",
+  "saveMeal": "Save meal",
+  "searchMeals": "Search meals",
+  "mealAmountKg": "Amount (kg)",
+  "groupCreatedMessage": "Your group is ready. Add a meal now or skip and set feeding up later.",
+  "groupWizardDetails": "Group details",
+  "groupWizardHerd": "Herd profile",
+  "groups": "المجموعات",
+  "headCount": "Number in group",
+  "headline": "Headline",
+  "healthcareHistory": "Healthcare history",
+  "heightCm": "Height",
+  "help": "المساعدة",
+  "helpSupport": "Help & support",
+  "hold": "اضغط",
+  "howDidPregnancyEnd": "كيف انتهى الحمل؟",
+  "inSelectedRange": "In the selected range",
+  "inStockLabel": "متوفر في المخزون",
+  "income": "دخل",
+  "individualTasks": "Individual tasks",
+  "inventory": "المخزون",
+  "inventoryBurgerSubtitle": "Feed, medical & livestock",
+  "inviteCreated": "تم إنشاء الدعوة. الرابط: {link}",
+  "@inviteCreated": {
+    "placeholders": {
+      "link": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteFailed": "فشلت الدعوة: {error}",
+  "@inviteFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteManageTeam": "دعوة وإدارة فريقك",
+  "inviteSentOpen": "أُرسلت الدعوة — افتح {channel} للإكمال",
+  "@inviteSentOpen": {
+    "placeholders": {
+      "channel": {
+        "type": "String"
+      }
+    }
+  },
+  "inviteTeamMember": "دعوة عضو فريق",
+  "inviteTeamSubtitle": "أرسل رابط التطبيق بالبريد أو واتساب للانضمام لمزرعتك.",
+  "joinFarmSubject": "انضم إلى {farmName} على GreenerHerd",
+  "@joinFarmSubject": {
+    "placeholders": {
+      "farmName": {
+        "type": "String"
+      }
+    }
+  },
+  "lactating": "مرضعة",
+  "lactatingPostCalving": "مرضعة / بعد الولادة",
+  "lactationCalvingExpected": "الولادة {date} · متوقع ~{litres} لتر اليوم",
+  "lactationChartNeedsData": "سجّل حلبتين على الأقل لعرض منحنى الإدرار.",
+  "lactationCurveLegend": "خط متصل = حليب مسجّل · متقطع = متوقع (متوسط السلالة)",
+  "lactationCurveTitle": "منحنى الإدرار (الحليب مقابل يوم الإدرار)",
+  "lactationDayOf305": "{stage} · اليوم {day} من 305",
+  "lactationNumber": "الإدرار {number}",
+  "lactationStageDry": "فترة الجفاف",
+  "lactationStageFresh": "مبكرة (بداية الإدرار)",
+  "lactationStageLate": "متأخرة",
+  "lactationStageMid": "منتصف الإدرار",
+  "lactationStagePeak": "ذروة الإدرار",
+  "language": "اللغة",
+  "languageArabic": "العربية",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+  "languageUrdu": "اردو",
+  "last90Days": "Last 90 days",
+  "last90DaysRange": "Feb 07 – May 08",
+  "legendAction": "إجراء",
+  "legendOk": "جيد",
+  "legendWarning": "تحذير",
+  "linkedToAccount": "مرتبط بحساب {provider}",
+  "@linkedToAccount": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "litresValue": "{litres} ل",
+  "live": "مباشر",
+  "livestockExisting": "Existing",
+  "livestockNewBorn": "New (born)",
+  "livestockNewPurchased": "New (purchased)",
+  "livestockValue": "قيمة القطيع",
+  "loadedCount": "{count} محمّل",
+  "@loadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loading": "جاري التحميل",
+  "loadingBreeds": "جاري تحميل السلالات…",
+  "location": "Location",
+  "lowStock": "مخزون منخفض",
+  "lowStockFeedBanner": "{count} عنصر(عناصر) علف أقل من أسبوع من التوريد",
+  "@lowStockFeedBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "male": "ذكر",
+  "manageGroups": "إدارة المجموعات",
+  "manageTeam": "Manage",
+  "manager": "مدير",
+  "markCull": "Cull",
+  "markCured": "Mark cured",
+  "recordDeath": "Record death",
+  "deathReason": "Cause of death",
+  "deathReasonHint": "Illness, injury, unknown…",
+  "confirmRecordDeath": "Confirm death",
+  "confirmRecordDeathMessage": "Record {animal} as deceased?\n\nReason: {reason}\n\nThe animal will be removed from its group. This cannot be undone.",
+  "animalRecordedDeceased": "Death recorded",
+  "deceased": "Deceased",
+  "removedFromGroupNote": "Removed from group",
+  "cullType": "Cull type",
+  "cullReason": "Cull reason",
+  "markPregnant": "تحديد حامل",
+  "markReadyToBreed": "تحديد جاهز للتزاوج",
+  "markSick": "Sick",
+  "markSold": "تسجيل البيع",
+  "markedReadyToBreed": "حُدد جاهز للتزاوج",
+  "marketplace": "السوق",
+  "marketplaceListingName": "اسم إدراج السوق",
+  "mealPlans": "خطط الوجبات",
+  "viewMealPlans": "عرض خطط الوجبات",
+  "medicine": "الدواء",
+  "medicineCatalogueSearchHint": "ابحث بين {count} منتجاً من القائمة",
+  "@medicineCatalogueSearchHint": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "medicineName": "اسم الدواء",
+  "medicineProductSource": "المنتج",
+  "medicineProductsAvailable": "نتائج",
+  "medicineTypeLabel": "النوع (مثل ANTIBIOTIC)",
+  "methaneAgeMonths": "{months} شهر",
+  "methaneByAnimal": "حسب الحيوان (CH₄ / يوم)",
+  "methaneCh4Grams": "{grams} غ CH₄",
+  "methaneCo2eSummary": "{co2e} كغ مكافئ CO₂ · {weight} كغ متوسط الوزن",
+  "methaneEmissions": "انبعاثات الميثان",
+  "methaneGramsShort": "{grams} غ",
+  "methaneMoreAnimals": "+ {count} حيوانات إضافية",
+  "methaneRegionMiddleEast": "الشرق الأوسط (دول الخليج)",
+  "methodLabel": "Method",
+  "fertilityMethodLabel": "Fertility method",
+  "readyToBreedMethodHint": "Choose how this animal will be bred. Sponges synchronize heat for timed insemination in goats and sheep.",
+  "breedingMethodNatural": "Natural service",
+  "breedingMethodAi": "Artificial insemination",
+  "breedingMethodEmbryonic": "Embryo transfer",
+  "breedingMethodSponges": "Sponges",
+  "milkBlockedWithdrawal": "تسجيل الحليب محظور أثناء فترة سحب الدواء",
+  "milkSale": "بيع الحليب",
+  "milkingKpis": "مؤشرات الحلب",
+  "milkingTodayVolume": "حجم اليوم",
+  "miscarriage": "إجهاض",
+  "miscarriageConfirmBody": "سيُزال وضع الحمل وتُضاف علامة إجهاض للمتابعة في الصحة والتقارير.",
+  "miscarriageRecorded": "سُجل إجهاض",
+  "miscarriageRecordedFor": "سُجل إجهاض للوسم #{tag}",
+  "@miscarriageRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "miscarriageSubtitle": "إزالة الحمل ووضع علامة للمتابعة",
+  "miscarriagesCount": "Miscarriages",
+  "miscarriagesSection": "Miscarriages",
+  "monthsPregnant": "Months pregnant",
+  "mothersTag": "Mother's tag",
+  "myFarm": "مزرعتي",
+  "nameOptional": "Name (optional)",
+  "nameOptionalHint": "You can add this later.",
+  "nameOptionalPlaceholder": "e.g. Salwa",
+  "ndf": "NDF",
+  "calcium": "Calcium",
+  "phosphorus": "Phosphorus",
+  "nemMcalPerKg": "NEm (مكال/كغ)",
+  "net": "صافي",
+  "newAnimal": "حيوان جديد",
+  "newFarmSetup": "إعداد مزرعة جديدة",
+  "newGroup": "مجموعة جديدة",
+  "newTask": "مهمة جديدة",
+  "newbornAnimalN": "Newborn #{n}",
+  "@newbornAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "newbornDetails": "Newborn details",
+  "noActiveVaccinationEvents": "No active vaccination events in the last 48 hours",
+  "noAiRecordsHint": "Log inseminations or natural services to track attempts and outcomes.",
+  "noAiRecordsYet": "No AI records yet",
+  "noAnimalsForSpecies": "No {species} on the farm yet.",
+  "@noAnimalsForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "noAnimalsInGroup": "لا حيوانات في هذه المجموعة بعد.",
+  "noAnimalsMatchTag": "No active animals match this tag",
+  "noBreedingEventsYet": "لا أحداث تربية مسجّلة بعد.",
+  "noDescriptionRecorded": "لا يوجد وصف مسجّل.",
+  "noFeedInInventory": "لا يوجد علف في المخزون بعد.",
+  "noFeedToday": "لم يُسجّل علف اليوم.",
+  "noLossesRecorded": "No losses recorded",
+  "noMedicineInInventory": "لا توجد أدوية في المخزون بعد.",
+  "noMilkToday": "لا سجلات حليب اليوم.",
+  "noMiscarriagesHint": "Log a pregnancy loss to track gestation day, cause and follow-up.",
+  "noMiscarriagesYet": "No miscarriages recorded",
+  "noTasksForAnimal": "No upcoming tasks for this animal.",
+  "noVaccinationEvents": "No vaccination events on file",
+  "notFound": "غير موجود",
+  "notRecorded": "غير مسجّل",
+  "notes": "Notes",
+  "notesHint": "Anything else worth recording",
+  "nothingForFilter": "Nothing for this filter.",
+  "notificationsDigestAt": "Daily digest at 06:00",
+  "notificationsRecommended": "التنبيهات والمهام الموصى بها",
+  "notificationsSubtitle": "تذكيرات للعلف والتربية والصحة والطقس",
+  "numberOfAnimalsPurchased": "Number of animals purchased",
+  "nutritionalInformation": "المعلومات الغذائية",
+  "onWithdrawal": "في فترة السحب",
+  "onboardNewAnimal": "Onboard new animal",
+  "onboardNewGroup": "Onboard new group",
+  "onboardingAnimalsTitle": "إضافة حيوانات",
+  "onboardingFarmTitle": "إعداد المزرعة",
+  "onboardingSpeciesTitle": "مواشيك",
+  "openAnimalProfiles": "فتح ملفات الحيوانات",
+  "openAnimalsForBreeding": "افتح ملفات الحيوانات لإجراءات التربية.",
+  "origin": "Origin",
+  "overdue": "متأخرة",
+  "parentSearchHint": "Search or enter",
+  "people": "الأشخاص",
+  "perGroup": "Per-group",
+  "perHead": "لكل رأس",
+  "phoneWithCountryCode": "الهاتف (مع رمز الدولة)",
+  "pickAgeRange": "Pick a range…",
+  "preferences": "Preferences",
+  "pregnancyConfirmed": "تأكيد الحمل",
+  "pregnancyConfirmedMo": "تأكيد الحمل ({months} شهر)",
+  "@pregnancyConfirmedMo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "pregnancyOutcome": "نتيجة الحمل",
+  "pregnancyRate": "Pregnancy rate",
+  "pregnant": "حامل",
+  "pregnantAnimals": "حيوانات حامل",
+  "previousTodayMilk": "سابقاً اليوم: {litres} ل",
+  "@previousTodayMilk": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      }
+    }
+  },
+  "pricePaidSar": "Price paid (SAR)",
+  "primaryPurpose": "الغرض الرئيسي",
+  "printReport": "طباعة التقرير",
+  "productName": "اسم المنتج",
+  "profile": "الملف",
+  "providerApple": "Apple",
+  "providerFacebook": "Facebook",
+  "providerGoogle": "Google",
+  "providerLabel": "Provider",
+  "purchaseDate": "Purchase date",
+  "purchasePrice": "Purchase price",
+  "purchaseRecorded": "Purchase recorded",
+  "purchaseWizardAnimals": "Individual animals",
+  "purchaseWizardDetails": "Purchase details",
+  "purchaseWizardLivestock": "Livestock profile",
+  "purchased": "Purchased",
+  "purchasedAnimalN": "Purchased #{n}",
+  "@purchasedAnimalN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "purchasedVolumeKg": "الحجم المشترى (كغ)",
+  "inventoryPreviousUnitCost": "تكلفة الوحدة السابقة: {cost} ريال/كغ",
+  "stockUpdated": "تم تحديث المخزون",
+  "purchaser": "Purchaser",
+  "purpose": "الغرض",
+  "groupPurpose": "Group purpose",
+  "animalPurpose": "Animal purpose",
+  "purposeForSpecies": "Primary purpose for {species}",
+  "@purposeForSpecies": {
+    "placeholders": {
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "purposeHeading": "الغرض",
+  "purposeMeat": "لحم",
+  "purposeMilk": "حليب",
+  "purposeMilkMeat": "حليب ولحم",
+  "quantity": "الكمية",
+  "readyToBreed": "جاهزة للتزاوج",
+  "recentEntries": "القيود الأخيرة",
+  "recentMiscarriage": "إجهاض حديث",
+  "recentVaccinations": "تطعيمات حديثة",
+  "recommendedFeeds": "أعلاف موصى بها",
+  "recordAction": "تسجيل",
+  "updateAction": "Update",
+  "updateFeeding": "Update feeding",
+  "updatingFeeding": "Updating…",
+  "recordAi": "Record AI",
+  "recordBirth": "تسجيل الولادة",
+  "recordBirthSubtitle": "تسجيل ولادة حية أو ميتة",
+  "recordBulkMilkSale": "تسجيل بيع حليب بالجملة (دخل)",
+  "recordExpense": "تسجيل مصروف",
+  "recordFeeding": "تسجيل التغذية",
+  "recordIncome": "تسجيل دخل",
+  "recordMilk": "تسجيل الحليب",
+  "recordMilkSaleIncome": "تسجيل دخل بيع الحليب",
+  "recordMilkSaleIncomeSubtitle": "يُضاف دخل في تبويب المالية",
+  "recordMiscarriage": "تسجيل إجهاض",
+  "recordPregnancyOutcome": "تسجيل نتيجة الحمل",
+  "recordPurchase": "تسجيل شراء",
+  "recordTreatment": "Record treatment",
+  "recordedMilkFor": "سُجل {litres} ل للوسم #{tag}",
+  "@recordedMilkFor": {
+    "placeholders": {
+      "litres": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "recordsIncluded": "Records included",
+  "recordsOnFile": "{count} records on file",
+  "@recordsOnFile": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recurring": "Recurring",
+  "removeAnimal": "Remove",
+  "removeFromSaleList": "Remove",
+  "reportPreview": "Report preview",
+  "reports": "التقارير",
+  "reportsSubtitle": "PDF · downloadable",
+  "resolved": "Resolved",
+  "resultDateLabel": "RESULT DATE",
+  "role": "الدور",
+  "routeOfAdministration": "طريقة الإعطاء",
+  "saleAmountSar": "مبلغ البيع (ريال)",
+  "salePurposeOptional": "Purpose of sale (optional)",
+  "saleRecorded": "Sale recorded",
+  "save": "حفظ",
+  "saveAnimal": "حفظ الحيوان",
+  "saveBirthRecord": "حفظ سجل الولادة",
+  "saveGroup": "حفظ المجموعة",
+  "searchCatalogue": "البحث في القائمة",
+  "searchFarmTags": "Search tags on the farm",
+  "selectAtLeastOneAnimal": "Select at least one animal",
+  "selectAtLeastOneSpecies": "اختر نوعاً واحداً على الأقل",
+  "selectGroupRequired": "Select a group or create a new one",
+  "selectMedicineOrEnterName": "اختر منتجاً من القائمة أعلاه",
+  "selectMedicineProduct": "اختر الدواء",
+  "selectProduct": "اختر المنتج",
+  "selectSpeciesOnFarm": "اختر الأنواع في مزرعتك",
+  "selectVaccinationEvent": "Select vaccination event",
+  "sellAnimals": "بيع حيوانات",
+  "sellAnimalsInventorySubtitle": "Sell animals and update herd inventory",
+  "semenBatchLabel": "SEMEN BATCH",
+  "sendInvite": "إرسال الدعوة",
+  "setThePurposeForEachSpecies": "Set the primary purpose for each species",
+  "settings": "الإعدادات",
+  "sex": "الجنس",
+  "sheep": "أغنام",
+  "sick": "مريض",
+  "sickAnimals": "حيوانات مريضة",
+  "sickDescription": "Illness description",
+  "signIn": "تسجيل الدخول",
+  "signOut": "تسجيل الخروج",
+  "signatureLineNote": "Includes signature line for veterinary / auditor handoff.",
+  "sireLabel": "SIRE",
+  "sireOptional": "Sire (optional)",
+  "sizeAtBirth": "Size at birth",
+  "skipForNow": "تخطي الآن",
+  "source": "المصدر",
+  "species": "النوع",
+  "speciesCovered": "Species covered",
+  "speciesCoveredValue": "Cattle · Goat · Sheep",
+  "standard": "قياسي",
+  "stillbirthRecorded": "سُجلت ولادة ميتة",
+  "stillbirthRecordedFor": "سُجلت ولادة ميتة للوسم #{tag}",
+  "@stillbirthRecordedFor": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "stillborn": "مولود ميت",
+  "stillbornSubtitle": "إزالة الحمل؛ تسجيل ولادة ميتة",
+  "subscription": "الاشتراك",
+  "successRate": "Success rate",
+  "summaryOriginBorn": "Born on farm",
+  "summaryOriginPurchased": "Purchased",
+  "summaryOriginPurchasedFrom": "Purchased from {supplier}",
+  "@summaryOriginPurchasedFrom": {
+    "placeholders": {
+      "supplier": {
+        "type": "String"
+      }
+    }
+  },
+  "supplier": "المورد",
+  "supplierHint": "e.g. Al-Wafi Genetics, market, neighbour…",
+  "supplierName": "اسم المورد",
+  "supplierPhone": "هاتف المورد",
+  "supplierSource": "Supplier / source",
+  "supportTopics": "الدعم والمواضيع",
+  "switchFarm": "Switch",
+  "switchFarmMock": "Farm switching is not available in this demo.",
+  "tabAnimals": "الحيوانات",
+  "tabBreeding": "التربية",
+  "tabFinance": "المالية",
+  "tabHealth": "الصحة",
+  "tabHome": "الرئيسية",
+  "tabMedia": "الوسائط",
+  "tabMilking": "الحلب",
+  "tabNutrition": "التغذية",
+  "tabOverview": "نظرة عامة",
+  "tabReports": "التقارير",
+  "tabTasks": "المهام",
+  "tabWeight": "الوزن",
+  "tag": "الوسم",
+  "tagNumber": "رقم الوسم",
+  "tapToRegisterLivestock": "Tap Add {label} to register one or more {species} now.",
+  "@tapToRegisterLivestock": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "species": {
+        "type": "String"
+      }
+    }
+  },
+  "taskTitle": "العنوان",
+  "tasksDueSubtitle": "{due} due · {overdue} overdue",
+  "@tasksDueSubtitle": {
+    "placeholders": {
+      "due": {
+        "type": "int"
+      },
+      "overdue": {
+        "type": "int"
+      }
+    }
+  },
+  "tasksToday": "مهام اليوم",
+  "technicianLabel": "TECHNICIAN",
+  "thisWeek": "هذا الأسبوع",
+  "toDate": "To",
+  "today": "اليوم",
+  "todayTotal": "إجمالي اليوم",
+  "todayVsRequirement": "اليوم مقابل الاحتياج",
+  "todaysFeed": "علف اليوم",
+  "todaysMilkLitres": "حليب اليوم (لتر)",
+  "todaysVolume": "حجم اليوم",
+  "tomorrow": "Tomorrow",
+  "topProducers": "أعلى المنتجات",
+  "totalSar": "الإجمالي (ريال)",
+  "totalWeightKgOptional": "Total weight (kg, optional)",
+  "unit": "الوحدة",
+  "unitCostSar": "تكلفة الوحدة (ريال/كغ)",
+  "user": "مستخدم",
+  "userRoleFarmHand": "Farm hand",
+  "userRoleManager": "Manager",
+  "userRoleOwner": "Owner",
+  "userRoleVet": "Vet",
+  "vaccinated": "Vaccinated",
+  "vaccinationEvent": "Vaccination event",
+  "vaccinationsSection": "Vaccinations",
+  "validMilkVolume": "أدخل حجماً صالحاً للحليب (لتر)",
+  "veterinarian": "طبيب بيطري",
+  "vigour": "Vigour",
+  "vigourAverage": "Average",
+  "vigourStrong": "Strong",
+  "vigourWeak": "Weak",
+  "voiceAddTask": "إضافة مهمة صوتياً",
+  "voiceHoldMock": "اضغط للتحدث (تجريبي)",
+  "voiceLanguages": "EN · AR · UR · FR · transcribed by AI",
+  "weaned": "Weaned",
+  "weight": "الوزن",
+  "weightDeltaKg": "+{kg} kg",
+  "@weightDeltaKg": {
+    "placeholders": {
+      "kg": {
+        "type": "int"
+      }
+    }
+  },
+  "weightGrowthPct": "+{pct}%",
+  "@weightGrowthPct": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
+  "weightHint": "مثال: 412",
+  "weightKg": "الوزن (كغ)",
+  "weightMonthsTitle": "Weight · 5 months",
+  "welcomeBrand": "Greener Herd",
+  "welcomeTo": "مرحباً بك في",
+  "whatsapp": "واتساب",
+  "window": "Window",
+  "withdrawalPrefilledHint": "فترات السحب معبأة مسبقاً من المنتج — عدّلها إذا نصح الطبيب البيطري بذلك.",
+  "withdrawalDays": "سحب · {days} ي",
+  "@withdrawalDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "withdrawalMilkBlocked": "فترة السحب نشطة — لا يمكن بيع الحليب أو تسجيله للاستهلاك البشري.",
+  "withdrawalMilkSafe": "Milk safe from {date}. Do not sell this animal's milk until cleared.",
+  "@withdrawalMilkSafe": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "withdrawalPeriodActive": "Withdrawal period active",
+  "wizardStepOf": "Step {current} of {total}",
+  "@wizardStepOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "youreAdding": "You're adding"
+}

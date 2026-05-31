@@ -1,0 +1,215 @@
+{
+  "group_id": "g2",
+  "profile_code": "CATTLE_DAIRY_DRY_FAR_OFF",
+  "match_reason": "dairy life stage: Dry (Far off)",
+  "head_count": 8,
+  "required": {
+    "dry_matter_kg": 112,
+    "protein_kg": 11.088,
+    "energy_mj": 618.5625600000001,
+    "ndf_kg": 44.8
+  },
+  "plan": {
+    "dry_matter_kg": 89.599999,
+    "protein_kg": 8.8704,
+    "energy_mj": 494.850039632,
+    "ndf_kg": 43.586463
+  },
+  "current": {
+    "dry_matter_kg": 106.39999999999999,
+    "protein_kg": 10.533599999999998,
+    "energy_mj": 587.6344320000001,
+    "ndf_kg": 42.559999999999995
+  },
+  "optimizer_pass": "complete",
+  "nutrient_gaps": [
+    {
+      "nutrient": "nem",
+      "target": 147.84,
+      "actual": 118.271998,
+      "unit": "Mcal/day",
+      "percent_of_target": 0.7999999864718614,
+      "shortfall": 29.568002000000007,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "dryMatter",
+      "target": 112,
+      "actual": 89.599999,
+      "unit": "kg/day",
+      "percent_of_target": 0.7999999910714285,
+      "shortfall": 22.400001000000003,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "calcium",
+      "target": 0.4928,
+      "actual": 0.39424,
+      "unit": "kg/day",
+      "percent_of_target": 0.7999999999999999,
+      "shortfall": 0.09856000000000004,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "crudeProtein",
+      "target": 11.088,
+      "actual": 8.8704,
+      "unit": "kg/day",
+      "percent_of_target": 0.8,
+      "shortfall": 2.217599999999999,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    },
+    {
+      "nutrient": "phosphorus",
+      "target": 0.2464,
+      "actual": 0.222635,
+      "unit": "kg/day",
+      "percent_of_target": 0.9035511363636364,
+      "shortfall": 0.02376500000000001,
+      "bridge_note": "Cover with market concentrates, mineral premixes, or local supplements as needed."
+    }
+  ],
+  "catalog_achievement": {
+    "primary_min_ratio": 0.7999999864718614,
+    "needs_market_supplement": true
+  },
+  "recommendation": {
+    "solution": {
+      "Corn": 7.588293,
+      "Soybean": 3.671966,
+      "White Hay": 66.5969,
+      "Wheat grain": 7.120033,
+      "Alfalfa Hay": 15.278461
+    },
+    "totals": {
+      "kgAsFed": 100.255653,
+      "cost": 122.222179,
+      "dryMatterKg": 89.599999,
+      "crudeProteinKg": 8.8704,
+      "fibreKg": 26.88,
+      "ndfKg": 43.586463,
+      "calciumKg": 0.39424,
+      "phosphorusKg": 0.222635,
+      "nemMcal": 118.271998,
+      "negMcal": 84.280959
+    },
+    "cost_per_day": 122.2222,
+    "cost_currency": "SAR",
+    "constraints": {
+      "dryMatterKg": {
+        "min": 89.60000000000001,
+        "max": 117.60000000000001
+      },
+      "crudeProteinKg": {
+        "min": 8.8704,
+        "max": 11.6424
+      },
+      "fibreKg": {
+        "min": 26.880000000000003,
+        "max": 35.28
+      },
+      "ndfKg": {
+        "min": 35.839999999999996,
+        "max": 47.04
+      },
+      "calciumKg": {
+        "min": 0.39424000000000003,
+        "max": 0.51744
+      },
+      "phosphorusKg": {
+        "min": 0.19712000000000002,
+        "max": 0.25872
+      },
+      "nemMcal": {
+        "min": 118.272,
+        "max": 155.232
+      },
+      "Barley- raw (MaxIntake)": {
+        "max": 40,
+        "reason": "5kg per animal × 8 animals"
+      },
+      "Barley- Flakes (MaxIntake)": {
+        "max": 32,
+        "reason": "4kg per animal × 8 animals"
+      },
+      "Steamed Barley Flakes (MaxIntake)": {
+        "max": 32,
+        "reason": "4kg per animal × 8 animals"
+      },
+      "Wheat bran (MaxIntake)": {
+        "max": 16,
+        "reason": "2kg per animal × 8 animals"
+      },
+      "Cotton meal (MaxIntake)": {
+        "max": 12,
+        "reason": "1.5kg per animal × 8 animals"
+      },
+      "Beetroot pellets (MaxIntake)": {
+        "max": 20,
+        "reason": "2.5kg per animal × 8 animals"
+      },
+      "Soybean meal (MaxIntake)": {
+        "max": 16,
+        "reason": "2kg per animal × 8 animals"
+      },
+      "Molasses (MaxIntake)": {
+        "max": 14.933333333333335,
+        "reason": "10% of DM"
+      },
+      "Limestone (MaxIntake)": {
+        "max": 1.44,
+        "reason": "0.15kg per animal × 8 animals (relaxed)"
+      },
+      "Corn Gluten Meal (MaxIntake)": {
+        "max": 12,
+        "reason": "1.5kg per animal × 8 animals"
+      },
+      "Salt (MaxIntake)": {
+        "max": 0.96,
+        "reason": "0.1kg per animal × 8 animals (relaxed)"
+      },
+      "Urea (MaxIntake)": {
+        "max": 0.96,
+        "reason": "0.1kg per animal × 8 animals (relaxed)"
+      }
+    }
+  },
+  "eligible_count": 60,
+  "feed_lines": [
+    {
+      "product_number": 1007,
+      "name": "White Hay",
+      "kg_per_day": 66.5969,
+      "cost_per_day": 81.18863513042999,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1044,
+      "name": "Alfalfa Hay",
+      "kg_per_day": 15.278461,
+      "cost_per_day": 18.626053096818385,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1002,
+      "name": "Corn",
+      "kg_per_day": 7.588293,
+      "cost_per_day": 9.250928371137334,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1024,
+      "name": "Wheat grain",
+      "kg_per_day": 7.120033,
+      "cost_per_day": 8.680070113678276,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1003,
+      "name": "Soybean",
+      "kg_per_day": 3.671966,
+      "cost_per_day": 4.476513287935992,
+      "feed_type": "FODDER"
+    }
+  ]
+}

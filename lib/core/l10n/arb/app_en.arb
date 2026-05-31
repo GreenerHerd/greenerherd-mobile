@@ -1,0 +1,927 @@
+{
+  "@@locale": "en",
+  "appTitle": "GreenerHerd",
+  "tabHome": "Home",
+  "tabAnimals": "Animals",
+  "tabTasks": "Tasks",
+  "tabFinance": "Finance",
+  "tabReports": "Reports",
+  "tabOverview": "Overview",
+  "tabNutrition": "Nutrition",
+  "tabBreeding": "Breeding",
+  "tabMilking": "Milking",
+  "tabHealth": "Health",
+  "tabWeight": "Weight",
+  "tabMedia": "Media",
+  "goodMorning": "Good morning, {name}",
+  "@goodMorning": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "animals": "Animals",
+  "addNew": "Add new",
+  "profile": "Profile",
+  "groups": "Groups",
+  "inventory": "Inventory",
+  "help": "Help",
+  "reports": "Reports",
+  "settings": "Settings",
+  "signIn": "Sign in",
+  "signOut": "Sign out",
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageArabic": "Arabic",
+  "languageFrench": "French",
+  "languageUrdu": "Urdu",
+  "onboardingFarmTitle": "Set up your farm",
+  "onboardingSpeciesTitle": "Your livestock",
+  "onboardingAnimalsTitle": "Add animals",
+  "skipForNow": "Skip for now",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "pregnant": "Pregnant",
+  "lactating": "Lactating",
+  "readyToBreed": "Ready to breed",
+  "sick": "Sick",
+  "cullFlagged": "Cull flagged",
+  "allSpecies": "All species",
+  "cattle": "Cattle",
+  "goats": "Goats",
+  "sheep": "Sheep",
+  "tasksToday": "Tasks today",
+  "overdue": "Overdue",
+  "today": "Today",
+  "thisWeek": "This week",
+  "finance": "Finance",
+  "income": "Income",
+  "expense": "Expense",
+  "net": "Net",
+  "livestockValue": "Livestock value",
+  "subscription": "Subscription",
+  "buyAnimals": "Buy animals",
+  "sellAnimals": "Sell animals",
+  "buyAnimalsInventorySubtitle": "Record a purchase and add animals to the herd",
+  "sellAnimalsInventorySubtitle": "Sell animals and update herd inventory",
+  "purchaser": "Purchaser",
+  "pricePaidSar": "Price paid (SAR)",
+  "dateOfSale": "Date of sale",
+  "totalWeightKgOptional": "Total weight (kg, optional)",
+  "salePurposeOptional": "Purpose of sale (optional)",
+  "searchFarmTags": "Search tags on the farm",
+  "animalsToSell": "Animals to sell",
+  "confirmSale": "Confirm sale",
+  "saleRecorded": "Sale recorded",
+  "addAtLeastOneAnimal": "Add at least one animal to sell",
+  "enterPurchaserAndPrice": "Enter purchaser and price paid",
+  "noAnimalsMatchTag": "No active animals match this tag",
+  "animalAlreadyInSaleList": "Already added to this sale",
+  "removeFromSaleList": "Remove",
+  "addToSale": "Add",
+  "inventoryBurgerSubtitle": "Feed, medical & livestock",
+  "people": "People",
+  "marketplace": "Marketplace",
+  "fixTheGap": "Fix the gap",
+  "alertsAndTasks": "Alerts & tasks",
+  "animalNotFound": "Animal not found",
+  "groupNotFound": "Group not found",
+  "methaneEmissions": "Methane emissions",
+  "methaneRegionMiddleEast": "Middle East (GCC)",
+  "groupAverage": "Group average",
+  "groupTotal": "Group total",
+  "emissionsTotal": "Emissions total",
+  "methaneCo2eGroupTotal": "{co2e} kg CO₂e · {headCount} head",
+  "@methaneCo2eGroupTotal": {
+    "placeholders": {
+      "co2e": { "type": "String" },
+      "headCount": { "type": "int" }
+    }
+  },
+  "methaneByAnimal": "By animal (CH₄ / day)",
+  "methaneMoreAnimals": "+ {count} more animals",
+  "@methaneMoreAnimals": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "methaneCh4Grams": "{grams} g CH₄",
+  "@methaneCh4Grams": {
+    "placeholders": {
+      "grams": { "type": "String" }
+    }
+  },
+  "methaneCo2eSummary": "{co2e} kg CO₂e · {weight} kg avg BW",
+  "@methaneCo2eSummary": {
+    "placeholders": {
+      "co2e": { "type": "String" },
+      "weight": { "type": "String" }
+    }
+  },
+  "methaneGramsShort": "{grams} g",
+  "@methaneGramsShort": {
+    "placeholders": {
+      "grams": { "type": "String" }
+    }
+  },
+  "methaneAgeMonths": "{months} mo",
+  "@methaneAgeMonths": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "lactationNumber": "Lactation {number}",
+  "@lactationNumber": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "lactationDayOf305": "{stage} · Day {day} of 305",
+  "@lactationDayOf305": {
+    "placeholders": {
+      "stage": { "type": "String" },
+      "day": { "type": "int" }
+    }
+  },
+  "lactationCalvingExpected": "Calving {date} · expected ~{litres} L today",
+  "@lactationCalvingExpected": {
+    "placeholders": {
+      "date": { "type": "String" },
+      "litres": { "type": "String" }
+    }
+  },
+  "lactationCurveTitle": "Lactation curve (milk vs day in milk)",
+  "lactationCurveLegend": "Solid line = recorded milk · dashed = expected (breed average)",
+  "lactationChartNeedsData": "Record at least two milkings to show the lactation curve.",
+  "chartDayLitres": "Day {day}\n{litres} L",
+  "@chartDayLitres": {
+    "placeholders": {
+      "day": { "type": "int" },
+      "litres": { "type": "String" }
+    }
+  },
+  "milkingTodayVolume": "Today's volume",
+  "notRecorded": "Not recorded",
+  "litresValue": "{litres} L",
+  "@litresValue": {
+    "placeholders": {
+      "litres": { "type": "String" }
+    }
+  },
+  "recordMilk": "Record milk",
+  "recordBulkMilkSale": "Record bulk milk sale (income)",
+  "withdrawalMilkBlocked": "Withdrawal period active — milk cannot be sold or recorded for human consumption.",
+  "todayVsRequirement": "Today v Required Nutrition",
+  "milkingKpis": "Milking KPIs",
+  "topProducers": "Top producers",
+  "todaysFeed": "Today's Feed",
+  "energyGapDetected": "Energy gap detected",
+  "lactationStageFresh": "Fresh (early lactation)",
+  "lactationStagePeak": "Peak lactation",
+  "lactationStageMid": "Mid lactation",
+  "lactationStageLate": "Late lactation",
+  "lactationStageDry": "Dry period",
+  "species": "Species",
+  "sex": "Sex",
+  "breed": "Breed",
+  "group": "Group",
+  "purpose": "Purpose",
+  "groupPurpose": "Group purpose",
+  "animalPurpose": "Animal purpose",
+  "female": "Female",
+  "male": "Male",
+  "loadingBreeds": "Loading breeds…",
+  "saveAnimal": "Save animal",
+  "saveGroup": "Save group",
+  "newAnimal": "New animal",
+  "newGroup": "New group",
+  "onboardNewAnimal": "Onboard new animal",
+  "onboardNewGroup": "Onboard new group",
+  "groupWizardDetails": "Group details",
+  "groupWizardHerd": "Herd profile",
+  "groupWizardAnimals": "Individual animals",
+  "groupWizardSummary": "Group summary",
+  "addAMeal": "Add a meal",
+  "addAnotherGroup": "Add another group",
+  "saveMeal": "Save meal",
+  "searchMeals": "Search meals",
+  "mealAmountKg": "Amount (kg)",
+  "groupCreatedMessage": "Your group is ready. Add a meal now or skip and set feeding up later.",
+  "purchaseWizardDetails": "Purchase details",
+  "purchaseWizardLivestock": "Livestock profile",
+  "purchaseWizardAnimals": "Individual animals",
+  "finishPurchase": "Complete purchase",
+  "purchaseRecorded": "Purchase recorded",
+  "enterSupplierAndPrice": "Enter where animals were bought from and purchase price",
+  "numberOfAnimalsPurchased": "Number of animals purchased",
+  "headCount": "Number in group",
+  "ageRange": "Age range",
+  "vaccinated": "Vaccinated",
+  "vaccinationEvent": "Vaccination event",
+  "createVaccinationEvent": "Create vaccination event",
+  "selectVaccinationEvent": "Select vaccination event",
+  "noVaccinationEvents": "No vaccination events on file",
+  "noActiveVaccinationEvents": "No active vaccination events in the last 48 hours",
+  "animalInGroup": "Animal {index}",
+  "@animalInGroup": {
+    "placeholders": { "index": { "type": "int" } }
+  },
+  "markPregnant": "Pregnant",
+  "monthsPregnant": "Months pregnant",
+  "weaned": "Weaned",
+  "markSick": "Sick",
+  "sickDescription": "Illness description",
+  "markCull": "Cull",
+  "finishGroup": "Complete group",
+  "wizardStepOf": "Step {current} of {total}",
+  "@wizardStepOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "continueButton": "Continue",
+  "enterAnimalsIndividually": "Enter animals individually",
+  "tag": "Tag",
+  "weight": "Weight",
+  "dateOfBirth": "Date of birth",
+  "tagNumber": "Tag number",
+  "weightKg": "Weight (kg)",
+  "weightHint": "e.g. 412",
+  "birthDateOptional": "Birth date (optional)",
+  "bornOnDate": "Born {day}/{month}/{year}",
+  "@bornOnDate": {
+    "placeholders": {
+      "day": { "type": "int" },
+      "month": { "type": "int" },
+      "year": { "type": "int" }
+    }
+  },
+  "groupName": "Group name",
+  "descriptionOptional": "Description (optional)",
+  "ageNew": "New",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithApple": "Continue with Apple",
+  "continueWithFacebook": "Continue with Facebook",
+  "newFarmSetup": "New farm setup",
+  "welcomeTo": "Welcome to",
+  "welcomeBrand": "Greener Herd",
+  "gaveBirth": "Gave birth",
+  "recordBirthSubtitle": "Record live birth or stillborn",
+  "miscarriage": "Miscarriage",
+  "miscarriageSubtitle": "Clear pregnancy and flag for follow-up",
+  "flagForCull": "Flag for cull",
+  "clearCullFlag": "Clear cull flag",
+  "markSold": "Mark sold",
+  "recordBirth": "Record birth",
+  "bornAlive": "Born alive",
+  "bornAliveSubtitle": "Pregnancy cleared; lactating tag added only if not already set",
+  "stillborn": "Stillborn",
+  "stillbornSubtitle": "Pregnancy cleared; stillborn recorded",
+  "saveBirthRecord": "Save birth record",
+  "pregnancyOutcome": "Pregnancy outcome",
+  "howDidPregnancyEnd": "How did the pregnancy end?",
+  "birthRecordedFor": "Birth recorded for #{tag}",
+  "@birthRecordedFor": {
+    "placeholders": {
+      "tag": { "type": "String" }
+    }
+  },
+  "stillbirthRecordedFor": "Stillbirth recorded for #{tag}",
+  "@stillbirthRecordedFor": {
+    "placeholders": {
+      "tag": { "type": "String" }
+    }
+  },
+  "recordMiscarriage": "Record miscarriage",
+  "miscarriageRecordedFor": "Miscarriage recorded for #{tag}",
+  "@miscarriageRecordedFor": {
+    "placeholders": {
+      "tag": { "type": "String" }
+    }
+  },
+  "miscarriageConfirmBody": "This will clear the pregnant status and add a miscarriage flag for follow-up in Health and reports.",
+  "confirmMiscarriage": "Confirm miscarriage",
+  "newTask": "New task",
+  "voiceAddTask": "Voice add a task",
+  "voiceHoldMock": "Hold to talk (mock)",
+  "hold": "Hold",
+  "dismiss": "Dismiss",
+  "complete": "Complete",
+  "addedManually": "Added manually",
+  "taskTitle": "Title",
+  "feed": "Feed",
+  "medicine": "Medicine",
+  "mealPlans": "Meal plans",
+  "viewMealPlans": "View meal plans",
+  "recordFeeding": "Record feeding",
+  "addFeed": "Add feed",
+  "addMedicine": "Add medicine",
+  "medicineName": "Medicine name",
+  "medicineTypeLabel": "Type (e.g. ANTIBIOTIC)",
+  "medicineProductSource": "Product",
+  "fromProductList": "From list",
+  "customMedicineName": "Custom name",
+  "selectMedicineProduct": "Select medicine",
+  "searchCatalogue": "Search catalogue",
+  "medicineProductsAvailable": "matches",
+  "medicineCatalogueSearchHint": "Search {count} catalogue products",
+  "@medicineCatalogueSearchHint": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "activeIngredient": "Active ingredient",
+  "dosage": "Dosage",
+  "routeOfAdministration": "Route",
+  "inStockLabel": "In stock",
+  "selectMedicineOrEnterName": "Pick a product from the list above",
+  "withdrawalPrefilledHint": "Withdrawal periods are pre-filled from the product — adjust if your vet advises differently.",
+  "medicineNameRequired": "Select a medicine or enter a custom name",
+  "supplierNameRequired": "Supplier name is required",
+  "estimatedWeeklyUsage": "Estimated weekly usage (for low-stock alerts)",
+  "saving": "Saving…",
+  "selectProduct": "Select product",
+  "quantity": "Quantity",
+  "unit": "Unit",
+  "addFeedProduct": "Add feed product",
+  "noFeedInInventory": "No feed in inventory yet.",
+  "noMedicineInInventory": "No medicines in inventory yet.",
+  "lowStock": "Low stock",
+  "lowStockFeedBanner": "{count} feed item(s) below one week's supply",
+  "@lowStockFeedBanner": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "recordExpense": "Record expense",
+  "recordIncome": "Record income",
+  "exportCsv": "Export CSV",
+  "exportPdf": "Export PDF",
+  "printReport": "Print report",
+  "milkSale": "Milk sale",
+  "amount": "Amount",
+  "addEntry": "Add entry",
+  "categoryOptionalPreset": "Category (optional preset)",
+  "category": "Category",
+  "description": "Description",
+  "recentEntries": "Recent entries",
+  "general": "General",
+  "edit": "Edit",
+  "animalsCount": "Animals",
+  "females": "Females",
+  "avgPerHead": "Avg / head",
+  "todayTotal": "Today total",
+  "onWithdrawal": "On withdrawal",
+  "recordAction": "Record",
+  "updateAction": "Update",
+  "updateFeeding": "Update feeding",
+  "updatingFeeding": "Updating…",
+  "noFeedToday": "No feed recorded today.",
+  "nutritionNoFeedLoggedHint": "Actual intake is zero until you log feed in Today's feed below.",
+  "noMilkToday": "No milk records today.",
+  "dryMatter": "Dry matter",
+  "crudeProtein": "Crude protein",
+  "energyMe": "Energy (ME)",
+  "ndf": "NDF",
+  "calcium": "Calcium",
+  "phosphorus": "Phosphorus",
+  "legendOk": "OK",
+  "legendWarning": "Warning",
+  "legendAction": "Action",
+  "purposeHeading": "PURPOSE",
+  "descriptionHeading": "DESCRIPTION",
+  "noDescriptionRecorded": "No description recorded.",
+  "live": "Live",
+  "loadedCount": "{count} loaded",
+  "@loadedCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "perHead": "Per head",
+  "dailyCostPerHead": "Daily cost / head",
+  "todaysVolume": "Today's volume",
+  "avgLitresMilking": "Avg {avg} L/head · {count} milking",
+  "@avgLitresMilking": {
+    "placeholders": {
+      "avg": { "type": "String" },
+      "count": { "type": "int" }
+    }
+  },
+  "withdrawalDays": "Withdrawal · {days} d",
+  "@withdrawalDays": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "noAnimalsInGroup": "No animals assigned to this group yet.",
+  "groupTitle": "Group",
+  "recentVaccinations": "Recent vaccinations",
+  "activeTreatments": "Active treatments",
+  "sickAnimals": "Sick animals",
+  "breedingStatus": "Status",
+  "breedingStatusSection": "Breeding status",
+  "markAsHeifer": "Heifer",
+  "heiferHint": "Young female cattle that has not yet calved",
+  "dueDateLabel": "Due date",
+  "chooseDueDate": "Tap to choose due date",
+  "prolificacyLabel": "Prolificacy",
+  "breedingStatusConflict": "An animal cannot be both ready to breed and pregnant",
+  "fertilityMethodRequired": "Choose a fertility method",
+  "gestation": "Gestation",
+  "gestationMonths": "Gestation (months)",
+  "gestationMonthsValue": "{months} months",
+  "@gestationMonthsValue": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "markReadyToBreed": "Mark ready to breed",
+  "markPregnant": "Mark pregnant",
+  "recordPregnancyOutcome": "Record pregnancy outcome",
+  "clearReadyToBreed": "Clear ready to breed",
+  "breedingHistory": "Breeding history",
+  "breedingStatusUpdated": "Breeding status updated",
+  "breedingOpen": "Open",
+  "recentMiscarriage": "Recent miscarriage",
+  "markedReadyToBreed": "Marked ready to breed",
+  "pregnancyConfirmed": "Pregnancy confirmed",
+  "pregnancyConfirmedMo": "Pregnancy confirmed ({months} mo)",
+  "@pregnancyConfirmedMo": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "lactatingPostCalving": "Lactating / post-calving",
+  "stillbirthRecorded": "Stillbirth recorded",
+  "miscarriageRecorded": "Miscarriage recorded",
+  "noBreedingEventsYet": "No breeding events recorded yet.",
+  "breedingOverview": "Breeding overview",
+  "pregnantAnimals": "Pregnant animals",
+  "gestationMonthsSubtitle": "{months} months gestation",
+  "@gestationMonthsSubtitle": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "openAnimalProfiles": "Open animal profiles",
+  "openAnimalsForBreeding": "Open animals for breeding actions from each animal profile.",
+  "farmName": "Farm name",
+  "currency": "Currency",
+  "selectSpeciesOnFarm": "Select the species on your farm",
+  "primaryPurpose": "Primary purpose",
+  "purposeForSpecies": "Primary purpose for {species}",
+  "@purposeForSpecies": {
+    "placeholders": { "species": { "type": "String" } }
+  },
+  "setThePurposeForEachSpecies": "Set the primary purpose for each species",
+  "purposeMilk": "Milk",
+  "purposeMeat": "Meat",
+  "purposeMilkMeat": "Milk & Meat",
+  "chooseHowToAddAnimals": "Choose how to add your first animals. You can always do this later from the Animals tab.",
+  "enterAsGroup": "Enter as a group",
+  "selectAtLeastOneSpecies": "Select at least one species",
+  "selectAtLeastOneAnimal": "Select at least one animal",
+  "myFarm": "My farm",
+  "linkedToAccount": "Linked to {provider} account",
+  "@linkedToAccount": {
+    "placeholders": {
+      "provider": { "type": "String" }
+    }
+  },
+  "providerGoogle": "Google",
+  "providerApple": "Apple",
+  "providerFacebook": "Facebook",
+  "inviteTeamMember": "Invite team member",
+  "inviteTeamSubtitle": "Send an app link by email or WhatsApp. They can open it to join your farm.",
+  "fullName": "Full name",
+  "email": "Email",
+  "whatsapp": "WhatsApp",
+  "phoneWithCountryCode": "Phone (with country code)",
+  "role": "Role",
+  "manager": "Manager",
+  "farmHand": "Farm hand",
+  "veterinarian": "Veterinarian",
+  "sendInvite": "Send invite",
+  "enterValidEmail": "Enter a valid email",
+  "enterValidPhone": "Enter a valid phone",
+  "inviteSentOpen": "Invite sent — open {channel} to finish",
+  "@inviteSentOpen": {
+    "placeholders": {
+      "channel": { "type": "String" }
+    }
+  },
+  "inviteCreated": "Invite created. Link: {link}",
+  "@inviteCreated": {
+    "placeholders": {
+      "link": { "type": "String" }
+    }
+  },
+  "inviteFailed": "Invite failed: {error}",
+  "@inviteFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "joinFarmSubject": "Join {farmName} on GreenerHerd",
+  "@joinFarmSubject": {
+    "placeholders": {
+      "farmName": { "type": "String" }
+    }
+  },
+  "channelEmail": "email",
+  "channelWhatsapp": "WhatsApp",
+  "recordPurchase": "Record purchase",
+  "supplier": "Supplier",
+  "animalsPurchased": "Animals purchased",
+  "totalSar": "Total (SAR)",
+  "user": "User",
+  "notificationsRecommended": "Notifications & recommended tasks",
+  "notificationsSubtitle": "Reminders for feed, breeding, health, weather",
+  "notificationsDigestAt": "Daily digest at 06:00",
+  "preferences": "Preferences",
+  "appSettings": "App settings",
+  "helpSupport": "Help & support",
+  "farmSection": "Farm",
+  "switchFarm": "Switch",
+  "location": "Location",
+  "fullAccess": "Full access",
+  "manageTeam": "Manage",
+  "switchFarmMock": "Farm switching is not available in this demo.",
+  "inviteManageTeam": "Invite and manage your team",
+  "notFound": "Not found",
+  "errorGeneric": "Something went wrong",
+  "loading": "Loading",
+  "alerts": "Alerts",
+  "farmOwner": "Farm owner",
+  "manageGroups": "Manage groups",
+  "exportPdfCsvSubtitle": "Export PDF / CSV",
+  "feedAndMedicalStock": "Feed & medical stock",
+  "supportTopics": "Support & topics",
+  "validMilkVolume": "Enter a valid milk volume (litres)",
+  "milkBlockedWithdrawal": "Milk recording blocked during medicine withdrawal",
+  "recordedMilkFor": "Recorded {litres} L for #{tag}",
+  "@recordedMilkFor": {
+    "placeholders": {
+      "litres": { "type": "String" },
+      "tag": { "type": "String" }
+    }
+  },
+  "previousTodayMilk": "Previous today: {litres} L",
+  "@previousTodayMilk": {
+    "placeholders": {
+      "litres": { "type": "String" }
+    }
+  },
+  "todaysMilkLitres": "Today's milk (litres)",
+  "recordMilkSaleIncome": "Record milk sale income",
+  "recordMilkSaleIncomeSubtitle": "Adds income on the Finance tab",
+  "saleAmountSar": "Sale amount (SAR)",
+  "catalogGaps": "Catalog gaps",
+  "recommendedFeeds": "Recommended feeds",
+  "addSupplement": "Add a supplement",
+  "useFromInventory": "Use what you have",
+  "preFormulatedMixes": "Pre-formulated mixes",
+  "suppliersNearYou": "Suppliers near you",
+  "topPick": "Top pick",
+  "supplementAdded": "Added",
+  "supplementAdd": "+ Add",
+  "supplementAddedToTodaysFeed": "Added to today's feed · nutrition updated",
+  "recommendedFeedWeight": "Recommended: {kg} kg",
+  "@recommendedFeedWeight": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "supplementNutrientsAtWeight": "Energy {energy} MJ · Protein {protein} kg",
+  "@supplementNutrientsAtWeight": {
+    "placeholders": {
+      "energy": { "type": "String" },
+      "protein": { "type": "String" }
+    }
+  },
+  "supplementRemoved": "Supplement removed",
+  "buyProductTaskTitle": "Buy {product}",
+  "@buyProductTaskTitle": {
+    "placeholders": {
+      "product": { "type": "String" }
+    }
+  },
+  "buyTaskCreated": "Buy task added to your task list",
+  "projectedDailyCost": "Projected daily cost",
+  "recomputeGapHint": "Greener Herd will recompute the gap after the next feeding is logged.",
+  "kgPerDay": "kg/day",
+  "energyImpact": "Energy",
+  "proteinImpact": "Protein",
+  "applyToMorningMix": "Apply to morning mix",
+  "feedPlanApplied": "Feed plan applied",
+  "couldNotApplyFeedPlan": "Could not apply feed plan",
+  "failedToApplyPlan": "Failed to apply plan: {error}",
+  "@failedToApplyPlan": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "source": "Source",
+  "standard": "Standard",
+  "marketplace": "Marketplace",
+  "custom": "Custom",
+  "catalogueProduct": "Catalogue product",
+  "marketplaceListingName": "Marketplace listing name",
+  "productName": "Product name",
+  "currentStockKg": "Current stock (kg)",
+  "purchasedVolumeKg": "Purchased volume (kg)",
+  "purchasedVolumeRequired": "Enter purchased volume (kg)",
+  "unitCostRequired": "Enter unit cost (SAR per kg)",
+  "inventoryCurrentStockKg": "Current stock: {kg} kg",
+  "@inventoryCurrentStockKg": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "feedProductAlreadyInInventory": "This product is already in your inventory.",
+  "feedAddProductOnlyHint": "Add feed product is for new items only. To buy more of an existing product, record a new purchase from the feed list.",
+  "feedRecordNewPurchase": "Record new purchase",
+  "inventoryCostPerKg": "{cost} SAR/kg",
+  "@inventoryCostPerKg": {
+    "placeholders": {
+      "cost": { "type": "String" }
+    }
+  },
+  "inventoryPreviousUnitCost": "Previous unit cost: {cost} SAR/kg",
+  "@inventoryPreviousUnitCost": {
+    "placeholders": {
+      "cost": { "type": "String" }
+    }
+  },
+  "stockUpdated": "Stock updated",
+  "inventoryLastPurchaseKg": "+{kg} kg purchased",
+  "@inventoryLastPurchaseKg": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "unitCostSar": "Unit cost (SAR/kg)",
+  "supplierName": "Supplier name",
+  "supplierPhone": "Supplier phone",
+  "nutritionalInformation": "Nutritional information",
+  "dryMatterPercent": "Dry matter %",
+  "crudeProteinPercent": "Crude protein %",
+  "nemMcalPerKg": "NEm (Mcal/kg)",
+  "addToInventory": "Add to inventory",
+  "feedType": "Feed type",
+  "avgWithdrawalRemaining": "Avg {days} d remaining",
+  "@avgWithdrawalRemaining": {
+    "placeholders": {
+      "days": { "type": "String" }
+    }
+  },
+  "addAnimalTitle": "Add animal",
+  "backButton": "Back",
+  "origin": "Origin",
+  "bornOnFarm": "Born on farm",
+  "purchased": "Purchased",
+  "earTag": "Ear tag",
+  "earTagHint": "e.g. 0473",
+  "nameOptional": "Name (optional)",
+  "nameOptionalHint": "You can add this later.",
+  "nameOptionalPlaceholder": "e.g. Salwa",
+  "newbornDetails": "Newborn details",
+  "sizeAtBirth": "Size at birth",
+  "birthSizeSmall": "Small",
+  "birthSizeMedium": "Medium",
+  "birthSizeLarge": "Large",
+  "vigour": "Vigour",
+  "vigourWeak": "Weak",
+  "vigourAverage": "Average",
+  "vigourStrong": "Strong",
+  "birthingAssistance": "Birthing assistance",
+  "assistanceNone": "None — natural birth",
+  "assistanceEasyPull": "Easy pull (1 person)",
+  "assistanceHardPull": "Hard pull (2+ people)",
+  "assistanceVet": "Vet assisted",
+  "assistanceCSection": "C-section",
+  "animalIsTwin": "This animal is a twin",
+  "birthWeightHint": "Birth weight",
+  "heightCm": "Height",
+  "purchaseDate": "Purchase date",
+  "dobIfKnown": "Date of birth (if known)",
+  "dobOrAgeRangeHint": "Or pick an age range below.",
+  "ageRangeIfUnknown": "Age range (if DOB unknown)",
+  "pickAgeRange": "Pick a range…",
+  "supplierSource": "Supplier / source",
+  "supplierHint": "e.g. Al-Wafi Genetics, market, neighbour…",
+  "purchasePrice": "Purchase price",
+  "sireOptional": "Sire (optional)",
+  "damOptional": "Dam (optional)",
+  "mothersTag": "Mother's tag",
+  "parentSearchHint": "Search or enter",
+  "notes": "Notes",
+  "notesHint": "Anything else worth recording",
+  "youreAdding": "You're adding",
+  "summaryOriginBorn": "Born on farm",
+  "summaryOriginPurchased": "Purchased",
+  "summaryOriginPurchasedFrom": "Purchased from {supplier}",
+  "@summaryOriginPurchasedFrom": {
+    "placeholders": {
+      "supplier": { "type": "String" }
+    }
+  },
+  "selectGroupRequired": "Select a group or create a new one",
+  "breedForSpecies": "Breed ({species})",
+  "@breedForSpecies": {
+    "placeholders": {
+      "species": { "type": "String" }
+    }
+  },
+  "goat": "Goat",
+  "groupSpeciesLabel": "{name} · {species}",
+  "@groupSpeciesLabel": {
+    "placeholders": {
+      "name": { "type": "String" },
+      "species": { "type": "String" }
+    }
+  },
+  "groupOfLivestock": "Group of livestock",
+  "livestockExisting": "Existing",
+  "livestockNewBorn": "New (born)",
+  "livestockNewPurchased": "New (purchased)",
+  "animalsAvailable": "{count} {species} available",
+  "@animalsAvailable": {
+    "placeholders": {
+      "count": { "type": "int" },
+      "species": { "type": "String" }
+    }
+  },
+  "noAnimalsForSpecies": "No {species} on the farm yet.",
+  "@noAnimalsForSpecies": {
+    "placeholders": {
+      "species": { "type": "String" }
+    }
+  },
+  "createGroupAction": "Create group",
+  "createGroupWithAnimals": "Create group · {count} animal",
+  "createGroupWithAnimalsPlural": "Create group · {count} animals",
+  "@createGroupWithAnimals": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "@createGroupWithAnimalsPlural": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "addLivestockLabel": "Add {label}",
+  "@addLivestockLabel": {
+    "placeholders": { "label": { "type": "String" } }
+  },
+  "tapToRegisterLivestock": "Tap Add {label} to register one or more {species} now.",
+  "@tapToRegisterLivestock": {
+    "placeholders": {
+      "label": { "type": "String" },
+      "species": { "type": "String" }
+    }
+  },
+  "addingCountToGroupOnSave": "Adding {count} to the group on save",
+  "@addingCountToGroupOnSave": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "addAnotherAnimal": "Add another",
+  "newbornAnimalN": "Newborn #{n}",
+  "@newbornAnimalN": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "purchasedAnimalN": "Purchased #{n}",
+  "@purchasedAnimalN": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "groupDescriptionHint": "Housing, feeding cadence, notes",
+  "groupNameHint": "e.g. Milking B",
+  "removeAnimal": "Remove",
+  "userRoleOwner": "Owner",
+  "userRoleManager": "Manager",
+  "userRoleFarmHand": "Farm hand",
+  "userRoleVet": "Vet",
+  "reportsSubtitle": "PDF · downloadable",
+  "dateRange": "Date range",
+  "last90Days": "Last 90 days",
+  "fromDate": "From",
+  "toDate": "To",
+  "availableReports": "Available reports",
+  "reportPreview": "Report preview",
+  "recordsIncluded": "Records included",
+  "inSelectedRange": "In the selected range",
+  "window": "Window",
+  "last90DaysRange": "Feb 07 – May 08",
+  "speciesCovered": "Species covered",
+  "speciesCoveredValue": "Cattle · Goat · Sheep",
+  "generated": "Generated",
+  "generatedToday": "Today, 09:14",
+  "headline": "Headline",
+  "perGroup": "Per-group",
+  "auditableDetail": "Auditable detail",
+  "exportReport": "Export",
+  "downloadPdf": "Download PDF",
+  "signatureLineNote": "Includes signature line for veterinary / auditor handoff.",
+  "breedingKpis": "Breeding KPIs",
+  "pregnancyRate": "Pregnancy rate",
+  "aiAttempts30d": "AI attempts (30d)",
+  "confirmed": "Confirmed",
+  "successRate": "Success rate",
+  "miscarriagesCount": "Miscarriages",
+  "aiProviderPerformance": "AI provider performance",
+  "weightMonthsTitle": "Weight · 5 months",
+  "weightGrowthPct": "+{pct}%",
+  "@weightGrowthPct": {
+    "placeholders": { "pct": { "type": "int" } }
+  },
+  "currentWeightLabel": "Current",
+  "weightDeltaKg": "+{kg} kg",
+  "@weightDeltaKg": {
+    "placeholders": { "kg": { "type": "int" } }
+  },
+  "artificialInseminations": "Artificial inseminations",
+  "recordsOnFile": "{count} records on file",
+  "@recordsOnFile": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "noAiRecordsYet": "No AI records yet",
+  "noAiRecordsHint": "Log inseminations or natural services to track attempts and outcomes.",
+  "addAi": "Add AI",
+  "recordAi": "Record AI",
+  "aiAttemptTitle": "Artificial insemination · Attempt {n}",
+  "@aiAttemptTitle": {
+    "placeholders": { "n": { "type": "int" } }
+  },
+  "sireLabel": "SIRE",
+  "technicianLabel": "TECHNICIAN",
+  "semenBatchLabel": "SEMEN BATCH",
+  "resultDateLabel": "RESULT DATE",
+  "miscarriagesSection": "Miscarriages",
+  "noLossesRecorded": "No losses recorded",
+  "noMiscarriagesYet": "No miscarriages recorded",
+  "noMiscarriagesHint": "Log a pregnancy loss to track gestation day, cause and follow-up.",
+  "breedingFemalesOnly": "Breeding history is shown for females only.",
+  "healthcareHistory": "Healthcare history",
+  "vaccinationsSection": "Vaccinations",
+  "recordTreatment": "Record treatment",
+  "updateTreatment": "Update treatment",
+  "updateTreatmentSubtitle": "Change illness notes or medicine details",
+  "illnessSymptomsLabel": "Illness / symptoms",
+  "treatmentMedicineLabel": "Medicine / treatment",
+  "treatmentRecorded": "Treatment recorded",
+  "treatmentUpdated": "Treatment updated",
+  "markedCured": "Marked as cured",
+  "underTreatmentDefault": "Under treatment",
+  "withdrawalPeriodActive": "Withdrawal period active",
+  "withdrawalMilkSafe": "Milk safe from {date}. Do not sell this animal's milk until cleared.",
+  "@withdrawalMilkSafe": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "activeIllnessDetail": "Mastitis · day 3 of 5 of treatment. Penicillin G — 5 ml IM daily.",
+  "individualTasks": "Individual tasks",
+  "addTaskForAnimal": "Add task for {name}",
+  "@addTaskForAnimal": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "noTasksForAnimal": "No upcoming tasks for this animal.",
+  "recurring": "Recurring",
+  "allTasks": "All",
+  "tasksDueSubtitle": "{due} due · {overdue} overdue",
+  "@tasksDueSubtitle": {
+    "placeholders": {
+      "due": { "type": "int" },
+      "overdue": { "type": "int" }
+    }
+  },
+  "voiceLanguages": "EN · AR · UR · FR · transcribed by AI",
+  "nothingForFilter": "Nothing for this filter.",
+  "editTask": "Edit task",
+  "methodLabel": "Method",
+  "fertilityMethodLabel": "Fertility method",
+  "readyToBreedMethodHint": "Choose how this animal will be bred. Sponges synchronize heat for timed insemination in goats and sheep.",
+  "breedingMethodNatural": "Natural service",
+  "breedingMethodAi": "Artificial insemination",
+  "breedingMethodEmbryonic": "Embryo transfer",
+  "breedingMethodSponges": "Sponges",
+  "providerLabel": "Provider",
+  "attemptNumberLabel": "Attempt #",
+  "resolved": "Resolved",
+  "activeStatus": "Active",
+  "tomorrow": "Tomorrow",
+  "markCured": "Mark cured",
+  "recordDeath": "Record death",
+  "deathReason": "Cause of death",
+  "deathReasonHint": "Illness, injury, unknown…",
+  "confirmRecordDeath": "Confirm death",
+  "confirmRecordDeathMessage": "Record {animal} as deceased?\n\nReason: {reason}\n\nThe animal will be removed from its group. This cannot be undone.",
+  "@confirmRecordDeathMessage": {
+    "placeholders": {
+      "animal": { "type": "String" },
+      "reason": { "type": "String" }
+    }
+  },
+  "animalRecordedDeceased": "Death recorded",
+  "deceased": "Deceased",
+  "removedFromGroupNote": "Removed from group",
+  "cullType": "Cull type",
+  "cullReason": "Cull reason"
+}

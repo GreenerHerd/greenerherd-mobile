@@ -1,0 +1,118 @@
+{
+  "group_id": "g5",
+  "profile_code": "GOAT_SMALL_RUMINANT_MAINTENANCE",
+  "match_reason": "small ruminant: Maintenance",
+  "head_count": 48,
+  "required": {
+    "dry_matter_kg": 72,
+    "protein_kg": 8.64,
+    "energy_mj": 496.8
+  },
+  "plan": {
+    "dry_matter_kg": 80.63999976999999,
+    "protein_kg": 9.67680006,
+    "energy_mj": 556.415997585
+  },
+  "current": {
+    "dry_matter_kg": 63.36,
+    "protein_kg": 7.6032,
+    "energy_mj": 437.184
+  },
+  "optimizer_pass": "complete",
+  "nutrient_gaps": [],
+  "catalog_achievement": {
+    "primary_min_ratio": 1.1199999951388888,
+    "nutrient_floor_used": 0.95,
+    "needs_market_supplement": false
+  },
+  "recommendation": {
+    "solution": {
+      "Steamed Barley Flakes": 14.407983,
+      "Sesame seed husk": 14.295796,
+      "Wheat Straw": 27.143317,
+      "Corn Gluten Meal": 6.899687,
+      "Salt": 4.51584,
+      "Ponicum (Hay)": 22.823062
+    },
+    "totals": {
+      "dryMatterKg": 80.63999976999999,
+      "proteinKg": 9.67680006,
+      "tdnKg": 48.38399979,
+      "calciumG": 215.0399993,
+      "phosphorusG": 180.5455429
+    },
+    "cost_per_day": 220.49,
+    "cost_currency": "SAR",
+    "constraints": {
+      "dryMatterKg": {
+        "min": 68.39999999999999,
+        "max": 80.64000000000001
+      },
+      "proteinKg": {
+        "min": 8.208,
+        "max": 9.676800000000002
+      },
+      "tdnKg": {
+        "min": 41.04,
+        "max": 48.38400000000001
+      },
+      "calciumG": {
+        "min": 0.1824,
+        "max": 0.21504000000000004
+      },
+      "phosphorusG": {
+        "min": 0.1596,
+        "max": 0.18816000000000002
+      },
+      "fodderDmMinRatio": 0.275,
+      "concentrateDmMaxRatio": 0.392,
+      "additiveDmMaxRatio": 0.05600000000000001,
+      "nutrientFloorUsed": 0.95
+    }
+  },
+  "eligible_count": 60,
+  "feed_lines": [
+    {
+      "product_number": 1039,
+      "name": "Wheat Straw",
+      "kg_per_day": 27.143317,
+      "cost_per_day": 66.4348610473462,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1072,
+      "name": "Ponicum (Hay)",
+      "kg_per_day": 22.823062,
+      "cost_per_day": 55.86078343501524,
+      "feed_type": "FODDER"
+    },
+    {
+      "product_number": 1018,
+      "name": "Steamed Barley Flakes",
+      "kg_per_day": 14.407983,
+      "cost_per_day": 35.26438381047999,
+      "feed_type": "CONCENTRATE"
+    },
+    {
+      "product_number": 1020,
+      "name": "Sesame seed husk",
+      "kg_per_day": 14.295796,
+      "cost_per_day": 34.98979954517746,
+      "feed_type": "CONCENTRATE"
+    },
+    {
+      "product_number": 1042,
+      "name": "Corn Gluten Meal",
+      "kg_per_day": 6.899687,
+      "cost_per_day": 16.88738878579877,
+      "feed_type": "CONCENTRATE"
+    },
+    {
+      "product_number": 1045,
+      "name": "Salt",
+      "kg_per_day": 4.51584,
+      "cost_per_day": 11.052783376182356,
+      "feed_type": "ADDITIVE"
+    }
+  ]
+}

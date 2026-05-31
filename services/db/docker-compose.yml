@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: greenerherd-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: greenerherd
+      POSTGRES_PASSWORD: greenerherd
+      POSTGRES_DB: greenerherd
+    ports:
+      - '5432:5432'
+    volumes:
+      - greenerherd_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U greenerherd -d greenerherd']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  greenerherd_pgdata:

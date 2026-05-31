@@ -1,0 +1,9 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width="360" height="80" role="img" aria-label="Greener Herd">
+  <g>
+    
+    <path d="M44 12 C24 16 12 32 12 52 C12 60 16 66 24 68 C36 66 50 56 56 40 C58 32 56 22 50 16 Z M28 56 C32 44 40 36 50 30" fill="#3B5A2A" stroke="none"></path>
+    <path d="M28 56 C32 44 40 36 50 30" fill="none" stroke="#ABCF98" stroke-width="2" stroke-linecap="round"></path>
+  </g>
+  <text x="78" y="52" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="32" fill="#3B5A2A" letter-spacing="-0.5">Greener Herd</text>
+</svg>
