@@ -1,0 +1,492 @@
+{
+  "version": 1,
+  "scenario_count": 32,
+  "scenarios": [
+    {
+      "id": "legacy_dairy_lactating",
+      "name": "Dairy Cow - Lactating",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 36,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 2,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_EARLY",
+      "expect_success": true
+    },
+    {
+      "id": "legacy_dairy_pregnant",
+      "name": "Dairy Cow - Pregnant dry",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 30,
+        "production_focus": "MILK",
+        "lactating": false,
+        "pregnant": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_CLOSE_CLOSE_UP",
+      "expect_success": true
+    },
+    {
+      "id": "legacy_beef_calf",
+      "name": "Beef Calf",
+      "request": {
+        "species": "CATTLE",
+        "sex": "MALE",
+        "age_months": 6,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_BEEF_GROWING_BULL_CALVES_11_MONTHS_GROWING_W500",
+      "expect_success": true
+    },
+    {
+      "id": "legacy_lactating_ewe",
+      "name": "Lactating Ewe",
+      "request": {
+        "species": "SHEEP",
+        "sex": "FEMALE",
+        "age_months": 24,
+        "production_focus": "MILK",
+        "lactating": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "SHEEP_SMALL_RUMINANT_LACTATING",
+      "expect_success": true
+    },
+    {
+      "id": "legacy_breeding_ram",
+      "name": "Breeding Ram (maintenance)",
+      "request": {
+        "species": "SHEEP",
+        "sex": "MALE",
+        "age_months": 30,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "SHEEP_SMALL_RUMINANT_MAINTENANCE",
+      "expect_success": true
+    },
+    {
+      "id": "legacy_lactating_doe",
+      "name": "Lactating Doe",
+      "request": {
+        "species": "GOAT",
+        "sex": "FEMALE",
+        "age_months": 24,
+        "production_focus": "MILK",
+        "lactating": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_LACTATING",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_dry_far_off",
+      "name": "Dairy dry far-off",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 60,
+        "production_focus": "MILK",
+        "lactating": false,
+        "pregnant": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_DRY_FAR_OFF",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_close_up",
+      "name": "Dairy close-up",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 36,
+        "production_focus": "MILK",
+        "lactating": false,
+        "pregnant": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_CLOSE_CLOSE_UP",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_fresh",
+      "name": "Dairy fresh cow",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 1,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_FRESH",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_mid_lactation",
+      "name": "Dairy mid lactation",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 5,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_MID",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_late_lactation",
+      "name": "Dairy late lactation",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 8,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_LATE",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_heifer_6mo",
+      "name": "Dairy 6-mo heifer",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 6,
+        "production_focus": "MILK",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_6_MO_HEIFER",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_heifer_12mo",
+      "name": "Dairy 12-mo heifer",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 12,
+        "production_focus": "MILK",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_12_MO_HEIFER",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_heifer_18mo",
+      "name": "Dairy 18-mo heifer",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 18,
+        "production_focus": "MILK",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_18_MO_HEIFER",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_heifer_24mo_close",
+      "name": "Dairy 24-mo heifer close-up",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 24,
+        "production_focus": "MILK",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_24_MO_HEIFER_CLOSE_UP",
+      "expect_success": true
+    },
+    {
+      "id": "beef_early_lactation",
+      "name": "Beef mature cow early lactation",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 48,
+        "production_focus": "MEAT",
+        "lactating": true,
+        "months_since_calving": 2,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_BEEF_MATURE_COW_EARLY_LACTATION_M2",
+      "expect_success": true
+    },
+    {
+      "id": "beef_mid_gestation",
+      "name": "Beef mid gestation",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 48,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "pregnant": true,
+        "months_since_calving": 7,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_BEEF_MATURE_COW_MID_GESTATION_M7",
+      "expect_success": true
+    },
+    {
+      "id": "beef_maintenance",
+      "name": "Beef mature cow maintenance",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 60,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "pregnant": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_BEEF_MATURE_COW_MAINTENANCE",
+      "expect_success": true
+    },
+    {
+      "id": "goat_maintenance",
+      "name": "Goat maintenance",
+      "request": {
+        "species": "GOAT",
+        "age_months": 18,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_MAINTENANCE",
+      "expect_success": true
+    },
+    {
+      "id": "goat_pregnant",
+      "name": "Goat late pregnancy",
+      "request": {
+        "species": "GOAT",
+        "sex": "FEMALE",
+        "age_months": 24,
+        "production_focus": "MILK",
+        "lactating": false,
+        "pregnant": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_PREGNANT",
+      "expect_success": true
+    },
+    {
+      "id": "goat_fattening",
+      "name": "Goat fattening programme",
+      "request": {
+        "species": "GOAT",
+        "age_months": 12,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "fattening": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_FATTENING",
+      "expect_success": true
+    },
+    {
+      "id": "sheep_pregnant",
+      "name": "Sheep late pregnancy",
+      "request": {
+        "species": "SHEEP",
+        "sex": "FEMALE",
+        "age_months": 30,
+        "production_focus": "MILK",
+        "lactating": false,
+        "pregnant": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "SHEEP_SMALL_RUMINANT_PREGNANT",
+      "expect_success": true
+    },
+    {
+      "id": "sheep_fattening",
+      "name": "Sheep fattening programme",
+      "request": {
+        "species": "SHEEP",
+        "age_months": 12,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "fattening": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "SHEEP_SMALL_RUMINANT_FATTENING",
+      "expect_success": true
+    },
+    {
+      "id": "cattle_sick",
+      "name": "Sick cattle maintenance reduction",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 48,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "pregnant": false,
+        "sick": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_SICK",
+      "expect_success": true
+    },
+    {
+      "id": "cattle_weaning",
+      "name": "Cattle weaning calf",
+      "request": {
+        "species": "CATTLE",
+        "sex": "FEMALE",
+        "age_months": 6,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "weaning": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_WEANING",
+      "expect_success": true
+    },
+    {
+      "id": "dairy_breeding_bull",
+      "name": "Dairy breeding bull",
+      "request": {
+        "species": "CATTLE",
+        "sex": "MALE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": false,
+        "breeding": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_BREEDING_BULL",
+      "expect_success": true
+    },
+    {
+      "id": "goat_young_maintenance",
+      "name": "Young goat maintenance",
+      "request": {
+        "species": "GOAT",
+        "age_months": 8,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_MAINTENANCE_YOUNG",
+      "expect_success": true
+    },
+    {
+      "id": "goat_sick",
+      "name": "Sick goat",
+      "request": {
+        "species": "GOAT",
+        "age_months": 18,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "sick": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SICK",
+      "expect_success": true
+    },
+    {
+      "id": "goat_weaning",
+      "name": "Goat weaning group",
+      "request": {
+        "species": "GOAT",
+        "age_months": 4,
+        "production_focus": "MEAT",
+        "lactating": false,
+        "weaning": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_WEANING",
+      "expect_success": true
+    },
+    {
+      "id": "goat_breeding",
+      "name": "Goat breeding flock",
+      "request": {
+        "species": "GOAT",
+        "age_months": 24,
+        "production_focus": "BOTH",
+        "lactating": false,
+        "breeding": true,
+        "head_count": 1,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "GOAT_SMALL_RUMINANT_BREEDING",
+      "expect_success": true
+    },
+    {
+      "id": "group_10_dairy",
+      "name": "Dairy group 10 head",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 2,
+        "head_count": 10,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_EARLY",
+      "expect_success": true
+    },
+    {
+      "id": "group_50_dairy",
+      "name": "Dairy group 50 head",
+      "request": {
+        "species": "CATTLE",
+        "age_months": 48,
+        "production_focus": "MILK",
+        "lactating": true,
+        "months_since_calving": 2,
+        "head_count": 50,
+        "country_code": "SA"
+      },
+      "expected_profile_code": "CATTLE_DAIRY_COW_EARLY",
+      "expect_success": true
+    }
+  ]
+}
