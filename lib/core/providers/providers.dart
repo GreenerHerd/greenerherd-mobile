@@ -210,7 +210,10 @@ final inventoryRepositoryProvider = Provider<InventoryRepository>((ref) {
 
 final nutritionRepositoryProvider = Provider<NutritionRepository>((ref) {
   if (AppConfig.useNutritionEngine) {
-    return HybridNutritionRepository();
+    return HybridNutritionRepository(
+      animalRepository: ref.watch(animalRepositoryProvider),
+      groupRepository: ref.watch(groupRepositoryProvider),
+    );
   }
   return MockNutritionRepository(ref.watch(mockDataStoreProvider));
 });

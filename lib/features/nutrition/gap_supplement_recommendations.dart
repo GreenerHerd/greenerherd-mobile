@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../data/models/enums.dart';
+import '../../data/models/feed_eligibility_models.dart';
 import '../../data/models/inventory_models.dart';
 import '../../data/models/models.dart';
 import '../../data/services/feed_catalog_loader.dart';
@@ -153,7 +155,24 @@ class GapSupplementRecommendations {
         standard: standard,
         marketplace: marketplace,
       );
-      final kg = _suggestedKg(gap, nem: nutrition.nemMcalPerKg);
+      final rules = _rulesForInventoryItem(
+        item,
+        standard: standard,
+        marketplace: marketplace,
+      );
+      final feedType = _feedTypeForInventoryItem(
+        item,
+        standard: standard,
+        marketplace: marketplace,
+      );
+      final kg = _resolveSuggestedKg(
+        gap: gap,
+        nem: nutrition.nemMcalPerKg,
+        cp: nutrition.crudeProteinPercent,
+        rules: rules,
+        feedType: feedType,
+        groupMembers: groupMembers,
+      );
       options.add(
         _option(
           id: 'inv-${item.id}',
@@ -189,8 +208,32 @@ class GapSupplementRecommendations {
           standard: standard,
           marketplace: marketplace,
         );
-        final kg =
-            rec.kgPerDay > 0 ? rec.kgPerDay : _suggestedKg(gap, nem: nutrition.nemMcalPerKg);
+        final rules = _rulesForInventoryItem(
+          matched,
+          standard: standard,
+          marketplace: marketplace,
+        );
+        final feedType = _feedTypeForInventoryItem(
+          matched,
+          standard: standard,
+          marketplace: marketplace,
+        );
+        final kg = rec.kgPerDay > 0
+            ? _applyDosageCap(
+                rec.kgPerDay,
+                gap: gap,
+                rules: rules,
+                feedType: feedType,
+                groupMembers: groupMembers,
+              )
+            : _resolveSuggestedKg(
+                gap: gap,
+                nem: nutrition.nemMcalPerKg,
+                cp: nutrition.crudeProteinPercent,
+                rules: rules,
+                feedType: feedType,
+                groupMembers: groupMembers,
+              );
         options.add(
           _option(
             id: 'eng-${rec.id}',
@@ -220,9 +263,24 @@ class GapSupplementRecommendations {
         standard: standard,
         marketplace: marketplace,
       );
+      final rules = product?.eligibilityRules ?? const [];
+      final feedType = product?.feedType ?? 'CONCENTRATE';
       final kg = rec.kgPerDay > 0
-          ? rec.kgPerDay
-          : _suggestedKg(gap, nem: catalogNutrition.nemMcalPerKg);
+          ? _applyDosageCap(
+              rec.kgPerDay,
+              gap: gap,
+              rules: rules,
+              feedType: feedType,
+              groupMembers: groupMembers,
+            )
+          : _resolveSuggestedKg(
+              gap: gap,
+              nem: catalogNutrition.nemMcalPerKg,
+              cp: catalogNutrition.crudeProteinPercent,
+              rules: rules,
+              feedType: feedType,
+              groupMembers: groupMembers,
+            );
       options.add(
         _option(
           id: 'eng-${rec.id}',
@@ -252,7 +310,14 @@ class GapSupplementRecommendations {
     final eligible =
         FeedEligibilityService.filterProductsForAnimals(catalog, groupMembers);
     final options = eligible.map((p) {
-      final kg = _suggestedKg(gap, nem: p.nemMcalPerKg);
+      final kg = _resolveSuggestedKg(
+        gap: gap,
+        nem: p.nemMcalPerKg,
+        cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
+        rules: p.eligibilityRules,
+        feedType: p.feedType,
+        groupMembers: groupMembers,
+      );
       return _option(
         id: 'std-${p.productNumber}',
         source: GapSupplementSource.standard,
@@ -286,7 +351,14 @@ class GapSupplementRecommendations {
       groupMembers,
     );
     final options = eligible.map((p) {
-      final kg = _suggestedKg(gap, nem: p.nemMcalPerKg);
+      final kg = _resolveSuggestedKg(
+        gap: gap,
+        nem: p.nemMcalPerKg,
+        cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
+        rules: p.eligibilityRules,
+        feedType: p.feedType,
+        groupMembers: groupMembers,
+      );
       return _option(
         id: 'mkt-${p.id}',
         source: GapSupplementSource.marketplace,
@@ -383,15 +455,21 @@ class GapSupplementRecommendations {
 
   static double _score(NutritionGap gap, GapSupplementOption o) {
     final nem = o.nemMcalPerKg ?? 0;
+    final cp = o.crudeProteinPercent ?? 0;
     final energyShort =
         (gap.energyTargetMj - gap.energyActualMj).clamp(0, double.infinity);
     final proteinShort = gap.proteinTargetKg != null && gap.proteinActualKg != null
         ? (gap.proteinTargetKg! - gap.proteinActualKg!).clamp(0, double.infinity)
         : 0.0;
-    return energyShort * nem + proteinShort;
+    final cpContributionPerKg = cp / 100;
+    return energyShort * nem + proteinShort * cpContributionPerKg;
   }
 
-  static double _suggestedKg(NutritionGap gap, {double? nem}) {
+  static double _suggestedKg(
+    NutritionGap gap, {
+    double? nem,
+    double? cp,
+  }) {
     final n = nem ?? 1.5;
     if (n <= 0) return 5;
     final energyShort =
@@ -399,12 +477,108 @@ class GapSupplementRecommendations {
     if (energyShort <= 0) {
       final proteinShort = gap.proteinTargetKg != null &&
               gap.proteinActualKg != null
-          ? (gap.proteinTargetKg! - gap.proteinActualKg!).clamp(0, double.infinity)
+          ? (gap.proteinTargetKg! - gap.proteinActualKg!)
+              .clamp(0, double.infinity)
           : 0.0;
-      if (proteinShort > 0) return (proteinShort / 0.15).clamp(2, 15);
+      if (proteinShort > 0) {
+        final proteinFraction = (cp ?? 15) / 100;
+        if (proteinFraction > 0) {
+          return (proteinShort / proteinFraction).clamp(2, 15);
+        }
+      }
       return 5;
     }
     return (energyShort / n).clamp(2, 25);
+  }
+
+  static double _estimatedDailyFeedKgPerAnimal(
+    NutritionGap gap,
+    List<Animal> groupMembers,
+  ) {
+    final active =
+        groupMembers.where((a) => a.status == AnimalStatus.active).length;
+    if (active <= 0 || gap.dryMatterTargetKg <= 0) return 0;
+    return gap.dryMatterTargetKg / active;
+  }
+
+  static double _applyDosageCap(
+    double suggestedKg, {
+    required NutritionGap gap,
+    required List<FeedEligibilityRule> rules,
+    required String feedType,
+    required List<Animal> groupMembers,
+  }) {
+    if (groupMembers.isEmpty || rules.isEmpty) return suggestedKg;
+    return FeedEligibilityService.applyDosageCapToSuggestedKg(
+      suggestedKg: suggestedKg,
+      rules: rules,
+      feedType: feedType,
+      animals: groupMembers,
+      estimatedDailyFeedKgPerAnimal:
+          _estimatedDailyFeedKgPerAnimal(gap, groupMembers),
+    );
+  }
+
+  static double _resolveSuggestedKg({
+    required NutritionGap gap,
+    double? nem,
+    double? cp,
+    List<FeedEligibilityRule> rules = const [],
+    String feedType = 'CONCENTRATE',
+    List<Animal> groupMembers = const [],
+  }) {
+    final uncapped = _suggestedKg(gap, nem: nem, cp: cp);
+    return _applyDosageCap(
+      uncapped,
+      gap: gap,
+      rules: rules,
+      feedType: feedType,
+      groupMembers: groupMembers,
+    );
+  }
+
+  static List<FeedEligibilityRule> _rulesForInventoryItem(
+    FeedInventoryItem item, {
+    required List<FeedCatalogProduct> standard,
+    required List<MarketplaceFeedProduct> marketplace,
+  }) {
+    if (item.feedProductNumber != null) {
+      for (final product in standard) {
+        if (product.productNumber == item.feedProductNumber) {
+          return product.eligibilityRules;
+        }
+      }
+    }
+    if (item.marketplaceProductId != null) {
+      for (final product in marketplace) {
+        if (product.id == item.marketplaceProductId) {
+          return product.eligibilityRules;
+        }
+      }
+    }
+    return const [];
+  }
+
+  static String _feedTypeForInventoryItem(
+    FeedInventoryItem item, {
+    required List<FeedCatalogProduct> standard,
+    required List<MarketplaceFeedProduct> marketplace,
+  }) {
+    if (item.feedProductNumber != null) {
+      for (final product in standard) {
+        if (product.productNumber == item.feedProductNumber) {
+          return product.feedType;
+        }
+      }
+    }
+    if (item.marketplaceProductId != null) {
+      for (final product in marketplace) {
+        if (product.id == item.marketplaceProductId) {
+          return product.feedType;
+        }
+      }
+    }
+    return item.feedType?.name.toUpperCase() ?? 'CONCENTRATE';
   }
 
   static String _energyImpact(NutritionGap gap, double? nem, double kg) {

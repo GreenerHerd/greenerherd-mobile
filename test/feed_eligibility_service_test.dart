@@ -420,6 +420,82 @@ void main() {
     });
   });
 
+  group('Dosage caps', () {
+    test('conservativePerAnimalDosageCapKg uses minimum across members', () async {
+      final catalog = await FeedCatalogLoader.loadStandardProducts();
+      FeedCatalogProduct? barley;
+      for (final p in catalog) {
+        if (p.nameEn == 'Barley- Flakes') {
+          barley = p;
+          break;
+        }
+      }
+      expect(barley, isNotNull);
+
+      final cow = _cow(id: 'c1', tag: '2001', ageMonths: 36);
+      final goat = Animal(
+        id: 'g1',
+        tag: '3001',
+        name: '3001',
+        species: Species.goat,
+        sex: 'F',
+        breed: 'Boer',
+        weightKg: 45,
+        ageLabel: '24m',
+        groupId: 'g1',
+        productionPurpose: SpeciesPurpose.meat,
+      );
+
+      final cap = FeedEligibilityService.conservativePerAnimalDosageCapKg(
+        rules: barley!.eligibilityRules,
+        feedType: barley.feedType,
+        animals: [cow, goat],
+      );
+
+      expect(cap, 0.4);
+    });
+
+    test('applyDosageCapToSuggestedKg limits group total by per-animal cap',
+        () async {
+      final catalog = await FeedCatalogLoader.loadStandardProducts();
+      FeedCatalogProduct? steamed;
+      for (final p in catalog) {
+        if (p.nameEn == 'Steamed Corn Flake') {
+          steamed = p;
+          break;
+        }
+      }
+      expect(steamed, isNotNull);
+
+      final members = [
+        _cow(
+          id: 'l1',
+          tag: '0444',
+          tags: const [AnimalTagType.lactating],
+          monthsSinceCalving: 5,
+          ageMonths: 48,
+        ),
+        _cow(
+          id: 'l2',
+          tag: '0445',
+          tags: const [AnimalTagType.lactating],
+          monthsSinceCalving: 4,
+          ageMonths: 48,
+        ),
+      ];
+
+      final capped = FeedEligibilityService.applyDosageCapToSuggestedKg(
+        suggestedKg: 25,
+        rules: steamed!.eligibilityRules,
+        feedType: steamed.feedType,
+        animals: members,
+        estimatedDailyFeedKgPerAnimal: 20,
+      );
+
+      expect(capped, 10);
+    });
+  });
+
   group('Feed catalogue asset integration', () {
     test('Steamed Corn Flake in asset catalogue excludes dry dairy cows', () async {
       final catalog = await FeedCatalogLoader.loadStandardProducts();

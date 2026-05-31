@@ -391,6 +391,22 @@ void main() {
   });
 
   group('Combined energy and protein gap ranking', () {
+    test('protein-only gap ranks high-CP inventory above barley', () async {
+      final members = EligibilityLivestockPool.membersOf('lactating_dairy');
+      final gap = NutritionGapPool.proteinOnlyShortfall(groupId: 'g-lactating');
+      final inventory = [
+        NutritionInventoryPool.barleyStandard(),
+        NutritionInventoryPool.customProteinBoost(),
+      ];
+      final options = await NutritionRecommendationAsserts.loadInventory(
+        gap: gap,
+        members: members,
+        inventory: inventory,
+      );
+      expect(options.first.name, 'Protein booster');
+      NutritionRecommendationAsserts.assertRankedByGapScore(options, gap);
+    });
+
     test('top pick still follows energy-weighted score for mixed gap', () async {
       final members = EligibilityLivestockPool.membersOf('mixed_lactation');
       final gap = NutritionGapPool.energyAndProteinShortfall(groupId: 'g-mixed');
@@ -421,6 +437,25 @@ void main() {
         final optPct = int.parse(option.energyImpact.replaceAll(RegExp(r'[^\d]'), ''));
         expect(topPct, greaterThanOrEqualTo(optPct));
       }
+    });
+
+    test('lactating group caps steamed corn suggested kg by eligibility rule',
+        () async {
+      final members = EligibilityLivestockPool.membersOf('lactating_dairy');
+      final gap = NutritionGapPool.energyShortfall(
+        groupId: 'g-lactating',
+        energyTargetMj: 200,
+        energyActualMj: 0,
+        dmTargetKg: 40,
+      );
+      final inventory = [NutritionInventoryPool.steamedCornLactation()];
+      final options = await NutritionRecommendationAsserts.loadInventory(
+        gap: gap,
+        members: members,
+        inventory: inventory,
+      );
+      expect(options, isNotEmpty);
+      expect(options.first.suggestedKgPerDay, lessThanOrEqualTo(5));
     });
   });
 

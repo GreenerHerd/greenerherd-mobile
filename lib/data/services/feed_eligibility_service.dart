@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../models/enums.dart';
 import '../models/feed_eligibility_models.dart';
 import '../models/inventory_models.dart';
@@ -191,6 +193,88 @@ abstract final class FeedEligibilityService {
     Animal animal,
   ) =>
       findMatchingRule(rules, feedType, contextFromAnimal(animal));
+
+  /// Per-animal daily as-fed cap from the matched rule (kg).
+  static double? perAnimalDosageCapKg({
+    required FeedEligibilityRule rule,
+    required Animal animal,
+    double? estimatedDailyFeedKg,
+  }) {
+    final caps = <double>[];
+    if (rule.maxFeedWeightKg != null) {
+      caps.add(rule.maxFeedWeightKg!);
+    }
+    if (rule.maxPercWeight != null && animal.weightKg > 0) {
+      caps.add(animal.weightKg * rule.maxPercWeight! / 100);
+    }
+    if (rule.maxPercFeed != null &&
+        estimatedDailyFeedKg != null &&
+        estimatedDailyFeedKg > 0) {
+      caps.add(estimatedDailyFeedKg * rule.maxPercFeed! / 100);
+    }
+    if (caps.isEmpty) return null;
+    return caps.reduce(math.min);
+  }
+
+  /// Minimum per-animal cap across active members that match a rule (conservative).
+  static double? conservativePerAnimalDosageCapKg({
+    required List<FeedEligibilityRule> rules,
+    required String feedType,
+    required List<Animal> animals,
+    double? estimatedDailyFeedKgPerAnimal,
+  }) {
+    final active =
+        animals.where((a) => a.status == AnimalStatus.active).toList();
+    if (active.isEmpty) return null;
+
+    double? minCap;
+    for (final animal in active) {
+      final rule = matchingRuleForAnimal(rules, feedType, animal);
+      if (rule == null) continue;
+      final cap = perAnimalDosageCapKg(
+        rule: rule,
+        animal: animal,
+        estimatedDailyFeedKg: estimatedDailyFeedKgPerAnimal,
+      );
+      if (cap == null) continue;
+      minCap = minCap == null ? cap : math.min(minCap, cap);
+    }
+    return minCap;
+  }
+
+  /// Caps a group-level suggested kg using per-animal limits × eligible head count.
+  static double applyDosageCapToSuggestedKg({
+    required double suggestedKg,
+    required List<FeedEligibilityRule> rules,
+    required String feedType,
+    required List<Animal> animals,
+    double? estimatedDailyFeedKgPerAnimal,
+  }) {
+    final active =
+        animals.where((a) => a.status == AnimalStatus.active).toList();
+    if (active.isEmpty || rules.isEmpty) return suggestedKg;
+
+    final perAnimalCap = conservativePerAnimalDosageCapKg(
+      rules: rules,
+      feedType: feedType,
+      animals: animals,
+      estimatedDailyFeedKgPerAnimal: estimatedDailyFeedKgPerAnimal,
+    );
+    if (perAnimalCap == null) return suggestedKg;
+
+    var eligibleCount = 0;
+    for (final animal in active) {
+      final rule = matchingRuleForAnimal(rules, feedType, animal);
+      if (rule != null &&
+          isRuleEligible(rule, feedType, contextFromAnimal(animal)).eligible) {
+        eligibleCount++;
+      }
+    }
+    if (eligibleCount == 0) return suggestedKg;
+
+    final groupCap = perAnimalCap * eligibleCount;
+    return math.min(suggestedKg, groupCap);
+  }
 
   static bool isMarketplaceProductEligibleForAnimal(
     MarketplaceFeedProduct product,

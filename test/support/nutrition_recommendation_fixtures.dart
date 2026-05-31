@@ -339,15 +339,30 @@ abstract final class NutritionRecommendationScenarios {
 
 /// Test helpers mirroring [GapSupplementRecommendations] ranking and eligibility.
 abstract final class NutritionRecommendationAsserts {
-  static double gapScore(NutritionGap gap, {required double? nemMcalPerKg}) {
+  static double gapScore(
+    NutritionGap gap, {
+    required double? nemMcalPerKg,
+    double? crudeProteinPercent,
+  }) {
     final nem = nemMcalPerKg ?? 0;
+    final cp = crudeProteinPercent ?? 0;
     final energyShort =
         (gap.energyTargetMj - gap.energyActualMj).clamp(0, double.infinity);
     final proteinShort = gap.proteinTargetKg != null && gap.proteinActualKg != null
         ? (gap.proteinTargetKg! - gap.proteinActualKg!)
             .clamp(0, double.infinity)
         : 0.0;
-    return energyShort * nem + proteinShort;
+    final cpContributionPerKg = cp / 100;
+    return energyShort * nem + proteinShort * cpContributionPerKg;
+  }
+
+  static double? _defaultCpForFeedType(String feedType) {
+    return switch (feedType.toUpperCase()) {
+      'CONCENTRATE' => 14.0,
+      'FODDER' => 9.0,
+      'ADDITIVE' => 5.0,
+      _ => null,
+    };
   }
 
   static Future<FeedCatalogProduct?> bestEligibleCatalogProduct(
@@ -360,7 +375,12 @@ abstract final class NutritionRecommendationAsserts {
     FeedCatalogProduct? best;
     var bestScore = -1.0;
     for (final product in eligible) {
-      final score = gapScore(gap, nemMcalPerKg: product.nemMcalPerKg);
+      final score = gapScore(
+        gap,
+        nemMcalPerKg: product.nemMcalPerKg,
+        crudeProteinPercent:
+            product.crudeProteinPercent ?? _defaultCpForFeedType(product.feedType),
+      );
       if (score > bestScore) {
         bestScore = score;
         best = product;
@@ -382,7 +402,12 @@ abstract final class NutritionRecommendationAsserts {
     MarketplaceFeedProduct? best;
     var bestScore = -1.0;
     for (final product in eligible) {
-      final score = gapScore(gap, nemMcalPerKg: product.nemMcalPerKg);
+      final score = gapScore(
+        gap,
+        nemMcalPerKg: product.nemMcalPerKg,
+        crudeProteinPercent:
+            product.crudeProteinPercent ?? _defaultCpForFeedType(product.feedType),
+      );
       if (score > bestScore) {
         bestScore = score;
         best = product;
@@ -502,8 +527,16 @@ abstract final class NutritionRecommendationAsserts {
     for (var i = 0; i < options.length - 1; i++) {
       final a = options[i];
       final b = options[i + 1];
-      final scoreA = gapScore(gap, nemMcalPerKg: a.nemMcalPerKg);
-      final scoreB = gapScore(gap, nemMcalPerKg: b.nemMcalPerKg);
+      final scoreA = gapScore(
+        gap,
+        nemMcalPerKg: a.nemMcalPerKg,
+        crudeProteinPercent: a.crudeProteinPercent,
+      );
+      final scoreB = gapScore(
+        gap,
+        nemMcalPerKg: b.nemMcalPerKg,
+        crudeProteinPercent: b.crudeProteinPercent,
+      );
       expect(
         scoreA >= scoreB,
         isTrue,

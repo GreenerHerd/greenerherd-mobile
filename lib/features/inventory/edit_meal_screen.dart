@@ -6,9 +6,14 @@ import '../../core/l10n/gen/app_localizations.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
+import '../../data/models/feed_eligibility_models.dart';
 import '../../data/models/inventory_models.dart';
+import '../../data/models/models.dart';
+import '../../data/services/feed_catalog_loader.dart';
+import '../../data/services/feed_eligibility_service.dart';
 import '../../data/services/meal_mix_nutrition.dart';
 import '../../shared/widgets/gh_app_bar.dart';
+import 'feed_eligibility_ui.dart';
 
 class EditMealScreen extends ConsumerStatefulWidget {
   const EditMealScreen({super.key, required this.mealId});
@@ -23,6 +28,9 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
   final List<_IngredientRow> _rows = [];
   bool _loading = true;
   String _mealName = '';
+  List<Animal> _farmAnimals = const [];
+  List<FeedCatalogProduct> _catalog = const [];
+  List<MarketplaceFeedProduct> _marketplace = const [];
 
   @override
   void initState() {
@@ -41,6 +49,9 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
   Future<void> _load() async {
     final meals = await ref.read(inventoryRepositoryProvider).listMeals();
     final feed = await ref.read(inventoryRepositoryProvider).listFeed();
+    final animals = await ref.read(animalRepositoryProvider).listAnimals();
+    final catalog = await FeedCatalogLoader.loadStandardProducts();
+    final marketplace = await FeedCatalogLoader.loadMarketplaceProducts();
     MealPlan? meal;
     for (final m in meals) {
       if (m.id == widget.mealId) {
@@ -58,10 +69,34 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
       }
     }
     _feedOptions = feed;
+    _farmAnimals = animals;
+    _catalog = catalog;
+    _marketplace = marketplace;
     if (mounted) setState(() => _loading = false);
   }
 
   List<FeedInventoryItem> _feedOptions = [];
+
+  bool get _hasRestrictedFeedOptions {
+    if (_farmAnimals.isEmpty) return false;
+    return FeedEligibilityService.restrictedProductCount(_catalog, _farmAnimals) >
+            0 ||
+        FeedEligibilityService.restrictedMarketplaceProductCount(
+          _marketplace,
+          _farmAnimals,
+        ) >
+            0;
+  }
+
+  FeedEligibilityProductCheck? _checkForFeedItem(FeedInventoryItem? item) {
+    if (item == null || _farmAnimals.isEmpty) return null;
+    return FeedEligibilityService.checkInventoryItem(
+      item,
+      catalog: _catalog,
+      animals: _farmAnimals,
+      marketplace: _marketplace,
+    );
+  }
 
   Future<void> _save() async {
     final ingredients = <MealIngredientInput>[];
@@ -80,6 +115,37 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
       );
       return;
     }
+
+    final draftMeal = MealPlan(
+      id: widget.mealId,
+      name: _mealName.isEmpty ? 'Meal' : _mealName,
+      totalKgPerBatch: ingredients.fold<double>(0, (sum, i) => sum + i.amountKg),
+      ingredients: [
+        for (final ing in ingredients)
+          MealIngredientLine(
+            feedInventoryItemId: ing.feedInventoryItemId,
+            feedItemName: () {
+              for (final f in _feedOptions) {
+                if (f.id == ing.feedInventoryItemId) return f.name;
+              }
+              return '';
+            }(),
+            amountKg: ing.amountKg,
+          ),
+      ],
+    );
+    final eligibilityCheck = FeedEligibilityService.evaluateMealForAnimals(
+      meal: draftMeal,
+      feedItems: _feedOptions,
+      catalog: _catalog,
+      animals: _farmAnimals,
+      marketplace: _marketplace,
+    );
+    if (eligibilityCheck.hasImpacts) {
+      final proceed = await confirmMealEligibilityImpacts(context, eligibilityCheck);
+      if (!proceed || !mounted) return;
+    }
+
     final result = await ref.read(inventoryRepositoryProvider).setMealIngredients(
           widget.mealId,
           ingredients,
@@ -115,6 +181,14 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
     if (mounted) context.pop(true);
   }
 
+  FeedInventoryItem? _feedById(String? id) {
+    if (id == null) return null;
+    for (final item in _feedOptions) {
+      if (item.id == id) return item;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -131,6 +205,10 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
+          if (_hasRestrictedFeedOptions) ...[
+            const FeedEligibilityRestrictedBanner(),
+            const SizedBox(height: 12),
+          ],
           if (_rows.isEmpty)
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
@@ -144,25 +222,34 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
             ),
           ..._rows.asMap().entries.map((e) {
             final row = e.value;
+            final selectedFeed = _feedById(row.feedId);
+            final eligibilityCheck = _checkForFeedItem(selectedFeed);
             return Card(
               margin: const EdgeInsets.only(bottom: 8),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DropdownButtonFormField<String>(
                       value: row.feedId,
                       decoration: const InputDecoration(labelText: 'Feed item'),
-                      items: _feedOptions
-                          .map(
-                            (f) => DropdownMenuItem(
-                              value: f.id,
-                              child: Text('${f.name} (${f.quantityKg.toInt()} kg)'),
-                            ),
-                          )
-                          .toList(),
+                      items: _feedOptions.map((f) {
+                        final check = _checkForFeedItem(f);
+                        final restricted = check?.hasImpacts ?? false;
+                        return DropdownMenuItem(
+                          value: f.id,
+                          child: Text(
+                            restricted
+                                ? '${f.name} (${f.quantityKg.toInt()} kg) · restricted'
+                                : '${f.name} (${f.quantityKg.toInt()} kg)',
+                          ),
+                        );
+                      }).toList(),
                       onChanged: (v) => setState(() => row.feedId = v),
                     ),
+                    if (eligibilityCheck != null)
+                      FeedIngredientEligibilityHint(check: eligibilityCheck),
                     TextField(
                       controller: row.amountCtrl,
                       keyboardType: TextInputType.number,

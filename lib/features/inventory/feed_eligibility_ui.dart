@@ -38,6 +38,34 @@ class FeedEligibilityRestrictedBanner extends StatelessWidget {
   }
 }
 
+class FeedIngredientEligibilityHint extends StatelessWidget {
+  const FeedIngredientEligibilityHint({super.key, required this.check});
+
+  final FeedEligibilityProductCheck check;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!check.hasImpacts) return const SizedBox.shrink();
+    final tags = FeedEligibilityService.formatImpactedTags(check.impacts);
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.warning_amber_rounded, size: 16, color: GhColors.warning),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              context.l10n.feedEligibilityImpactedAnimals(tags),
+              style: const TextStyle(fontSize: 12, color: GhColors.textSecondary),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// Warns when a feed or meal plan affects animals that fail eligibility rules.
 Future<bool> confirmFeedEligibilityImpacts(
   BuildContext context, {

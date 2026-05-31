@@ -1,8 +1,10 @@
 import '../../core/config/app_config.dart';
+import '../models/enums.dart';
 import '../models/models.dart';
 import '../services/group_nutrition_mapper.dart';
 import '../services/group_nutrition_profile_resolver.dart';
 import '../services/nutrition_api_client.dart';
+import '../services/nutrition_requirements_catalog.dart';
 import '../services/supplement_nutrition.dart';
 import 'engine_nutrition_repository.dart';
 import 'repositories.dart';
@@ -26,12 +28,18 @@ class HybridNutritionRepository implements NutritionRepository {
   HybridNutritionRepository({
     NutritionApiClient? apiClient,
     EngineNutritionRepository? offline,
+    AnimalRepository? animalRepository,
+    GroupRepository? groupRepository,
   })  : _api = apiClient ??
             NutritionApiClient(baseUrl: AppConfig.nutritionApiBaseUrl),
-        _offline = offline ?? EngineNutritionRepository();
+        _offline = offline ?? EngineNutritionRepository(),
+        _animals = animalRepository,
+        _groups = groupRepository;
 
   final NutritionApiClient _api;
   final EngineNutritionRepository _offline;
+  final AnimalRepository? _animals;
+  final GroupRepository? _groups;
 
   final Map<String, Map<String, dynamic>> _cache = {};
   final Map<String, Set<String>> _addedIds = {};
@@ -75,7 +83,7 @@ class HybridNutritionRepository implements NutritionRepository {
     // recommended feeds, re-run the optimizer using the selected products.
     if (!AppConfig.useNutritionApi) return;
 
-    final profile = await GroupNutritionProfileResolver.resolve(groupId);
+    final profile = await _resolveProfile(groupId);
     if (profile == null) return;
 
     final selectedProductNumbers = _addedIds[groupId]!
@@ -117,7 +125,7 @@ class HybridNutritionRepository implements NutritionRepository {
 
   @override
   Future<ApplyFeedPlanResult> applyFeedPlan(String groupId) async {
-    final profile = await GroupNutritionProfileResolver.resolve(groupId);
+    final profile = await _resolveProfile(groupId);
     if (profile == null) {
       return const ApplyFeedPlanResult(
         applied: false,
@@ -176,12 +184,44 @@ class HybridNutritionRepository implements NutritionRepository {
     );
   }
 
+  Future<GroupNutritionProfile?> _resolveProfile(String groupId) async {
+    AnimalGroup? group;
+    List<Animal>? members;
+
+    if (_groups != null) {
+      final groups = _groups;
+      group = await groups.getGroup(groupId);
+      if (group == null) {
+        for (final g in await groups.listGroups()) {
+          if (g.id == groupId) {
+            group = g;
+            break;
+          }
+        }
+      }
+    }
+    if (_animals != null) {
+      final all = await _animals.listAnimals(groupId: groupId);
+      members = all
+          .where((a) => a.status == AnimalStatus.active)
+          .toList(growable: false);
+    }
+
+    final catalog = await NutritionRequirementsCatalog.load();
+    return GroupNutritionProfileResolver.resolve(
+      groupId,
+      group: group,
+      members: members,
+      catalog: catalog,
+    );
+  }
+
   Future<Map<String, dynamic>> _loadPayload(String groupId) async {
     if (_cache.containsKey(groupId)) {
       return _cache[groupId]!;
     }
 
-    final profile = await GroupNutritionProfileResolver.resolve(groupId);
+    final profile = await _resolveProfile(groupId);
     if (AppConfig.useNutritionApi && profile != null) {
       try {
         final payload = await _api.fetchGroupNutrition(groupId, profile);
