@@ -456,6 +456,9 @@ void main() {
       );
       expect(options, isNotEmpty);
       expect(options.first.suggestedKgPerDay, lessThanOrEqualTo(5));
+      expect(options.first.groupDosageCapKg, 5);
+      expect(options.first.perAnimalDosageCapKg, 5);
+      expect(options.first.isDosageCapped, isTrue);
     });
   });
 

@@ -494,6 +494,46 @@ void main() {
 
       expect(capped, 10);
     });
+
+    test('groupFeedDosageCap returns per-animal and group totals', () async {
+      final catalog = await FeedCatalogLoader.loadStandardProducts();
+      FeedCatalogProduct? steamed;
+      for (final p in catalog) {
+        if (p.nameEn == 'Steamed Corn Flake') {
+          steamed = p;
+          break;
+        }
+      }
+      expect(steamed, isNotNull);
+
+      final members = [
+        _cow(
+          id: 'l1',
+          tag: '0444',
+          tags: const [AnimalTagType.lactating],
+          monthsSinceCalving: 5,
+          ageMonths: 48,
+        ),
+        _cow(
+          id: 'l2',
+          tag: '0445',
+          tags: const [AnimalTagType.lactating],
+          monthsSinceCalving: 4,
+          ageMonths: 48,
+        ),
+      ];
+
+      final cap = FeedEligibilityService.groupFeedDosageCap(
+        rules: steamed!.eligibilityRules,
+        feedType: steamed.feedType,
+        animals: members,
+      );
+
+      expect(cap, isNotNull);
+      expect(cap!.perAnimalCapKg, 5);
+      expect(cap.groupCapKg, 10);
+      expect(cap.eligibleHeadCount, 2);
+    });
   });
 
   group('Feed catalogue asset integration', () {

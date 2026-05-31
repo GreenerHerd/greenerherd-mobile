@@ -967,5 +967,11 @@
     }
   },
   "feedMealPlanRestrictedBody": "بعض مكونات هذه الخطة غير مؤهلة لحيوانات المجموعة المحددة.",
+  "groupHerdRequirementsTitle": "الاحتياجات اليومية للقطيع",
+  "groupHerdRequirementsSubtitle": "مجموع ملفات التغذية لكل حيوان",
+  "groupHerdRequirementsProfiles": "{count} حيوان · ملفات متنوعة",
+  "supplementDosageCapPerAnimal": "حد أقصى {kg} كغ لكل حيوان يومياً",
+  "supplementDosageCapGroup": "حد المجموعة {kg} كغ يومياً",
+  "supplementDosageCappedHint": "الكمية المقترحة محدودة بقواعد الأهلية",
   "addAnyway": "إضافة على أي حال"
 }

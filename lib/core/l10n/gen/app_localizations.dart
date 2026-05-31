@@ -3978,6 +3978,42 @@ abstract class AppLocalizations {
   /// **'Some ingredients in this meal plan are not eligible for animals in the selected group.'**
   String get feedMealPlanRestrictedBody;
 
+  /// No description provided for @groupHerdRequirementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Herd daily requirements'**
+  String get groupHerdRequirementsTitle;
+
+  /// No description provided for @groupHerdRequirementsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Summed from each animal\'s nutrition profile'**
+  String get groupHerdRequirementsSubtitle;
+
+  /// No description provided for @groupHerdRequirementsProfiles.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} animals · mixed profiles'**
+  String groupHerdRequirementsProfiles(int count);
+
+  /// No description provided for @supplementDosageCapPerAnimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {kg} kg per animal per day'**
+  String supplementDosageCapPerAnimal(String kg);
+
+  /// No description provided for @supplementDosageCapGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Group limit {kg} kg per day'**
+  String supplementDosageCapGroup(String kg);
+
+  /// No description provided for @supplementDosageCappedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested amount capped by feed eligibility rules'**
+  String get supplementDosageCappedHint;
+
   /// No description provided for @addAnyway.
   ///
   /// In en, this message translates to:

@@ -967,5 +967,11 @@
     }
   },
   "feedMealPlanRestrictedBody": "Certains ingrédients ne sont pas éligibles pour les animaux du groupe sélectionné.",
+  "groupHerdRequirementsTitle": "Besoins quotidiens du troupeau",
+  "groupHerdRequirementsSubtitle": "Somme des profils nutritionnels de chaque animal",
+  "groupHerdRequirementsProfiles": "{count} animaux · profils mixtes",
+  "supplementDosageCapPerAnimal": "Max {kg} kg par animal et par jour",
+  "supplementDosageCapGroup": "Limite groupe {kg} kg par jour",
+  "supplementDosageCappedHint": "Quantité suggérée plafonnée par les règles d'éligibilité",
   "addAnyway": "Ajouter quand même"
 }

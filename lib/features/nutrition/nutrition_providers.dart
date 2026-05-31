@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/providers/providers.dart';
 import '../../data/models/inventory_models.dart';
 import '../../data/models/models.dart';
+import '../../data/services/group_nutrition_profile_resolver.dart';
+import '../../data/services/group_nutrition_requirements_aggregator.dart';
+import '../../data/services/nutrition_requirements_catalog.dart';
 import '../../features/groups/group_mock_extras.dart';
 import '../../data/services/todays_feed_nutrition.dart';
 import 'gap_supplement_recommendations.dart';
@@ -36,6 +39,25 @@ final groupNutritionDisplayGapProvider =
 final groupAnimalsForNutritionProvider =
     FutureProvider.family<List<Animal>, String>((ref, groupId) {
   return ref.watch(animalRepositoryProvider).listAnimals(groupId: groupId);
+});
+
+/// Per-animal summed daily requirements for a group (xlsx-aligned profiles).
+final groupAggregatedRequirementsProvider =
+    FutureProvider.family<AggregatedGroupNutritionRequirements?, String>(
+        (ref, groupId) async {
+  final group = await ref.watch(groupRepositoryProvider).getGroup(groupId);
+  if (group == null) return null;
+  final members =
+      await ref.watch(groupAnimalsForNutritionProvider(groupId).future);
+  if (members.isEmpty) return null;
+  final catalog = await NutritionRequirementsCatalog.load();
+  final profile = await GroupNutritionProfileResolver.resolve(
+    groupId,
+    group: group,
+    members: members,
+    catalog: catalog,
+  );
+  return profile?.aggregatedRequirements;
 });
 
 final groupTodaysFeedProvider =

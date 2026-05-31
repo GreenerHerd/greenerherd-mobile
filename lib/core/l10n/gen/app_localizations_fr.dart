@@ -2152,5 +2152,31 @@ class AppLocalizationsFr extends AppLocalizations {
       'Certains ingrédients ne sont pas éligibles pour les animaux du groupe sélectionné.';
 
   @override
+  String get groupHerdRequirementsTitle => 'Besoins quotidiens du troupeau';
+
+  @override
+  String get groupHerdRequirementsSubtitle =>
+      'Somme des profils nutritionnels de chaque animal';
+
+  @override
+  String groupHerdRequirementsProfiles(int count) {
+    return '$count animaux · profils mixtes';
+  }
+
+  @override
+  String supplementDosageCapPerAnimal(String kg) {
+    return 'Max $kg kg par animal et par jour';
+  }
+
+  @override
+  String supplementDosageCapGroup(String kg) {
+    return 'Limite groupe $kg kg par jour';
+  }
+
+  @override
+  String get supplementDosageCappedHint =>
+      'Quantité suggérée plafonnée par les règles d\'éligibilité';
+
+  @override
   String get addAnyway => 'Ajouter quand même';
 }

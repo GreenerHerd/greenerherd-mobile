@@ -967,5 +967,11 @@
     }
   },
   "feedMealPlanRestrictedBody": "اس میل پلان کے کچھ اجزاء منتخب گروپ کے جانوروں کے لیے اہل نہیں۔",
+  "groupHerdRequirementsTitle": "گروپ کی روزانہ ضروریات",
+  "groupHerdRequirementsSubtitle": "ہر جانور کے غذائی پروفائل کا مجموعہ",
+  "groupHerdRequirementsProfiles": "{count} جانور · مختلف پروفائل",
+  "supplementDosageCapPerAnimal": "زیادہ سے زیادہ {kg} kg فی جانور روزانہ",
+  "supplementDosageCapGroup": "گروپ حد {kg} kg روزانہ",
+  "supplementDosageCappedHint": "تجویز کردہ مقدار eligibility rules سے محدود",
   "addAnyway": "پھر بھی شامل کریں"
 }

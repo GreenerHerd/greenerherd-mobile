@@ -837,6 +837,143 @@ class _EditableFeedRowState extends ConsumerState<_EditableFeedRow> {
   }
 }
 
+class GroupHerdRequirementsCard extends ConsumerWidget {
+  const GroupHerdRequirementsCard({super.key, required this.groupId});
+
+  final String groupId;
+
+  static String _formatNum(num value) =>
+      value == value.roundToDouble()
+          ? value.toInt().toString()
+          : value.toStringAsFixed(1);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final aggregatedAsync =
+        ref.watch(groupAggregatedRequirementsProvider(groupId));
+
+    return aggregatedAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
+      data: (aggregated) {
+        if (aggregated == null || aggregated.headCount == 0) {
+          return const SizedBox.shrink();
+        }
+        final totals = aggregated.groupTotals;
+        final isSmallRuminant = aggregated.optimizer == 'small_ruminant';
+        final profileCodes =
+            aggregated.members.map((m) => m.profileCode).toSet();
+
+        return groupSectionCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l10n.groupHerdRequirementsTitle, style: GhTypography.h03),
+              const SizedBox(height: 4),
+              Text(
+                l10n.groupHerdRequirementsSubtitle,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: GhColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                l10n.groupHerdRequirementsProfiles(aggregated.headCount),
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: GhColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 12),
+              _HerdRequirementRow(
+                label: l10n.dryMatter,
+                value:
+                    '${_formatNum(totals['dry_matter_kg'] ?? 0)} kg/day',
+              ),
+              _HerdRequirementRow(
+                label: l10n.crudeProtein,
+                value:
+                    '${_formatNum(isSmallRuminant ? totals['protein_kg'] ?? 0 : totals['crude_protein_kg'] ?? 0)} kg/day',
+              ),
+              if (isSmallRuminant)
+                _HerdRequirementRow(
+                  label: 'TDN',
+                  value: '${_formatNum(totals['tdn_kg'] ?? 0)} kg/day',
+                )
+              else
+                _HerdRequirementRow(
+                  label: 'Energy (NEm)',
+                  value: '${_formatNum(totals['nem_mcal'] ?? 0)} Mcal/day',
+                ),
+              if (profileCodes.length > 1) ...[
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: [
+                    for (final code in profileCodes.take(4))
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: GhColors.primaryLight.withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          code.replaceAll('_', ' '),
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: GhColors.primary,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _HerdRequirementRow extends StatelessWidget {
+  const _HerdRequirementRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 13, color: GhColors.textSecondary),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: GhColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class GroupDailyCostCard extends StatelessWidget {
   const GroupDailyCostCard({required this.gap});
 

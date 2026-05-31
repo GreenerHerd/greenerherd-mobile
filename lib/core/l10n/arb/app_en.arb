@@ -996,5 +996,26 @@
     }
   },
   "feedMealPlanRestrictedBody": "Some ingredients in this meal plan are not eligible for animals in the selected group.",
+  "groupHerdRequirementsTitle": "Herd daily requirements",
+  "groupHerdRequirementsSubtitle": "Summed from each animal's nutrition profile",
+  "groupHerdRequirementsProfiles": "{count} animals · mixed profiles",
+  "@groupHerdRequirementsProfiles": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "supplementDosageCapPerAnimal": "Max {kg} kg per animal per day",
+  "@supplementDosageCapPerAnimal": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "supplementDosageCapGroup": "Group limit {kg} kg per day",
+  "@supplementDosageCapGroup": {
+    "placeholders": {
+      "kg": { "type": "String" }
+    }
+  },
+  "supplementDosageCappedHint": "Suggested amount capped by feed eligibility rules",
   "addAnyway": "Add anyway"
 }

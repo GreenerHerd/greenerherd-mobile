@@ -2145,5 +2145,30 @@ class AppLocalizationsAr extends AppLocalizations {
       'بعض مكونات هذه الخطة غير مؤهلة لحيوانات المجموعة المحددة.';
 
   @override
+  String get groupHerdRequirementsTitle => 'الاحتياجات اليومية للقطيع';
+
+  @override
+  String get groupHerdRequirementsSubtitle => 'مجموع ملفات التغذية لكل حيوان';
+
+  @override
+  String groupHerdRequirementsProfiles(int count) {
+    return '$count حيوان · ملفات متنوعة';
+  }
+
+  @override
+  String supplementDosageCapPerAnimal(String kg) {
+    return 'حد أقصى $kg كغ لكل حيوان يومياً';
+  }
+
+  @override
+  String supplementDosageCapGroup(String kg) {
+    return 'حد المجموعة $kg كغ يومياً';
+  }
+
+  @override
+  String get supplementDosageCappedHint =>
+      'الكمية المقترحة محدودة بقواعد الأهلية';
+
+  @override
   String get addAnyway => 'إضافة على أي حال';
 }

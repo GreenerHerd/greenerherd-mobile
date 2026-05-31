@@ -14,6 +14,69 @@ import '../tasks/task_item_extensions.dart';
 import 'gap_supplement_recommendations.dart';
 import 'nutrition_providers.dart';
 
+String _formatDosageKg(double kg) =>
+    kg == kg.roundToDouble() ? kg.toInt().toString() : kg.toStringAsFixed(1);
+
+double _maxKgForOption(GapSupplementOption option) {
+  if (option.groupDosageCapKg != null) {
+    return option.groupDosageCapKg!.clamp(1, 50);
+  }
+  return 50;
+}
+
+class _SupplementDosageCapHint extends StatelessWidget {
+  const _SupplementDosageCapHint({required this.option});
+
+  final GapSupplementOption option;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!option.hasDosageCap) return const SizedBox.shrink();
+    final l10n = context.l10n;
+    final perAnimal = option.perAnimalDosageCapKg;
+    final groupCap = option.groupDosageCapKg;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 6),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: GhColors.warningLight.withValues(alpha: 0.7),
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: GhColors.warning.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (option.isDosageCapped)
+              Text(
+                l10n.supplementDosageCappedHint,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: GhColors.textSecondary,
+                ),
+              ),
+            if (perAnimal != null) ...[
+              if (option.isDosageCapped) const SizedBox(height: 4),
+              Text(
+                l10n.supplementDosageCapPerAnimal(_formatDosageKg(perAnimal)),
+                style: const TextStyle(fontSize: 11, color: GhColors.textSecondary),
+              ),
+            ],
+            if (groupCap != null)
+              Text(
+                l10n.supplementDosageCapGroup(_formatDosageKg(groupCap)),
+                style: const TextStyle(fontSize: 11, color: GhColors.textSecondary),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _AppliedSupplement {
   const _AppliedSupplement({
     required this.option,
@@ -458,6 +521,7 @@ class _SupplementCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final maxKg = _maxKgForOption(option);
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
       shape: RoundedRectangleBorder(
@@ -541,6 +605,7 @@ class _SupplementCard extends StatelessWidget {
                         option: option,
                         kg: isPicked ? kgPerDay : option.suggestedKgPerDay,
                       ),
+                      _SupplementDosageCapHint(option: option),
                       const SizedBox(height: 6),
                       Text(
                         option.costLabel,
@@ -600,7 +665,7 @@ class _SupplementCard extends StatelessWidget {
                     IconButton(
                       visualDensity: VisualDensity.compact,
                       onPressed: () =>
-                          onKgChanged((kgPerDay - 1).clamp(1, 50)),
+                          onKgChanged((kgPerDay - 1).clamp(1, maxKg)),
                       icon: const Icon(Icons.remove),
                     ),
                     Text(
@@ -613,7 +678,7 @@ class _SupplementCard extends StatelessWidget {
                     IconButton(
                       visualDensity: VisualDensity.compact,
                       onPressed: () =>
-                          onKgChanged((kgPerDay + 1).clamp(1, 50)),
+                          onKgChanged((kgPerDay + 1).clamp(1, maxKg)),
                       icon: const Icon(Icons.add),
                     ),
                   ],

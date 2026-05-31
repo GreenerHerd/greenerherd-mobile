@@ -242,6 +242,47 @@ abstract final class FeedEligibilityService {
     return minCap;
   }
 
+  static int _eligibleHeadCountForDosage(
+    List<FeedEligibilityRule> rules,
+    String feedType,
+    List<Animal> animals,
+  ) {
+    var count = 0;
+    for (final animal in animals.where((a) => a.status == AnimalStatus.active)) {
+      final rule = matchingRuleForAnimal(rules, feedType, animal);
+      if (rule != null &&
+          isRuleEligible(rule, feedType, contextFromAnimal(animal)).eligible) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /// Per-animal minimum cap and group total (cap × eligible head) when rules apply.
+  static GroupFeedDosageCap? groupFeedDosageCap({
+    required List<FeedEligibilityRule> rules,
+    required String feedType,
+    required List<Animal> animals,
+    double? estimatedDailyFeedKgPerAnimal,
+  }) {
+    if (rules.isEmpty) return null;
+    final perAnimalCap = conservativePerAnimalDosageCapKg(
+      rules: rules,
+      feedType: feedType,
+      animals: animals,
+      estimatedDailyFeedKgPerAnimal: estimatedDailyFeedKgPerAnimal,
+    );
+    if (perAnimalCap == null) return null;
+    final eligibleCount =
+        _eligibleHeadCountForDosage(rules, feedType, animals);
+    if (eligibleCount == 0) return null;
+    return GroupFeedDosageCap(
+      perAnimalCapKg: perAnimalCap,
+      groupCapKg: perAnimalCap * eligibleCount,
+      eligibleHeadCount: eligibleCount,
+    );
+  }
+
   /// Caps a group-level suggested kg using per-animal limits × eligible head count.
   static double applyDosageCapToSuggestedKg({
     required double suggestedKg,
@@ -250,30 +291,14 @@ abstract final class FeedEligibilityService {
     required List<Animal> animals,
     double? estimatedDailyFeedKgPerAnimal,
   }) {
-    final active =
-        animals.where((a) => a.status == AnimalStatus.active).toList();
-    if (active.isEmpty || rules.isEmpty) return suggestedKg;
-
-    final perAnimalCap = conservativePerAnimalDosageCapKg(
+    final cap = groupFeedDosageCap(
       rules: rules,
       feedType: feedType,
       animals: animals,
       estimatedDailyFeedKgPerAnimal: estimatedDailyFeedKgPerAnimal,
     );
-    if (perAnimalCap == null) return suggestedKg;
-
-    var eligibleCount = 0;
-    for (final animal in active) {
-      final rule = matchingRuleForAnimal(rules, feedType, animal);
-      if (rule != null &&
-          isRuleEligible(rule, feedType, contextFromAnimal(animal)).eligible) {
-        eligibleCount++;
-      }
-    }
-    if (eligibleCount == 0) return suggestedKg;
-
-    final groupCap = perAnimalCap * eligibleCount;
-    return math.min(suggestedKg, groupCap);
+    if (cap == null) return suggestedKg;
+    return math.min(suggestedKg, cap.groupCapKg);
   }
 
   static bool isMarketplaceProductEligibleForAnimal(

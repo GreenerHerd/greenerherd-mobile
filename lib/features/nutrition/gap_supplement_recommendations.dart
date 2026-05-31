@@ -10,18 +10,21 @@ import '../../data/services/supplement_nutrition.dart';
 
 enum GapSupplementSource { inventory, standard, marketplace }
 
-class _ResolvedFeedNutrition {
-  const _ResolvedFeedNutrition({
-    this.dryMatterPercent,
-    this.crudeProteinPercent,
-    this.nemMcalPerKg,
-    this.ndfPercent,
+class _SuggestedKgWithDosage {
+  const _SuggestedKgWithDosage({
+    required this.kg,
+    this.uncappedKg,
+    this.perAnimalDosageCapKg,
+    this.groupDosageCapKg,
   });
 
-  final double? dryMatterPercent;
-  final double? crudeProteinPercent;
-  final double? nemMcalPerKg;
-  final double? ndfPercent;
+  final double kg;
+  final double? uncappedKg;
+  final double? perAnimalDosageCapKg;
+  final double? groupDosageCapKg;
+
+  bool get isDosageCapped =>
+      uncappedKg != null && uncappedKg! > kg + 0.01;
 }
 
 /// A feed option shown on the Fix the gap screen.
@@ -46,6 +49,9 @@ class GapSupplementOption {
     this.marketplaceProductId,
     this.supplierName,
     this.unitCostPerKg,
+    this.perAnimalDosageCapKg,
+    this.groupDosageCapKg,
+    this.uncappedSuggestedKg,
   });
 
   final String id;
@@ -67,6 +73,18 @@ class GapSupplementOption {
   final String? marketplaceProductId;
   final String? supplierName;
   final double? unitCostPerKg;
+  /// Max kg per animal per day from matched eligibility rule, if any.
+  final double? perAnimalDosageCapKg;
+  /// Max kg for the whole group per day (per-animal cap × eligible head).
+  final double? groupDosageCapKg;
+  /// Uncapped gap-based suggestion before eligibility dosage limits.
+  final double? uncappedSuggestedKg;
+
+  bool get hasDosageCap => groupDosageCapKg != null;
+
+  bool get isDosageCapped =>
+      uncappedSuggestedKg != null &&
+      uncappedSuggestedKg! > suggestedKgPerDay + 0.01;
 
   bool get createsBuyTask =>
       source == GapSupplementSource.standard ||
@@ -88,6 +106,20 @@ class GapSupplementOption {
 
   SupplementNutritionContribution get suggestedContribution =>
       contributionAt(suggestedKgPerDay);
+}
+
+class _ResolvedFeedNutrition {
+  const _ResolvedFeedNutrition({
+    this.dryMatterPercent,
+    this.crudeProteinPercent,
+    this.nemMcalPerKg,
+    this.ndfPercent,
+  });
+
+  final double? dryMatterPercent;
+  final double? crudeProteinPercent;
+  final double? nemMcalPerKg;
+  final double? ndfPercent;
 }
 
 class GapSupplementRecommendations {
@@ -165,7 +197,7 @@ class GapSupplementRecommendations {
         standard: standard,
         marketplace: marketplace,
       );
-      final kg = _resolveSuggestedKg(
+      final suggested = _suggestWithDosage(
         gap: gap,
         nem: nutrition.nemMcalPerKg,
         cp: nutrition.crudeProteinPercent,
@@ -185,7 +217,7 @@ class GapSupplementRecommendations {
               : '—',
           unitCostPerKg: item.unitCost,
           gap: gap,
-          kg: kg,
+          suggested: suggested,
           nem: nutrition.nemMcalPerKg,
           cp: nutrition.crudeProteinPercent,
           ndf: nutrition.ndfPercent,
@@ -218,22 +250,15 @@ class GapSupplementRecommendations {
           standard: standard,
           marketplace: marketplace,
         );
-        final kg = rec.kgPerDay > 0
-            ? _applyDosageCap(
-                rec.kgPerDay,
-                gap: gap,
-                rules: rules,
-                feedType: feedType,
-                groupMembers: groupMembers,
-              )
-            : _resolveSuggestedKg(
-                gap: gap,
-                nem: nutrition.nemMcalPerKg,
-                cp: nutrition.crudeProteinPercent,
-                rules: rules,
-                feedType: feedType,
-                groupMembers: groupMembers,
-              );
+        final suggested = _suggestWithDosage(
+          gap: gap,
+          nem: nutrition.nemMcalPerKg,
+          cp: nutrition.crudeProteinPercent,
+          rules: rules,
+          feedType: feedType,
+          groupMembers: groupMembers,
+          overrideKg: rec.kgPerDay > 0 ? rec.kgPerDay : null,
+        );
         options.add(
           _option(
             id: 'eng-${rec.id}',
@@ -242,7 +267,7 @@ class GapSupplementRecommendations {
             tag: rec.supplier,
             costLabel: '${rec.costPerDay.toStringAsFixed(0)} SAR/day',
             gap: gap,
-            kg: kg,
+            suggested: suggested,
             nem: nutrition.nemMcalPerKg,
             cp: nutrition.crudeProteinPercent,
             ndf: nutrition.ndfPercent,
@@ -265,22 +290,15 @@ class GapSupplementRecommendations {
       );
       final rules = product?.eligibilityRules ?? const [];
       final feedType = product?.feedType ?? 'CONCENTRATE';
-      final kg = rec.kgPerDay > 0
-          ? _applyDosageCap(
-              rec.kgPerDay,
-              gap: gap,
-              rules: rules,
-              feedType: feedType,
-              groupMembers: groupMembers,
-            )
-          : _resolveSuggestedKg(
-              gap: gap,
-              nem: catalogNutrition.nemMcalPerKg,
-              cp: catalogNutrition.crudeProteinPercent,
-              rules: rules,
-              feedType: feedType,
-              groupMembers: groupMembers,
-            );
+      final suggested = _suggestWithDosage(
+        gap: gap,
+        nem: catalogNutrition.nemMcalPerKg,
+        cp: catalogNutrition.crudeProteinPercent,
+        rules: rules,
+        feedType: feedType,
+        groupMembers: groupMembers,
+        overrideKg: rec.kgPerDay > 0 ? rec.kgPerDay : null,
+      );
       options.add(
         _option(
           id: 'eng-${rec.id}',
@@ -289,7 +307,7 @@ class GapSupplementRecommendations {
           tag: rec.supplier,
           costLabel: '${rec.costPerDay.toStringAsFixed(0)} SAR/day',
           gap: gap,
-          kg: kg,
+          suggested: suggested,
           nem: catalogNutrition.nemMcalPerKg,
           cp: catalogNutrition.crudeProteinPercent,
           ndf: catalogNutrition.ndfPercent,
@@ -310,7 +328,7 @@ class GapSupplementRecommendations {
     final eligible =
         FeedEligibilityService.filterProductsForAnimals(catalog, groupMembers);
     final options = eligible.map((p) {
-      final kg = _resolveSuggestedKg(
+      final suggested = _suggestWithDosage(
         gap: gap,
         nem: p.nemMcalPerKg,
         cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
@@ -329,7 +347,7 @@ class GapSupplementRecommendations {
         unitCostPerKg:
             p.nemMcalPerKg != null ? p.nemMcalPerKg! * 0.9 + 0.5 : null,
         gap: gap,
-        kg: kg,
+        suggested: suggested,
         nem: p.nemMcalPerKg,
         cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
         ndf: p.ndfPercent,
@@ -351,7 +369,7 @@ class GapSupplementRecommendations {
       groupMembers,
     );
     final options = eligible.map((p) {
-      final kg = _resolveSuggestedKg(
+      final suggested = _suggestWithDosage(
         gap: gap,
         nem: p.nemMcalPerKg,
         cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
@@ -367,7 +385,7 @@ class GapSupplementRecommendations {
         costLabel: '${p.pricePerKg.toStringAsFixed(2)} ${p.currency}/kg',
         unitCostPerKg: p.pricePerKg,
         gap: gap,
-        kg: kg,
+        suggested: suggested,
         nem: p.nemMcalPerKg,
         cp: p.crudeProteinPercent ?? _defaultCpForFeedType(p.feedType),
         ndf: p.ndfPercent,
@@ -386,7 +404,7 @@ class GapSupplementRecommendations {
     required String tag,
     required String costLabel,
     required NutritionGap gap,
-    required double kg,
+    required _SuggestedKgWithDosage suggested,
     double? nem,
     double? cp,
     double? ndf,
@@ -398,6 +416,7 @@ class GapSupplementRecommendations {
     String? supplierName,
     bool isTopPick = false,
   }) {
+    final kg = suggested.kg;
     return GapSupplementOption(
       id: id,
       source: source,
@@ -418,6 +437,9 @@ class GapSupplementRecommendations {
       marketplaceProductId: marketplaceProductId,
       supplierName: supplierName,
       unitCostPerKg: unitCostPerKg,
+      perAnimalDosageCapKg: suggested.perAnimalDosageCapKg,
+      groupDosageCapKg: suggested.groupDosageCapKg,
+      uncappedSuggestedKg: suggested.uncappedKg,
     );
   }
 
@@ -449,6 +471,9 @@ class GapSupplementRecommendations {
       marketplaceProductId: first.marketplaceProductId,
       supplierName: first.supplierName,
       unitCostPerKg: first.unitCostPerKg,
+      perAnimalDosageCapKg: first.perAnimalDosageCapKg,
+      groupDosageCapKg: first.groupDosageCapKg,
+      uncappedSuggestedKg: first.uncappedSuggestedKg,
     );
     return limited;
   }
@@ -501,39 +526,33 @@ class GapSupplementRecommendations {
     return gap.dryMatterTargetKg / active;
   }
 
-  static double _applyDosageCap(
-    double suggestedKg, {
-    required NutritionGap gap,
-    required List<FeedEligibilityRule> rules,
-    required String feedType,
-    required List<Animal> groupMembers,
-  }) {
-    if (groupMembers.isEmpty || rules.isEmpty) return suggestedKg;
-    return FeedEligibilityService.applyDosageCapToSuggestedKg(
-      suggestedKg: suggestedKg,
-      rules: rules,
-      feedType: feedType,
-      animals: groupMembers,
-      estimatedDailyFeedKgPerAnimal:
-          _estimatedDailyFeedKgPerAnimal(gap, groupMembers),
-    );
-  }
-
-  static double _resolveSuggestedKg({
+  static _SuggestedKgWithDosage _suggestWithDosage({
     required NutritionGap gap,
     double? nem,
     double? cp,
     List<FeedEligibilityRule> rules = const [],
     String feedType = 'CONCENTRATE',
     List<Animal> groupMembers = const [],
+    double? overrideKg,
   }) {
-    final uncapped = _suggestedKg(gap, nem: nem, cp: cp);
-    return _applyDosageCap(
-      uncapped,
-      gap: gap,
-      rules: rules,
-      feedType: feedType,
-      groupMembers: groupMembers,
+    final uncapped = overrideKg ?? _suggestedKg(gap, nem: nem, cp: cp);
+    final dosageCap = groupMembers.isEmpty || rules.isEmpty
+        ? null
+        : FeedEligibilityService.groupFeedDosageCap(
+            rules: rules,
+            feedType: feedType,
+            animals: groupMembers,
+            estimatedDailyFeedKgPerAnimal:
+                _estimatedDailyFeedKgPerAnimal(gap, groupMembers),
+          );
+    final capped = dosageCap != null
+        ? uncapped.clamp(0, dosageCap.groupCapKg)
+        : uncapped;
+    return _SuggestedKgWithDosage(
+      kg: capped.toDouble(),
+      uncappedKg: capped < uncapped - 0.01 ? uncapped : null,
+      perAnimalDosageCapKg: dosageCap?.perAnimalCapKg,
+      groupDosageCapKg: dosageCap?.groupCapKg,
     );
   }
 

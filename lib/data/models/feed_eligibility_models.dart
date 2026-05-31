@@ -126,6 +126,19 @@ class FeedEligibilityProductCheck {
   bool get hasImpacts => impacts.isNotEmpty;
 }
 
+/// Conservative daily as-fed limits for a feed product across a group.
+class GroupFeedDosageCap {
+  const GroupFeedDosageCap({
+    required this.perAnimalCapKg,
+    required this.groupCapKg,
+    required this.eligibleHeadCount,
+  });
+
+  final double perAnimalCapKg;
+  final double groupCapKg;
+  final int eligibleHeadCount;
+}
+
 class FeedEligibilityMealCheck {
   const FeedEligibilityMealCheck({
     required this.mealName,

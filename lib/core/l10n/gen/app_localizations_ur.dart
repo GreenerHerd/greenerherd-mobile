@@ -2143,5 +2143,31 @@ class AppLocalizationsUr extends AppLocalizations {
       'اس میل پلان کے کچھ اجزاء منتخب گروپ کے جانوروں کے لیے اہل نہیں۔';
 
   @override
+  String get groupHerdRequirementsTitle => 'گروپ کی روزانہ ضروریات';
+
+  @override
+  String get groupHerdRequirementsSubtitle =>
+      'ہر جانور کے غذائی پروفائل کا مجموعہ';
+
+  @override
+  String groupHerdRequirementsProfiles(int count) {
+    return '$count جانور · مختلف پروفائل';
+  }
+
+  @override
+  String supplementDosageCapPerAnimal(String kg) {
+    return 'زیادہ سے زیادہ $kg kg فی جانور روزانہ';
+  }
+
+  @override
+  String supplementDosageCapGroup(String kg) {
+    return 'گروپ حد $kg kg روزانہ';
+  }
+
+  @override
+  String get supplementDosageCappedHint =>
+      'تجویز کردہ مقدار eligibility rules سے محدود';
+
+  @override
   String get addAnyway => 'پھر بھی شامل کریں';
 }
