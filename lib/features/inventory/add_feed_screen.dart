@@ -9,11 +9,15 @@ import '../../core/providers/data_refresh.dart';
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../data/models/inventory_models.dart';
+import '../../data/models/enums.dart';
+import '../../data/models/models.dart';
 import '../../data/services/feed_catalog_loader.dart';
+import '../../data/services/feed_eligibility_service.dart';
 import '../../data/services/meal_stock_analyzer.dart';
 import '../../shared/io/local_image.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import 'add_feed_route_args.dart';
+import 'feed_eligibility_ui.dart';
 
 class AddFeedScreen extends ConsumerStatefulWidget {
   const AddFeedScreen({super.key, this.prefill});
@@ -39,6 +43,7 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
   InventoryFeedType? _catalogFilter;
   List<FeedCatalogProduct>? _catalog;
   List<FeedInventoryItem> _existingFeed = [];
+  List<Animal> _farmAnimals = [];
 
   // Marketplace state
   List<MarketplaceFeedProduct> _marketplaceAll = [];
@@ -61,11 +66,15 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
     final catalog = await FeedCatalogLoader.loadStandardProducts();
     final marketplace = await FeedCatalogLoader.loadMarketplaceProducts();
     final existing = await ref.read(inventoryRepositoryProvider).listFeed();
+    final animals = await ref.read(animalRepositoryProvider).listAnimals();
     if (mounted) {
       setState(() {
         _catalog = catalog;
         _marketplaceAll = marketplace;
         _existingFeed = existing;
+        _farmAnimals = animals
+            .where((a) => a.status == AnimalStatus.active)
+            .toList();
       });
       _applyPrefillIfNeeded();
     }
@@ -160,9 +169,29 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
 
   List<FeedCatalogProduct> get _filteredCatalog {
     final all = _catalog ?? [];
-    if (_catalogFilter == null) return all;
-    final key = _catalogFilter!.name.toUpperCase();
-    return all.where((p) => p.feedType.toUpperCase() == key).toList();
+    final byType = _catalogFilter == null
+        ? all
+        : all
+            .where(
+              (p) =>
+                  p.feedType.toUpperCase() == _catalogFilter!.name.toUpperCase(),
+            )
+            .toList();
+    return FeedEligibilityService.filterProductsForAnimals(byType, _farmAnimals);
+  }
+
+  bool get _hasRestrictedCatalogProducts {
+    if (_farmAnimals.isEmpty || _catalog == null) return false;
+    final all = _catalog!;
+    final byType = _catalogFilter == null
+        ? all
+        : all
+            .where(
+              (p) =>
+                  p.feedType.toUpperCase() == _catalogFilter!.name.toUpperCase(),
+            )
+            .toList();
+    return FeedEligibilityService.restrictedProductCount(byType, _farmAnimals) > 0;
   }
 
   List<String> get _mpSuppliers {
@@ -174,6 +203,23 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
     return list;
   }
 
+  bool get _hasRestrictedMarketplaceProducts {
+    if (_farmAnimals.isEmpty || _marketplaceAll.isEmpty) return false;
+    var list = _marketplaceAll;
+    if (_mpCategoryFilter != null) {
+      final key = _mpCategoryFilter!.name.toUpperCase();
+      list = list.where((p) => p.feedType.toUpperCase() == key).toList();
+    }
+    if (_mpSupplierFilter != null) {
+      list = list.where((p) => p.supplierName == _mpSupplierFilter).toList();
+    }
+    return FeedEligibilityService.restrictedMarketplaceProductCount(
+          list,
+          _farmAnimals,
+        ) >
+        0;
+  }
+
   List<MarketplaceFeedProduct> get _filteredMarketplace {
     var list = _marketplaceAll;
     if (_mpCategoryFilter != null) {
@@ -183,7 +229,10 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
     if (_mpSupplierFilter != null) {
       list = list.where((p) => p.supplierName == _mpSupplierFilter).toList();
     }
-    return list;
+    return FeedEligibilityService.filterMarketplaceProductsForAnimals(
+      list,
+      _farmAnimals,
+    );
   }
 
   void _onCatalogProductSelected(FeedCatalogProduct? p) {
@@ -373,6 +422,41 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
       return;
     }
 
+    if (_source == InventorySourceType.standard && _catalogProduct != null) {
+      final impacts = FeedEligibilityService.impactedAnimals(
+        _catalogProduct!,
+        _farmAnimals,
+      );
+      if (impacts.isNotEmpty) {
+        final proceed = await confirmFeedEligibilityImpacts(
+          context,
+          title: context.l10n.feedEligibilityWarningTitle,
+          message: context.l10n.feedEligibilityAddProductWarning(
+            _catalogProduct!.nameEn,
+          ),
+          impacts: impacts,
+        );
+        if (!proceed) return;
+      }
+    } else if (_source == InventorySourceType.marketplace &&
+        _selectedMpProduct != null) {
+      final impacts = FeedEligibilityService.impactedAnimalsForMarketplace(
+        _selectedMpProduct!,
+        _farmAnimals,
+      );
+      if (impacts.isNotEmpty) {
+        final proceed = await confirmFeedEligibilityImpacts(
+          context,
+          title: context.l10n.feedEligibilityWarningTitle,
+          message: context.l10n.feedEligibilityAddProductWarning(
+            _selectedMpProduct!.nameEn,
+          ),
+          impacts: impacts,
+        );
+        if (!proceed) return;
+      }
+    }
+
     final supplierName = _supplier.text.trim();
     final supplierPhone = _supplierPhone.text.trim();
     if (_source != InventorySourceType.marketplace &&
@@ -435,7 +519,8 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
               sourceType: _source,
               quantityKg: vol,
               purchasedVolumeKg: vol,
-              feedProductNumber: _catalogProduct?.productNumber,
+              feedProductNumber: _catalogProduct?.productNumber ??
+                  _selectedMpProduct?.standardProductNumber,
               marketplaceProductId: _selectedMpProduct?.id ??
                   (_source == InventorySourceType.marketplace
                       ? 'mp-${name.toLowerCase().replaceAll(' ', '-')}'
@@ -847,6 +932,10 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
           ),
           const SizedBox(height: 20),
           if (_source == InventorySourceType.standard) ...[
+            if (_hasRestrictedCatalogProducts) ...[
+              const FeedEligibilityRestrictedBanner(),
+              const SizedBox(height: 12),
+            ],
             Wrap(
               spacing: 8,
               children: [
@@ -902,6 +991,10 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
               value: _catalogProduct,
             ),
           ] else if (_source == InventorySourceType.marketplace) ...[
+            if (_hasRestrictedMarketplaceProducts) ...[
+              const FeedEligibilityRestrictedBanner(),
+              const SizedBox(height: 12),
+            ],
             _buildMarketplaceSection(locale),
           ] else ...[
             _buildCustomFeedSection(l10n),

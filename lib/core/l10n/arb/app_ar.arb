@@ -894,5 +894,78 @@
       }
     }
   },
-  "youreAdding": "You're adding"
+  "youreAdding": "You're adding",
+  "breedingCycleKpiTitle": "دورة التربية",
+  "breedingCycleKpiSubtitle": "الأشهر منذ الولادة تحدد تغذية الإدرار وموعد بدء دورة التربية التالية.",
+  "monthsSinceCalvingLabel": "الأشهر منذ الولادة",
+  "lactationPhaseLabel": "مرحلة الإدرار",
+  "monthsSinceCalvingValue": "{count, plural, =0{ولادة حديثة (0 شهر)} =1{شهر واحد} other{{count} أشهر}}",
+  "@monthsSinceCalvingValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "decreaseMonthsSinceCalving": "تقليل الأشهر منذ الولادة",
+  "increaseMonthsSinceCalving": "زيادة الأشهر منذ الولادة",
+  "breedingCycleReadyForRebreeding": "جاهزة للتزاوج التالي — حدّدي جاهزة للتزاوج عند التخطيط.",
+  "breedingCycleWaitingPeriod": "فترة انتظار طوعية — {months} شهر حتى نافذة إعادة التزاوج.",
+  "@breedingCycleWaitingPeriod": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "breedingCycleBlockedPregnant": "حامل حالياً — تبدأ دورة التربية التالية بعد الولادة.",
+  "groupBreedingCycleKpiTitle": "دورة تربية القطيع",
+  "groupBreedingCycleKpiSubtitle": "متوسط الأشهر منذ الولادة للإناث المدرّة يحدد تغذية المجموعة وتخطيط إعادة التزاوج.",
+  "groupMedianMonthsSinceCalving": "متوسط الأشهر منذ الولادة",
+  "groupLactatingFemales": "إناث مدرّة",
+  "groupReadyForRebreeding": "جاهزة لإعادة التزاوج",
+  "groupWaitingForRebreeding": "في فترة الانتظار",
+  "groupLactationStageBreakdown": "مراحل الإدرار في المجموعة",
+  "groupAnimalsCount": "{count, plural, =1{حيوان واحد} other{{count} حيوانات}}",
+  "@groupAnimalsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "groupBreedingCycleNutritionNote": "فترة الانتظار الطوعية {months} أشهر بعد الولادة. عدّل الحيوانات أدناه لتحديث الأشهر منذ الولادة.",
+  "@groupBreedingCycleNutritionNote": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "monthsSinceCalvingShort": "{count} شهر منذ الولادة",
+  "@monthsSinceCalvingShort": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "readyToBreedEligibleNotTagged": "{count, plural, =1{1 تجاوزت 2 شهراً منذ الولادة · غير محددة جاهزة} other{{count} تجاوزت 2 شهراً منذ الولادة · غير محددة جاهزة}}",
+  "@readyToBreedEligibleNotTagged": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "feedRestrictedDueToAnimalStatus": "بعض أعلاف القطيع مقيدة بسبب حالة الحيوان.",
+  "feedEligibilityWarningTitle": "تحذير قيود العلف",
+  "feedEligibilityAddProductWarning": "قد لا يناسب {product} جميع الحيوانات في المزرعة.",
+  "@feedEligibilityAddProductWarning": {
+    "placeholders": {
+      "product": { "type": "String" }
+    }
+  },
+  "feedEligibilityImpactedAnimals": "الحيوانات المتأثرة: {tags}",
+  "@feedEligibilityImpactedAnimals": {
+    "placeholders": {
+      "tags": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedTitle": "خطة \"{mealName}\" تحتوي على أعلاف مقيدة",
+  "@feedMealPlanRestrictedTitle": {
+    "placeholders": {
+      "mealName": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedBody": "بعض مكونات هذه الخطة غير مؤهلة لحيوانات المجموعة المحددة.",
+  "addAnyway": "إضافة على أي حال"
 }

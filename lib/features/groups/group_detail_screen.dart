@@ -9,6 +9,7 @@ import '../../core/theme/gh_typography.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
 import '../../data/services/methane_emissions_calculator.dart';
+import '../../data/services/reproduction_status_rules.dart';
 import '../nutrition/methane_emissions_card.dart';
 import '../nutrition/nutrition_providers.dart' show groupAnimalsForNutritionProvider, groupNutritionDisplayGapProvider, groupTodaysFeedProvider, nutritionGapProvider;
 import '../../shared/widgets/gh_app_bar.dart';
@@ -95,7 +96,8 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen>
       animals.any(
         (a) =>
             a.tags.contains(AnimalTagType.pregnant) ||
-            a.tags.contains(AnimalTagType.readyToBreed),
+            a.tags.contains(AnimalTagType.readyToBreed) ||
+            ReproductionStatusRules.showsBreedingCycleKpi(a),
       );
 
   bool _showMilking(AnimalGroup group, List<Animal> animals) =>

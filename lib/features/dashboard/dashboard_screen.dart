@@ -62,12 +62,9 @@ String? _pregnantSubtitle(List<Animal> animals) {
   return parts.isEmpty ? null : parts.join(' · ');
 }
 
-String _readySubtitle(List<Animal> animals) {
-  final groupIds = animals
-      .where((a) => a.tags.contains(AnimalTagType.readyToBreed))
-      .map((a) => a.groupId)
-      .toSet();
-  return 'across ${groupIds.length} groups';
+String? _readySubtitle(AppLocalizations l10n, DashboardStats stats) {
+  if (stats.readyToBreedEligibleUntagged <= 0) return null;
+  return l10n.readyToBreedEligibleNotTagged(stats.readyToBreedEligibleUntagged);
 }
 
 String _profileInitials(String? displayName) {
@@ -239,7 +236,7 @@ class DashboardScreen extends ConsumerWidget {
                                 pregnantSubtitle: speciesFilter == null
                                     ? _pregnantSubtitle(animalList)
                                     : null,
-                                readySubtitle: _readySubtitle(animalList),
+                                readySubtitle: _readySubtitle(l10n, s),
                               ),
                               if (speciesFilter != null) ...[
                                 const SizedBox(height: 16),

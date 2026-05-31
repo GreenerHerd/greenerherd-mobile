@@ -13,6 +13,7 @@ import '../../data/services/gestation_dates.dart';
 import '../../data/services/reproduction_status_rules.dart';
 import '../../shared/widgets/gh_kv_list.dart';
 import 'animal_lifecycle_ui.dart';
+import 'breeding_cycle_kpi_card.dart';
 import 'breeding_status_section.dart';
 import 'record_ai_sheet.dart';
 
@@ -61,6 +62,10 @@ class AnimalBreedingTab extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       children: [
         BreedingStatusSection(animal: animal, onUpdated: onUpdated),
+        if (isFemale && ReproductionStatusRules.showsBreedingCycleKpi(animal)) ...[
+          const SizedBox(height: 12),
+          BreedingCycleKpiCard(animal: animal, onUpdated: onUpdated),
+        ],
         if (isFemale && isPregnant) ...[
           const SizedBox(height: 12),
           _PregnancyProgressCard(animal: animal),

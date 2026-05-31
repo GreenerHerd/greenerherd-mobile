@@ -7,8 +7,10 @@ import '../../core/theme/gh_typography.dart';
 import '../../data/mock/profile_mock_data.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
+import '../../data/services/reproduction_status_rules.dart';
 import '../../shared/widgets/gh_stat.dart';
 import 'group_breeding_animal_row.dart';
+import 'group_breeding_cycle_kpi_card.dart';
 import 'group_detail_widgets.dart';
 import 'group_kpis.dart';
 
@@ -34,10 +36,18 @@ class GroupBreedingTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final dash = ProfileMockData.groupBreedingDashboard(group.id);
+    final cycleSummary = GroupBreedingCycleSummary.fromMembers(animals);
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        if (cycleSummary != null) ...[
+          GroupBreedingCycleKpiCard(
+            summary: cycleSummary,
+            species: group.species,
+          ),
+          const SizedBox(height: 16),
+        ],
         if (dash != null) ...[
           Row(
             children: [

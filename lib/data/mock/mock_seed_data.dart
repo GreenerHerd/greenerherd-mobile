@@ -126,18 +126,21 @@ abstract final class MockSeedData {
           breed: 'Holstein', weightKg: 398, ageLabel: '5y 1m',
           dob: DateTime(2021, 4, 2), groupId: 'g1',
           tags: [AnimalTagType.lactating], milkTodayLitres: 22.1, sire: 'Tornado', dam: 'Hala',
+          monthsSinceCalving: 5,
         ),
         Animal(
           id: 'a3', tag: '0444', name: 'Sara', species: Species.cattle, sex: 'F',
           breed: 'Jersey', weightKg: 344, ageLabel: '3y 6m',
           dob: DateTime(2022, 11, 4), groupId: 'g1',
           tags: [AnimalTagType.lactating], milkTodayLitres: 14.7, withdrawalDays: 3,
+          monthsSinceCalving: 2,
         ),
         Animal(
           id: 'a4', tag: '0451', name: 'Hala', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 426, ageLabel: '6y 3m',
           dob: DateTime(2020, 2, 10), groupId: 'g1',
           tags: [AnimalTagType.lactating], milkTodayLitres: 19.8,
+          monthsSinceCalving: 8,
         ),
         Animal(
           id: 'a5', tag: '0462', name: 'Noor', species: Species.cattle, sex: 'F',

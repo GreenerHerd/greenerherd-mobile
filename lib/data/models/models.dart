@@ -104,6 +104,7 @@ class Animal extends Equatable {
     this.breedingMethod,
     this.illnessNote,
     this.treatmentNote,
+    this.monthsSinceCalving,
   });
 
   final String id;
@@ -138,6 +139,8 @@ class Animal extends Equatable {
   final BreedingMethod? breedingMethod;
   final String? illnessNote;
   final String? treatmentNote;
+  /// Months since last calving when [AnimalTagType.lactating]; drives lactation stage.
+  final int? monthsSinceCalving;
 
   bool get cullFlagged => tags.contains(AnimalTagType.cull);
 
@@ -201,6 +204,8 @@ class Animal extends Equatable {
     BreedingMethod? breedingMethod,
     String? illnessNote,
     String? treatmentNote,
+    int? monthsSinceCalving,
+    bool clearMonthsSinceCalving = false,
     String? tag,
     String? name,
     String? breed,
@@ -262,6 +267,9 @@ class Animal extends Equatable {
           clearIllnessNote ? null : (illnessNote ?? this.illnessNote),
       treatmentNote:
           clearTreatmentNote ? null : (treatmentNote ?? this.treatmentNote),
+      monthsSinceCalving: clearMonthsSinceCalving
+          ? null
+          : (monthsSinceCalving ?? this.monthsSinceCalving),
     );
   }
 
@@ -715,6 +723,7 @@ class DashboardStats extends Equatable {
     required this.bySpecies,
     required this.pregnant,
     required this.readyToBreed,
+    required this.readyToBreedEligibleUntagged,
     required this.sick,
     required this.cullFlagged,
     required this.lactating,
@@ -727,6 +736,7 @@ class DashboardStats extends Equatable {
   final Map<Species?, int> bySpecies;
   final int pregnant;
   final int readyToBreed;
+  final int readyToBreedEligibleUntagged;
   final int sick;
   final int cullFlagged;
   final int lactating;

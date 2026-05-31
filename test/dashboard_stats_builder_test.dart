@@ -61,4 +61,56 @@ void main() {
     expect(allStats.pregnant, 1);
     expect(cattleStats.pregnant, 0);
   });
+
+  test('counts eligible but untagged ready to breed from months since calving',
+      () {
+    final animals = [
+      Animal(
+        id: 'tagged',
+        tag: 'T1',
+        name: 'Tagged',
+        species: Species.cattle,
+        sex: 'F',
+        breed: 'Holstein',
+        weightKg: 500,
+        ageLabel: '4y',
+        groupId: 'g1',
+        tags: const [AnimalTagType.readyToBreed],
+      ),
+      Animal(
+        id: 'eligible',
+        tag: 'E1',
+        name: 'Eligible',
+        species: Species.cattle,
+        sex: 'F',
+        breed: 'Holstein',
+        weightKg: 500,
+        ageLabel: '4y',
+        groupId: 'g1',
+        tags: const [AnimalTagType.lactating],
+        monthsSinceCalving: 5,
+      ),
+      Animal(
+        id: 'waiting',
+        tag: 'W1',
+        name: 'Waiting',
+        species: Species.cattle,
+        sex: 'F',
+        breed: 'Holstein',
+        weightKg: 500,
+        ageLabel: '4y',
+        groupId: 'g1',
+        tags: const [AnimalTagType.lactating],
+        monthsSinceCalving: 1,
+      ),
+    ];
+
+    final stats = DashboardStatsBuilder.fromLists(
+      animals: animals,
+      tasks: const [],
+    );
+
+    expect(stats.readyToBreed, 1);
+    expect(stats.readyToBreedEligibleUntagged, 1);
+  });
 }

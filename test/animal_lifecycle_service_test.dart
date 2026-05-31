@@ -41,4 +41,20 @@ void main() {
     expect(nutritionTrafficLight(20), NutritionTrafficLight.orange);
     expect(nutritionTrafficLight(40), NutritionTrafficLight.red);
   });
+
+  test('live calving resets months since calving and clears heifer', () {
+    final pregnant = base.copyWith(
+      tags: [AnimalTagType.pregnant],
+      gestMonths: 8,
+      isHeifer: true,
+    );
+    final calved = lifecycle.recordCalvingOutcome(
+      pregnant,
+      CalvingOutcome.bornLive,
+    );
+    expect(calved.monthsSinceCalving, 0);
+    expect(calved.isHeifer, isFalse);
+    expect(calved.tags, contains(AnimalTagType.lactating));
+    expect(calved.tags, isNot(contains(AnimalTagType.pregnant)));
+  });
 }

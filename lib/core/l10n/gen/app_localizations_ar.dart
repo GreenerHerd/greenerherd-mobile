@@ -2019,4 +2019,131 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cullReason => 'Cull reason';
+
+  @override
+  String get breedingCycleKpiTitle => 'دورة التربية';
+
+  @override
+  String get breedingCycleKpiSubtitle =>
+      'الأشهر منذ الولادة تحدد تغذية الإدرار وموعد بدء دورة التربية التالية.';
+
+  @override
+  String get monthsSinceCalvingLabel => 'الأشهر منذ الولادة';
+
+  @override
+  String get lactationPhaseLabel => 'مرحلة الإدرار';
+
+  @override
+  String monthsSinceCalvingValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أشهر',
+      one: 'شهر واحد',
+      zero: 'ولادة حديثة (0 شهر)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get decreaseMonthsSinceCalving => 'تقليل الأشهر منذ الولادة';
+
+  @override
+  String get increaseMonthsSinceCalving => 'زيادة الأشهر منذ الولادة';
+
+  @override
+  String get breedingCycleReadyForRebreeding =>
+      'جاهزة للتزاوج التالي — حدّدي جاهزة للتزاوج عند التخطيط.';
+
+  @override
+  String breedingCycleWaitingPeriod(int months) {
+    return 'فترة انتظار طوعية — $months شهر حتى نافذة إعادة التزاوج.';
+  }
+
+  @override
+  String get breedingCycleBlockedPregnant =>
+      'حامل حالياً — تبدأ دورة التربية التالية بعد الولادة.';
+
+  @override
+  String get groupBreedingCycleKpiTitle => 'دورة تربية القطيع';
+
+  @override
+  String get groupBreedingCycleKpiSubtitle =>
+      'متوسط الأشهر منذ الولادة للإناث المدرّة يحدد تغذية المجموعة وتخطيط إعادة التزاوج.';
+
+  @override
+  String get groupMedianMonthsSinceCalving => 'متوسط الأشهر منذ الولادة';
+
+  @override
+  String get groupLactatingFemales => 'إناث مدرّة';
+
+  @override
+  String get groupReadyForRebreeding => 'جاهزة لإعادة التزاوج';
+
+  @override
+  String get groupWaitingForRebreeding => 'في فترة الانتظار';
+
+  @override
+  String get groupLactationStageBreakdown => 'مراحل الإدرار في المجموعة';
+
+  @override
+  String groupAnimalsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count حيوانات',
+      one: 'حيوان واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String groupBreedingCycleNutritionNote(int months) {
+    return 'فترة الانتظار الطوعية $months أشهر بعد الولادة. عدّل الحيوانات أدناه لتحديث الأشهر منذ الولادة.';
+  }
+
+  @override
+  String monthsSinceCalvingShort(int count) {
+    return '$count شهر منذ الولادة';
+  }
+
+  @override
+  String readyToBreedEligibleNotTagged(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تجاوزت 2 شهراً منذ الولادة · غير محددة جاهزة',
+      one: '1 تجاوزت 2 شهراً منذ الولادة · غير محددة جاهزة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get feedRestrictedDueToAnimalStatus =>
+      'بعض أعلاف القطيع مقيدة بسبب حالة الحيوان.';
+
+  @override
+  String get feedEligibilityWarningTitle => 'تحذير قيود العلف';
+
+  @override
+  String feedEligibilityAddProductWarning(String product) {
+    return 'قد لا يناسب $product جميع الحيوانات في المزرعة.';
+  }
+
+  @override
+  String feedEligibilityImpactedAnimals(String tags) {
+    return 'الحيوانات المتأثرة: $tags';
+  }
+
+  @override
+  String feedMealPlanRestrictedTitle(String mealName) {
+    return 'خطة \"$mealName\" تحتوي على أعلاف مقيدة';
+  }
+
+  @override
+  String get feedMealPlanRestrictedBody =>
+      'بعض مكونات هذه الخطة غير مؤهلة لحيوانات المجموعة المحددة.';
+
+  @override
+  String get addAnyway => 'إضافة على أي حال';
 }

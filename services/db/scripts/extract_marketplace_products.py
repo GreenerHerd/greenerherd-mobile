@@ -117,6 +117,63 @@ def normalize_name(name: str) -> str:
     return re.sub(r'[^a-z0-9]+', '', name.lower())
 
 
+MARKETPLACE_NAME_ALIASES: dict[str, str] = {
+    'soyabeanmeal': 'soybeanmeal',
+}
+
+# Marketing / regional tokens stripped before fuzzy match.
+_STRIP_TOKENS = frozenset({
+    'premium',
+    'organic',
+    'good',
+    'quality',
+    'riyadh',
+    'jeddah',
+})
+
+
+def match_standard_product(
+    name_en: str, nutrition_index: dict[str, dict]
+) -> dict | None:
+    """Resolve a marketplace listing name to a standard feed_products row."""
+    key = normalize_name(name_en)
+    key = MARKETPLACE_NAME_ALIASES.get(key, key)
+    if key in nutrition_index:
+        return nutrition_index[key]
+
+    best: dict | None = None
+    best_len = 0
+    for cat_key, product in nutrition_index.items():
+        if len(cat_key) < 4:
+            continue
+        if cat_key in key or key in cat_key:
+            if len(cat_key) > best_len:
+                best_len = len(cat_key)
+                best = product
+    if best is not None:
+        return best
+
+    tokens = [
+        t
+        for t in re.split(r'[^a-z0-9]+', name_en.lower())
+        if len(t) > 2 and t not in _STRIP_TOKENS
+    ]
+    if not tokens:
+        return None
+    for product in nutrition_index.values():
+        name_tokens = [
+            t
+            for t in re.split(r'[^a-z0-9]+', product.get('name_en', '').lower())
+            if len(t) > 2
+        ]
+        if all(
+            any(ct in token or token in ct for ct in name_tokens)
+            for token in tokens[:2]
+        ):
+            return product
+    return None
+
+
 def load_nutrition_index() -> dict[str, dict]:
     if not FEED_PRODUCTS_JSON.exists():
         return {}
@@ -130,11 +187,12 @@ def load_nutrition_index() -> dict[str, dict]:
 
 
 def nutrition_for(name_en: str, nutrition_index: dict[str, dict]) -> dict:
-    p = nutrition_index.get(normalize_name(name_en))
+    p = match_standard_product(name_en, nutrition_index)
     if not p:
         return {}
     return {
         'standard_product_number': p.get('product_number'),
+        'eligibility_rules': p.get('eligibility_rules') or [],
         'dm_percent': p.get('dm_percent'),
         'cp_percent': p.get('cp_percent'),
         'nem_mcal_kg': p.get('nem_mcal_kg'),
@@ -386,26 +444,30 @@ def build_upload_sql(records: list[dict]) -> str:
 def mobile_json(records: list[dict]) -> dict:
     products = []
     for r in records:
-        products.append(
-            {
-                'id': r['marketplace_product_id'],
-                'name_en': r['name_en'],
-                'name_ar': r['name_ar'] or '',
-                'feed_type': r['feed_type'],
-                'supplier_name': r['supplier_name'],
-                'supplier_phone': r['supplier_phone'] or '',
-                'country_code': r['country_code'],
-                'currency': r['currency'],
-                'price_per_kg': round(float(r['price_per_kg']), 4),
-                'min_order_kg': r['min_order_kg'],
-                'pack_size_kg': r['pack_size_kg'],
-                'dm_percent': r['dm_percent'],
-                'cp_percent': r['cp_percent'],
-                'nem_mcal_kg': r['nem_mcal_kg'],
-                'ndf_percent': r['ndf_percent'],
-                'in_stock': r['in_stock'],
-            }
-        )
+        entry: dict = {
+            'id': r['marketplace_product_id'],
+            'name_en': r['name_en'],
+            'name_ar': r['name_ar'] or '',
+            'feed_type': r['feed_type'],
+            'supplier_name': r['supplier_name'],
+            'supplier_phone': r['supplier_phone'] or '',
+            'country_code': r['country_code'],
+            'currency': r['currency'],
+            'price_per_kg': round(float(r['price_per_kg']), 4),
+            'min_order_kg': r['min_order_kg'],
+            'pack_size_kg': r['pack_size_kg'],
+            'dm_percent': r['dm_percent'],
+            'cp_percent': r['cp_percent'],
+            'nem_mcal_kg': r['nem_mcal_kg'],
+            'ndf_percent': r['ndf_percent'],
+            'in_stock': r['in_stock'],
+        }
+        if r.get('standard_product_number') is not None:
+            entry['standard_product_number'] = r['standard_product_number']
+        rules = r.get('eligibility_rules') or []
+        if rules:
+            entry['eligibility_rules'] = rules
+        products.append(entry)
     return {
         'products': products,
         'meta': {

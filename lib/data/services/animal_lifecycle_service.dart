@@ -150,6 +150,13 @@ class AnimalLifecycleService {
         if (!tags.contains(AnimalTagType.lactating)) {
           tags = [...tags, AnimalTagType.lactating];
         }
+        return animal.copyWith(
+          tags: _uniqueTags(tags),
+          monthsSinceCalving: 0,
+          isHeifer: false,
+          clearGestMonths: true,
+          clearDueDate: true,
+        );
       case CalvingOutcome.stillborn:
         if (!tags.contains(AnimalTagType.stillborn)) {
           tags = [...tags, AnimalTagType.stillborn];
@@ -159,7 +166,11 @@ class AnimalLifecycleService {
           tags = [...tags, AnimalTagType.miscarriage];
         }
     }
-    return animal.copyWith(tags: _uniqueTags(tags));
+    return animal.copyWith(
+      tags: _uniqueTags(tags),
+      clearGestMonths: true,
+      clearDueDate: true,
+    );
   }
 
   List<AnimalTagType> _uniqueTags(List<AnimalTagType> tags) {

@@ -63,7 +63,7 @@ final feedInventoryForGapProvider =
 });
 
 /// Supplement options for Fix the gap, keyed as `groupId|source`.
-final gapSupplementsProvider =
+  final gapSupplementsProvider =
     FutureProvider.family<List<GapSupplementOption>, String>((ref, key) async {
   final sep = key.indexOf('|');
   final groupId = key.substring(0, sep);
@@ -75,6 +75,8 @@ final gapSupplementsProvider =
   final inventory = await ref.watch(feedInventoryForGapProvider.future);
   final engineRecs =
       await ref.watch(nutritionRepositoryProvider).getRecommendations(groupId);
+  final groupMembers =
+      await ref.watch(groupAnimalsForNutritionProvider(groupId).future);
 
   return GapSupplementRecommendations.load(
     source: source,
@@ -82,5 +84,6 @@ final gapSupplementsProvider =
     locale: locale,
     inventory: inventory,
     engineRecs: engineRecs,
+    groupMembers: groupMembers,
   );
 });

@@ -137,6 +137,10 @@ class _GroupBreedingAnimalRowState extends ConsumerState<GroupBreedingAnimalRow>
       if (_animal.weightKg > 0) '${_animal.weightKg.toInt()} kg',
       if (_animal.ageLabel.trim().isNotEmpty && _animal.ageLabel != '—')
         _animal.ageLabel,
+      if (ReproductionStatusRules.showsBreedingCycleKpi(_animal))
+        context.l10n.monthsSinceCalvingShort(
+          ReproductionStatusRules.effectiveMonthsSinceCalving(_animal) ?? 0,
+        ),
       if (_isPregnant && _animal.gestMonths != null)
         '${_animal.gestMonths}m pregnant',
     ].join(' · ');

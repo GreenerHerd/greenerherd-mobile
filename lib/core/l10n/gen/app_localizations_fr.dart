@@ -2024,4 +2024,133 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cullReason => 'Cull reason';
+
+  @override
+  String get breedingCycleKpiTitle => 'Cycle de reproduction';
+
+  @override
+  String get breedingCycleKpiSubtitle =>
+      'Les mois depuis le vêlage déterminent la nutrition en lactation et le début du prochain cycle.';
+
+  @override
+  String get monthsSinceCalvingLabel => 'Mois depuis le vêlage';
+
+  @override
+  String get lactationPhaseLabel => 'Phase de lactation';
+
+  @override
+  String monthsSinceCalvingValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mois',
+      one: '1 mois',
+      zero: 'Vêlage récent (0 mois)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get decreaseMonthsSinceCalving => 'Diminuer les mois depuis le vêlage';
+
+  @override
+  String get increaseMonthsSinceCalving =>
+      'Augmenter les mois depuis le vêlage';
+
+  @override
+  String get breedingCycleReadyForRebreeding =>
+      'Prête pour la prochaine reproduction — marquez Prête à reproduire quand planifié.';
+
+  @override
+  String breedingCycleWaitingPeriod(int months) {
+    return 'Période d\'attente volontaire — $months mois avant la fenêtre de reproduction.';
+  }
+
+  @override
+  String get breedingCycleBlockedPregnant =>
+      'Actuellement gestante — le prochain cycle commence après le vêlage.';
+
+  @override
+  String get groupBreedingCycleKpiTitle => 'Cycle de reproduction du troupeau';
+
+  @override
+  String get groupBreedingCycleKpiSubtitle =>
+      'La médiane des mois depuis le vêlage guide la nutrition du groupe et la planification de la reproduction.';
+
+  @override
+  String get groupMedianMonthsSinceCalving => 'Médiane mois depuis vêlage';
+
+  @override
+  String get groupLactatingFemales => 'Femelles en lactation';
+
+  @override
+  String get groupReadyForRebreeding => 'Prêtes pour reproduction';
+
+  @override
+  String get groupWaitingForRebreeding => 'En période d\'attente';
+
+  @override
+  String get groupLactationStageBreakdown =>
+      'Stades de lactation dans le groupe';
+
+  @override
+  String groupAnimalsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count animaux',
+      one: '1 animal',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String groupBreedingCycleNutritionNote(int months) {
+    return 'Période d\'attente volontaire de $months mois après vêlage. Modifiez les animaux ci-dessous pour mettre à jour les mois depuis vêlage.';
+  }
+
+  @override
+  String monthsSinceCalvingShort(int count) {
+    return '$count mois depuis vêlage';
+  }
+
+  @override
+  String readyToBreedEligibleNotTagged(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count à plus de 2 mois depuis vêlage · pas marquées prêtes',
+      one: '1 à plus de 2 mois depuis vêlage · pas marquée prête',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get feedRestrictedDueToAnimalStatus =>
+      'Certains aliments sont restreints en raison du statut des animaux.';
+
+  @override
+  String get feedEligibilityWarningTitle => 'Avertissement restriction aliment';
+
+  @override
+  String feedEligibilityAddProductWarning(String product) {
+    return '$product peut ne pas convenir à tous les animaux de la ferme.';
+  }
+
+  @override
+  String feedEligibilityImpactedAnimals(String tags) {
+    return 'Animaux concernés : $tags';
+  }
+
+  @override
+  String feedMealPlanRestrictedTitle(String mealName) {
+    return 'Le plan \"$mealName\" contient des aliments restreints';
+  }
+
+  @override
+  String get feedMealPlanRestrictedBody =>
+      'Certains ingrédients ne sont pas éligibles pour les animaux du groupe sélectionné.';
+
+  @override
+  String get addAnyway => 'Ajouter quand même';
 }

@@ -894,5 +894,78 @@
       }
     }
   },
-  "youreAdding": "You're adding"
+  "youreAdding": "You're adding",
+  "breedingCycleKpiTitle": "Cycle de reproduction",
+  "breedingCycleKpiSubtitle": "Les mois depuis le vêlage déterminent la nutrition en lactation et le début du prochain cycle.",
+  "monthsSinceCalvingLabel": "Mois depuis le vêlage",
+  "lactationPhaseLabel": "Phase de lactation",
+  "monthsSinceCalvingValue": "{count, plural, =0{Vêlage récent (0 mois)} =1{1 mois} other{{count} mois}}",
+  "@monthsSinceCalvingValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "decreaseMonthsSinceCalving": "Diminuer les mois depuis le vêlage",
+  "increaseMonthsSinceCalving": "Augmenter les mois depuis le vêlage",
+  "breedingCycleReadyForRebreeding": "Prête pour la prochaine reproduction — marquez Prête à reproduire quand planifié.",
+  "breedingCycleWaitingPeriod": "Période d'attente volontaire — {months} mois avant la fenêtre de reproduction.",
+  "@breedingCycleWaitingPeriod": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "breedingCycleBlockedPregnant": "Actuellement gestante — le prochain cycle commence après le vêlage.",
+  "groupBreedingCycleKpiTitle": "Cycle de reproduction du troupeau",
+  "groupBreedingCycleKpiSubtitle": "La médiane des mois depuis le vêlage guide la nutrition du groupe et la planification de la reproduction.",
+  "groupMedianMonthsSinceCalving": "Médiane mois depuis vêlage",
+  "groupLactatingFemales": "Femelles en lactation",
+  "groupReadyForRebreeding": "Prêtes pour reproduction",
+  "groupWaitingForRebreeding": "En période d'attente",
+  "groupLactationStageBreakdown": "Stades de lactation dans le groupe",
+  "groupAnimalsCount": "{count, plural, =1{1 animal} other{{count} animaux}}",
+  "@groupAnimalsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "groupBreedingCycleNutritionNote": "Période d'attente volontaire de {months} mois après vêlage. Modifiez les animaux ci-dessous pour mettre à jour les mois depuis vêlage.",
+  "@groupBreedingCycleNutritionNote": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "monthsSinceCalvingShort": "{count} mois depuis vêlage",
+  "@monthsSinceCalvingShort": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "readyToBreedEligibleNotTagged": "{count, plural, =1{1 à plus de 2 mois depuis vêlage · pas marquée prête} other{{count} à plus de 2 mois depuis vêlage · pas marquées prêtes}}",
+  "@readyToBreedEligibleNotTagged": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "feedRestrictedDueToAnimalStatus": "Certains aliments sont restreints en raison du statut des animaux.",
+  "feedEligibilityWarningTitle": "Avertissement restriction aliment",
+  "feedEligibilityAddProductWarning": "{product} peut ne pas convenir à tous les animaux de la ferme.",
+  "@feedEligibilityAddProductWarning": {
+    "placeholders": {
+      "product": { "type": "String" }
+    }
+  },
+  "feedEligibilityImpactedAnimals": "Animaux concernés : {tags}",
+  "@feedEligibilityImpactedAnimals": {
+    "placeholders": {
+      "tags": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedTitle": "Le plan \"{mealName}\" contient des aliments restreints",
+  "@feedMealPlanRestrictedTitle": {
+    "placeholders": {
+      "mealName": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedBody": "Certains ingrédients ne sont pas éligibles pour les animaux du groupe sélectionné.",
+  "addAnyway": "Ajouter quand même"
 }

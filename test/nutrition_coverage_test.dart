@@ -82,22 +82,24 @@ void main() {
       }
     });
 
-    test('sick weaning and breeding groups resolve to dedicated profiles', () {
-      const dedicated = {
-        GroupPurpose.sick: NutritionFeedCycle.sick,
-        GroupPurpose.weaning: NutritionFeedCycle.weaning,
-        GroupPurpose.breeding: NutritionFeedCycle.breeding,
-      };
-      for (final entry in dedicated.entries) {
-        final group = _mockGroup(
-          species: Species.goat,
-          purpose: entry.key,
-        );
+    test('breeding group purpose applies dedicated profile at herd level', () {
+      final group = _mockGroup(
+        species: Species.goat,
+        purpose: GroupPurpose.breeding,
+      );
+      final ctx = NutritionContextBuilder.fromGroup(group);
+      expect(ctx.feedCycleHint, NutritionFeedCycle.breeding);
+      final resolved = NutritionProfileResolver.resolve(catalog, ctx);
+      expect(resolved.profile.feedCycle, NutritionFeedCycle.breeding);
+    });
+
+    test('sick and weaning group purpose alone does not override untagged members',
+        () {
+      for (final purpose in [GroupPurpose.sick, GroupPurpose.weaning]) {
+        final group = _mockGroup(species: Species.goat, purpose: purpose);
         final ctx = NutritionContextBuilder.fromGroup(group);
-        expect(ctx.feedCycleHint, entry.value);
-        final resolved = NutritionProfileResolver.resolve(catalog, ctx);
-        expect(resolved.profile.feedCycle, entry.value);
-        expect(resolved.profile.dmiKgDay, greaterThan(0));
+        expect(ctx.feedCycleHint, isNot(NutritionFeedCycle.sick));
+        expect(ctx.feedCycleHint, isNot(NutritionFeedCycle.weaning));
       }
     });
 

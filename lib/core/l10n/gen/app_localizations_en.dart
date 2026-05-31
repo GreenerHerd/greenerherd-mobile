@@ -2021,4 +2021,131 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cullReason => 'Cull reason';
+
+  @override
+  String get breedingCycleKpiTitle => 'Breeding cycle';
+
+  @override
+  String get breedingCycleKpiSubtitle =>
+      'Months since calving sets lactation nutrition and when the next breeding cycle can start.';
+
+  @override
+  String get monthsSinceCalvingLabel => 'Months since calving';
+
+  @override
+  String get lactationPhaseLabel => 'Lactation phase';
+
+  @override
+  String monthsSinceCalvingValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count months',
+      one: '1 month',
+      zero: 'Fresh calving (0 mo)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get decreaseMonthsSinceCalving => 'Decrease months since calving';
+
+  @override
+  String get increaseMonthsSinceCalving => 'Increase months since calving';
+
+  @override
+  String get breedingCycleReadyForRebreeding =>
+      'Ready for next breeding — mark Ready to Breed when scheduled.';
+
+  @override
+  String breedingCycleWaitingPeriod(int months) {
+    return 'Voluntary waiting period — $months month(s) until re-breeding window.';
+  }
+
+  @override
+  String get breedingCycleBlockedPregnant =>
+      'Currently pregnant — next breeding cycle starts after calving.';
+
+  @override
+  String get groupBreedingCycleKpiTitle => 'Herd breeding cycle';
+
+  @override
+  String get groupBreedingCycleKpiSubtitle =>
+      'Median months since calving across lactating females drives group nutrition and re-breeding planning.';
+
+  @override
+  String get groupMedianMonthsSinceCalving => 'Median months since calving';
+
+  @override
+  String get groupLactatingFemales => 'Lactating females';
+
+  @override
+  String get groupReadyForRebreeding => 'Ready for re-breeding';
+
+  @override
+  String get groupWaitingForRebreeding => 'In waiting period';
+
+  @override
+  String get groupLactationStageBreakdown => 'Lactation stages in group';
+
+  @override
+  String groupAnimalsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count animals',
+      one: '1 animal',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String groupBreedingCycleNutritionNote(int months) {
+    return 'Voluntary waiting period is $months months after calving. Edit individual animals below to update months since calving.';
+  }
+
+  @override
+  String monthsSinceCalvingShort(int count) {
+    return '$count mo since calving';
+  }
+
+  @override
+  String readyToBreedEligibleNotTagged(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count over 2 mo since calving · not tagged ready',
+      one: '1 over 2 mo since calving · not tagged ready',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get feedRestrictedDueToAnimalStatus =>
+      'Some feed items are restricted due to the animal status.';
+
+  @override
+  String get feedEligibilityWarningTitle => 'Feed restriction warning';
+
+  @override
+  String feedEligibilityAddProductWarning(String product) {
+    return '$product may not be suitable for all animals on your farm.';
+  }
+
+  @override
+  String feedEligibilityImpactedAnimals(String tags) {
+    return 'Impacted animals: $tags';
+  }
+
+  @override
+  String feedMealPlanRestrictedTitle(String mealName) {
+    return 'Meal plan \"$mealName\" has restricted feeds';
+  }
+
+  @override
+  String get feedMealPlanRestrictedBody =>
+      'Some ingredients in this meal plan are not eligible for animals in the selected group.';
+
+  @override
+  String get addAnyway => 'Add anyway';
 }

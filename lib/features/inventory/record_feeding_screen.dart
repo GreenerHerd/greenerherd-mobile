@@ -7,8 +7,12 @@ import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../features/nutrition/nutrition_providers.dart';
 import '../../data/models/inventory_models.dart';
+import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
+import '../../data/services/feed_catalog_loader.dart';
+import '../../data/services/feed_eligibility_service.dart';
 import '../../shared/widgets/gh_app_bar.dart';
+import 'feed_eligibility_ui.dart';
 
 class RecordFeedingScreen extends ConsumerStatefulWidget {
   const RecordFeedingScreen({super.key, this.initialGroupId});
@@ -23,6 +27,9 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
   List<AnimalGroup> _groups = [];
   List<FeedInventoryItem> _feedItems = [];
   List<MealPlan> _meals = [];
+  List<FeedCatalogProduct>? _catalog;
+  List<MarketplaceFeedProduct> _marketplace = [];
+  List<Animal> _groupAnimals = [];
   String? _groupId;
   String? _mealId;
   String? _feedItemId;
@@ -42,18 +49,132 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
     final groups = await ref.read(groupRepositoryProvider).listGroups();
     final meals = await ref.read(inventoryRepositoryProvider).listMeals();
     final feed = await ref.read(inventoryRepositoryProvider).listFeed();
+    final catalog = await FeedCatalogLoader.loadStandardProducts();
+    final marketplace = await FeedCatalogLoader.loadMarketplaceProducts();
     if (mounted) {
       setState(() {
         _groups = groups;
         _meals = meals;
         _feedItems = feed;
+        _catalog = catalog;
+        _marketplace = marketplace;
         _groupId = widget.initialGroupId ??
             (groups.isNotEmpty ? groups.first.id : null);
         _mealId = meals.isNotEmpty ? meals.first.id : null;
         _feedItemId = feed.isNotEmpty ? feed.first.id : null;
         _loading = false;
       });
+      await _refreshGroupAnimals();
     }
+  }
+
+  Future<void> _refreshGroupAnimals() async {
+    if (_groupId == null) return;
+    final animals =
+        await ref.read(animalRepositoryProvider).listAnimals(groupId: _groupId);
+    if (!mounted) return;
+    setState(() {
+      _groupAnimals =
+          animals.where((a) => a.status == AnimalStatus.active).toList();
+      _syncEligibleSelections();
+    });
+  }
+
+  void _syncEligibleSelections() {
+    final meals = _eligibleMeals;
+    if (_mealId != null && !meals.any((m) => m.id == _mealId)) {
+      _mealId = meals.isNotEmpty ? meals.first.id : null;
+    }
+    final feed = _eligibleFeedItems;
+    if (_feedItemId != null && !feed.any((f) => f.id == _feedItemId)) {
+      _feedItemId = feed.isNotEmpty ? feed.first.id : null;
+    }
+  }
+
+  List<MealPlan> get _eligibleMeals {
+    if (_groupAnimals.isEmpty || _catalog == null) return _meals;
+    return _meals.where((meal) {
+      final check = FeedEligibilityService.evaluateMealForAnimals(
+        meal: meal,
+        feedItems: _feedItems,
+        catalog: _catalog!,
+        animals: _groupAnimals,
+        marketplace: _marketplace,
+      );
+      return !check.hasImpacts;
+    }).toList();
+  }
+
+  List<FeedInventoryItem> get _eligibleFeedItems {
+    if (_groupAnimals.isEmpty || _catalog == null) return _feedItems;
+    return _feedItems.where((item) {
+      final check = FeedEligibilityService.checkInventoryItem(
+        item,
+        catalog: _catalog!,
+        animals: _groupAnimals,
+        marketplace: _marketplace,
+      );
+      return check == null;
+    }).toList();
+  }
+
+  bool get _hasRestrictedMeals =>
+      _meals.length > _eligibleMeals.length && _groupAnimals.isNotEmpty;
+
+  bool get _hasRestrictedFeedItems =>
+      _feedItems.length > _eligibleFeedItems.length &&
+      _groupAnimals.isNotEmpty;
+
+  Future<bool> _confirmEligibilityIfNeeded() async {
+    if (_groupId == null || _catalog == null || _groupAnimals.isEmpty) {
+      return true;
+    }
+    if (_useMealPlan && _mealId != null) {
+      MealPlan? meal;
+      for (final m in _meals) {
+        if (m.id == _mealId) {
+          meal = m;
+          break;
+        }
+      }
+      if (meal == null) return true;
+      final check = FeedEligibilityService.evaluateMealForAnimals(
+        meal: meal,
+        feedItems: _feedItems,
+        catalog: _catalog!,
+        animals: _groupAnimals,
+        marketplace: _marketplace,
+      );
+      if (check.hasImpacts) {
+        return confirmMealEligibilityImpacts(context, check);
+      }
+      return true;
+    }
+    if (!_useMealPlan && _feedItemId != null) {
+      FeedInventoryItem? item;
+      for (final f in _feedItems) {
+        if (f.id == _feedItemId) {
+          item = f;
+          break;
+        }
+      }
+      if (item == null) return true;
+      final check = FeedEligibilityService.checkInventoryItem(
+        item,
+        catalog: _catalog!,
+        animals: _groupAnimals,
+        marketplace: _marketplace,
+      );
+      if (check != null && check.hasImpacts) {
+        return confirmFeedEligibilityImpacts(
+          context,
+          title: context.l10n.feedEligibilityWarningTitle,
+          message: context.l10n.feedEligibilityAddProductWarning(item.name),
+          impacts: check.impacts,
+        );
+      }
+    }
+    return true;
   }
 
   @override
@@ -72,6 +193,8 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
       );
       return;
     }
+    final proceed = await _confirmEligibilityIfNeeded();
+    if (!proceed) return;
     setState(() => _saving = true);
     try {
       final result = await ref.read(inventoryRepositoryProvider).recordFeeding(
@@ -136,8 +259,15 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
                   ),
                 )
                 .toList(),
-            onChanged: (v) => setState(() => _groupId = v),
+            onChanged: (v) async {
+              setState(() => _groupId = v);
+              await _refreshGroupAnimals();
+            },
           ),
+          if (_hasRestrictedMeals || _hasRestrictedFeedItems) ...[
+            const SizedBox(height: 12),
+            const FeedEligibilityRestrictedBanner(),
+          ],
           const SizedBox(height: 16),
           const Text('Feed type',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
@@ -160,7 +290,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
           ),
           const SizedBox(height: 12),
           if (_useMealPlan) ...[
-            if (_meals.isEmpty)
+            if (_eligibleMeals.isEmpty)
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -184,7 +314,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
               DropdownButtonFormField<String>(
                 value: _mealId,
                 decoration: const InputDecoration(labelText: 'Meal plan'),
-                items: _meals
+                items: _eligibleMeals
                     .map(
                       (m) => DropdownMenuItem(
                         value: m.id,
@@ -195,7 +325,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
                 onChanged: (v) => setState(() => _mealId = v),
               ),
           ] else ...[
-            if (_feedItems.isEmpty)
+            if (_eligibleFeedItems.isEmpty)
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -219,7 +349,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
               DropdownButtonFormField<String>(
                 value: _feedItemId,
                 decoration: const InputDecoration(labelText: 'Feed product'),
-                items: _feedItems
+                items: _eligibleFeedItems
                     .map(
                       (f) => DropdownMenuItem(
                         value: f.id,

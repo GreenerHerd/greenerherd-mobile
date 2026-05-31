@@ -6,6 +6,16 @@ import 'reproduction_status_rules.dart';
 
 /// Builds [NutritionProfileContext] from groups / animals for requirement lookup.
 abstract final class NutritionContextBuilder {
+  /// Tags that define an individual nutritional state and override group purpose.
+  static const _individualStateTags = {
+    AnimalTagType.lactating,
+    AnimalTagType.pregnant,
+    AnimalTagType.sick,
+    AnimalTagType.weaning,
+    AnimalTagType.fattening,
+    AnimalTagType.readyToBreed,
+  };
+
   static NutritionProfileContext fromAnimal(Animal animal) {
     final species = switch (animal.species) {
       Species.cattle => 'CATTLE',
@@ -27,6 +37,7 @@ abstract final class NutritionContextBuilder {
     final fattening = animal.tags.contains(AnimalTagType.fattening);
     final weaning = animal.tags.contains(AnimalTagType.weaning);
     final sick = animal.tags.contains(AnimalTagType.sick);
+    final breeding = animal.tags.contains(AnimalTagType.readyToBreed);
 
     return NutritionProfileContext(
       species: species,
@@ -38,6 +49,7 @@ abstract final class NutritionContextBuilder {
       fattening: fattening,
       sick: sick,
       weaning: weaning,
+      breeding: breeding,
       monthsSinceCalving: _monthsSinceCalvingFromAnimal(animal),
       headCount: 1,
       feedCycleHint: _feedCycleHint(
@@ -49,8 +61,71 @@ abstract final class NutritionContextBuilder {
         fattening: fattening,
         weaning: weaning,
         sick: sick,
+        breeding: breeding,
+        maintenance: false,
         ageMonths: ageMonths,
         sex: sex,
+      ),
+    );
+  }
+
+  /// Per-member context: individual tags win; group purpose applies only for
+  /// breeding, maintenance, and fattening on untagged animals.
+  static NutritionProfileContext fromMemberInGroup(
+    Animal animal,
+    AnimalGroup group,
+  ) {
+    final base = fromAnimal(animal);
+    final hasIndividualState = _hasIndividualNutritionState(animal);
+
+    var lactating = base.lactating;
+    var pregnant = base.pregnant;
+    var sick = base.sick;
+    var weaning = base.weaning;
+    var fattening = base.fattening;
+    var breeding = base.breeding;
+    var maintenance = false;
+
+    if (!hasIndividualState) {
+      switch (group.purpose) {
+        case GroupPurpose.fattening:
+          fattening = true;
+        case GroupPurpose.maintenance:
+          maintenance = true;
+        case GroupPurpose.breeding:
+          breeding = true;
+        default:
+          break;
+      }
+    }
+
+    return NutritionProfileContext(
+      species: base.species,
+      sex: base.sex,
+      ageMonths: base.ageMonths,
+      productionFocus: base.productionFocus,
+      lactating: lactating,
+      pregnant: pregnant,
+      fattening: fattening,
+      sick: sick,
+      weaning: weaning,
+      maintenance: maintenance,
+      breeding: breeding,
+      monthsSinceCalving: base.monthsSinceCalving,
+      headCount: 1,
+      feedCycleHint: _feedCycleHint(
+        species: base.species,
+        purpose: group.purpose,
+        production: base.productionFocus,
+        lactating: lactating,
+        pregnant: pregnant,
+        fattening: fattening,
+        weaning: weaning,
+        sick: sick,
+        breeding: breeding,
+        maintenance: maintenance,
+        ageMonths: base.ageMonths,
+        sex: base.sex,
       ),
     );
   }
@@ -71,30 +146,30 @@ abstract final class NutritionContextBuilder {
     final sex = _predominantSex(herd);
     final production = _predominantProduction(herd, group);
 
-    final lactating = group.purpose == GroupPurpose.milk ||
+    final lactating =
         herd.any((a) => a.tags.contains(AnimalTagType.lactating));
-    final pregnant = group.purpose == GroupPurpose.pregnant ||
-        herd.any((a) => a.tags.contains(AnimalTagType.pregnant));
+    final pregnant = herd.any((a) => a.tags.contains(AnimalTagType.pregnant));
     final fattening = group.purpose == GroupPurpose.fattening ||
         herd.any((a) => a.tags.contains(AnimalTagType.fattening));
-    final weaning = group.purpose == GroupPurpose.weaning ||
-        herd.any((a) => a.tags.contains(AnimalTagType.weaning));
-    final sick = group.purpose == GroupPurpose.sick ||
-        herd.any((a) => a.tags.contains(AnimalTagType.sick));
-    final dry = group.purpose == GroupPurpose.dry;
+    final weaning = herd.any((a) => a.tags.contains(AnimalTagType.weaning));
+    final sick = herd.any((a) => a.tags.contains(AnimalTagType.sick));
+    final breeding = group.purpose == GroupPurpose.breeding ||
+        herd.any((a) => a.tags.contains(AnimalTagType.readyToBreed));
+    final maintenance = group.purpose == GroupPurpose.maintenance &&
+        herd.every((a) => !_hasIndividualNutritionState(a));
 
     return NutritionProfileContext(
       species: species,
       sex: sex,
       ageMonths: ageMonths,
       productionFocus: production,
-      lactating: lactating && !dry && !weaning,
+      lactating: lactating,
       pregnant: pregnant,
       fattening: fattening,
       sick: sick,
       weaning: weaning,
-      maintenance: group.purpose == GroupPurpose.maintenance,
-      breeding: group.purpose == GroupPurpose.breeding,
+      maintenance: maintenance,
+      breeding: breeding,
       monthsSinceCalving: _medianMonthsSinceCalving(herd),
       headCount: group.headCount,
       feedCycleHint: _feedCycleHint(
@@ -106,11 +181,16 @@ abstract final class NutritionContextBuilder {
         fattening: fattening,
         weaning: weaning,
         sick: sick,
-        dry: dry,
+        breeding: breeding,
+        maintenance: maintenance,
         ageMonths: ageMonths,
         sex: sex,
       ),
     );
+  }
+
+  static bool _hasIndividualNutritionState(Animal animal) {
+    return animal.tags.any(_individualStateTags.contains);
   }
 
   static String? _feedCycleHint({
@@ -122,9 +202,10 @@ abstract final class NutritionContextBuilder {
     required bool fattening,
     required bool weaning,
     required bool sick,
+    required bool breeding,
+    required bool maintenance,
     required int ageMonths,
     required String? sex,
-    bool dry = false,
   }) {
     if (sick) return NutritionFeedCycle.sick;
     if (weaning) return NutritionFeedCycle.weaning;
@@ -137,9 +218,8 @@ abstract final class NutritionContextBuilder {
           ? NutritionFeedCycle.closeUp
           : NutritionFeedCycle.pregnant;
     }
-    if (dry) return NutritionFeedCycle.dryFarOff;
-    if (purpose == GroupPurpose.breeding) return NutritionFeedCycle.breeding;
-    if (purpose == GroupPurpose.maintenance) {
+    if (breeding) return NutritionFeedCycle.breeding;
+    if (maintenance) {
       return NutritionFeedCycle.maintenance;
     }
     if (species == 'CATTLE' && sex == 'MALE' && production == 'MEAT') {
@@ -157,11 +237,8 @@ abstract final class NutritionContextBuilder {
   ) {
     if (herd.isEmpty) {
       return switch (group.purpose) {
-        GroupPurpose.milk => 'MILK',
-        GroupPurpose.pregnant => 'MILK',
         GroupPurpose.breeding => 'BOTH',
         GroupPurpose.fattening => 'MEAT',
-        GroupPurpose.dry => 'MILK',
         _ => 'MEAT',
       };
     }
@@ -220,12 +297,13 @@ abstract final class NutritionContextBuilder {
   }
 
   static int? _monthsSinceCalvingFromAnimal(Animal animal) {
-    if (animal.gestMonths != null && animal.tags.contains(AnimalTagType.pregnant)) {
+    if (animal.gestMonths != null &&
+        animal.tags.contains(AnimalTagType.pregnant)) {
       return null;
     }
     if (animal.tags.contains(AnimalTagType.lactating)) {
-      return 2;
+      return animal.monthsSinceCalving ?? 2;
     }
-    return null;
+    return animal.monthsSinceCalving;
   }
 }

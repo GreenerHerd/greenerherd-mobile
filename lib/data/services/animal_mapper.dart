@@ -53,6 +53,7 @@ abstract final class AnimalMapper {
       status: status,
       weightIndicative: wire['weight_indicative'] == true,
       productionPurpose: productionPurpose,
+      monthsSinceCalving: (wire['months_since_calving'] as num?)?.toInt(),
     );
   }
 

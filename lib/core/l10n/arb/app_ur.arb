@@ -894,5 +894,78 @@
       }
     }
   },
-  "youreAdding": "You're adding"
+  "youreAdding": "You're adding",
+  "breedingCycleKpiTitle": "نسل کی سائیکل",
+  "breedingCycleKpiSubtitle": "بچھڑنے کے بعد مہینے دودھ کی غذائیت اور اگلی نسل کی سائیکل کا وقت طے کرتے ہیں۔",
+  "monthsSinceCalvingLabel": "بچھڑنے کے بعد مہینے",
+  "lactationPhaseLabel": "دودھ کا مرحلہ",
+  "monthsSinceCalvingValue": "{count, plural, =0{تازہ بچھڑنا (0 ماہ)} =1{1 ماہ} other{{count} ماہ}}",
+  "@monthsSinceCalvingValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "decreaseMonthsSinceCalving": "بچھڑنے کے بعد مہینے کم کریں",
+  "increaseMonthsSinceCalving": "بچھڑنے کے بعد مہینے بڑھائیں",
+  "breedingCycleReadyForRebreeding": "اگلی نسل کے لیے تیار — شیڈول پر تیار برِیڈ نشان لگائیں۔",
+  "breedingCycleWaitingPeriod": "رضاکارانہ انتظار — دوبارہ نسل کی کھڑکی تک {months} ماہ۔",
+  "@breedingCycleWaitingPeriod": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "breedingCycleBlockedPregnant": "فی الحال حامل — اگلی سائیکل بچھڑنے کے بعد شروع ہوگی۔",
+  "groupBreedingCycleKpiTitle": "گروپ نسل کی سائیکل",
+  "groupBreedingCycleKpiSubtitle": "دودھ دینے والی مادہ جانوروں میں بچھڑنے کے بعد اوسط مہینے گروپ کی غذائیت اور دوبارہ نسل کی منصوبہ بندی طے کرتے ہیں۔",
+  "groupMedianMonthsSinceCalving": "درمیانی مہینے بچھڑنے کے بعد",
+  "groupLactatingFemales": "دودھ دینے والی مادائیں",
+  "groupReadyForRebreeding": "دوبارہ نسل کے لیے تیار",
+  "groupWaitingForRebreeding": "انتظار کی مدت میں",
+  "groupLactationStageBreakdown": "گروپ میں دودھ کے مراحل",
+  "groupAnimalsCount": "{count, plural, =1{1 جانور} other{{count} جانور}}",
+  "@groupAnimalsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "groupBreedingCycleNutritionNote": "رضاکارانہ انتظار کی مدت بچھڑنے کے بعد {months} ماہ ہے۔ نیچے انفرادی جانوروں میں مہینے اپ ڈیٹ کریں۔",
+  "@groupBreedingCycleNutritionNote": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "monthsSinceCalvingShort": "بچھڑنے کے {count} ماہ",
+  "@monthsSinceCalvingShort": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "readyToBreedEligibleNotTagged": "{count, plural, =1{1 بچھڑنے کے 2+ ماہ · تیار برِیڈ نشان نہیں} other{{count} بچھڑنے کے 2+ ماہ · تیار برِیڈ نشان نہیں}}",
+  "@readyToBreedEligibleNotTagged": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "feedRestrictedDueToAnimalStatus": "کچھ فیڈ اشیاء جانوروں کی حالت کی وجہ سے محدود ہیں۔",
+  "feedEligibilityWarningTitle": "فیڈ restriction انتباہ",
+  "feedEligibilityAddProductWarning": "{product} آپ کے تمام جانوروں کے لیے موزوں نہیں ہو سکتا۔",
+  "@feedEligibilityAddProductWarning": {
+    "placeholders": {
+      "product": { "type": "String" }
+    }
+  },
+  "feedEligibilityImpactedAnimals": "متاثرہ جانور: {tags}",
+  "@feedEligibilityImpactedAnimals": {
+    "placeholders": {
+      "tags": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedTitle": "میل پلان \"{mealName}\" میں محدود فیڈ ہے",
+  "@feedMealPlanRestrictedTitle": {
+    "placeholders": {
+      "mealName": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedBody": "اس میل پلان کے کچھ اجزاء منتخب گروپ کے جانوروں کے لیے اہل نہیں۔",
+  "addAnyway": "پھر بھی شامل کریں"
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/models/inventory_models.dart';
 import '../../data/models/models.dart';
 import '../../data/services/feed_catalog_loader.dart';
+import '../../data/services/feed_eligibility_service.dart';
 import '../../data/services/supplement_nutrition.dart';
 
 enum GapSupplementSource { inventory, standard, marketplace }
@@ -94,16 +95,25 @@ class GapSupplementRecommendations {
     required Locale locale,
     required List<FeedInventoryItem> inventory,
     List<FeedRecommendation> engineRecs = const [],
+    List<Animal> groupMembers = const [],
   }) async {
     return switch (source) {
       GapSupplementSource.inventory => _fromInventory(
           gap: gap,
           inventory: inventory,
           engineRecs: engineRecs,
+          groupMembers: groupMembers,
         ),
-      GapSupplementSource.standard => _fromStandard(gap: gap, locale: locale),
-      GapSupplementSource.marketplace =>
-        _fromMarketplace(gap: gap, locale: locale),
+      GapSupplementSource.standard => _fromStandard(
+          gap: gap,
+          locale: locale,
+          groupMembers: groupMembers,
+        ),
+      GapSupplementSource.marketplace => _fromMarketplace(
+          gap: gap,
+          locale: locale,
+          groupMembers: groupMembers,
+        ),
     };
   }
 
@@ -111,11 +121,33 @@ class GapSupplementRecommendations {
     required NutritionGap gap,
     required List<FeedInventoryItem> inventory,
     required List<FeedRecommendation> engineRecs,
+    List<Animal> groupMembers = const [],
   }) async {
     final standard = await FeedCatalogLoader.loadStandardProducts();
+    final eligibleStandard =
+        FeedEligibilityService.filterProductsForAnimals(standard, groupMembers);
+    final eligibleNumbers =
+        eligibleStandard.map((p) => p.productNumber).toSet();
     final marketplace = await FeedCatalogLoader.loadMarketplaceProducts();
+    final eligibleMarketplace =
+        FeedEligibilityService.filterMarketplaceProductsForAnimals(
+      marketplace,
+      groupMembers,
+    );
+    final eligibleMarketplaceIds =
+        eligibleMarketplace.map((p) => p.id).toSet();
     final options = <GapSupplementOption>[];
     for (final item in inventory) {
+      if (item.feedProductNumber != null &&
+          groupMembers.isNotEmpty &&
+          !eligibleNumbers.contains(item.feedProductNumber)) {
+        continue;
+      }
+      if (item.marketplaceProductId != null &&
+          groupMembers.isNotEmpty &&
+          !eligibleMarketplaceIds.contains(item.marketplaceProductId)) {
+        continue;
+      }
       final nutrition = _resolveInventoryNutrition(
         item,
         standard: standard,
@@ -147,6 +179,11 @@ class GapSupplementRecommendations {
       if (options.any((o) => o.name == rec.name)) continue;
       final matched = _matchInventoryItem(inventory, rec.name);
       if (matched != null) {
+        if (matched.feedProductNumber != null &&
+            groupMembers.isNotEmpty &&
+            !eligibleNumbers.contains(matched.feedProductNumber)) {
+          continue;
+        }
         final nutrition = _resolveInventoryNutrition(
           matched,
           standard: standard,
@@ -170,6 +207,12 @@ class GapSupplementRecommendations {
             isTopPick: rec.isTopPick,
           ),
         );
+        continue;
+      }
+      final product = _findCatalogProduct(rec.name, standard);
+      if (product != null &&
+          groupMembers.isNotEmpty &&
+          !eligibleNumbers.contains(product.productNumber)) {
         continue;
       }
       final catalogNutrition = _resolveCatalogNutritionByName(
@@ -203,9 +246,12 @@ class GapSupplementRecommendations {
   static Future<List<GapSupplementOption>> _fromStandard({
     required NutritionGap gap,
     required Locale locale,
+    List<Animal> groupMembers = const [],
   }) async {
     final catalog = await FeedCatalogLoader.loadStandardProducts();
-    final options = catalog.map((p) {
+    final eligible =
+        FeedEligibilityService.filterProductsForAnimals(catalog, groupMembers);
+    final options = eligible.map((p) {
       final kg = _suggestedKg(gap, nem: p.nemMcalPerKg);
       return _option(
         id: 'std-${p.productNumber}',
@@ -232,9 +278,14 @@ class GapSupplementRecommendations {
   static Future<List<GapSupplementOption>> _fromMarketplace({
     required NutritionGap gap,
     required Locale locale,
+    List<Animal> groupMembers = const [],
   }) async {
     final products = await FeedCatalogLoader.loadMarketplaceProducts();
-    final options = products.map((p) {
+    final eligible = FeedEligibilityService.filterMarketplaceProductsForAnimals(
+      products,
+      groupMembers,
+    );
+    final options = eligible.map((p) {
       final kg = _suggestedKg(gap, nem: p.nemMcalPerKg);
       return _option(
         id: 'mkt-${p.id}',
@@ -479,6 +530,17 @@ class GapSupplementRecommendations {
     final needle = name.toLowerCase();
     for (final item in inventory) {
       if (_namesMatch(needle, item.name)) return item;
+    }
+    return null;
+  }
+
+  static FeedCatalogProduct? _findCatalogProduct(
+    String name,
+    List<FeedCatalogProduct> catalog,
+  ) {
+    final needle = name.toLowerCase();
+    for (final product in catalog) {
+      if (_namesMatch(needle, product.nameEn)) return product;
     }
     return null;
   }

@@ -923,5 +923,78 @@
   "deceased": "Deceased",
   "removedFromGroupNote": "Removed from group",
   "cullType": "Cull type",
-  "cullReason": "Cull reason"
+  "cullReason": "Cull reason",
+  "breedingCycleKpiTitle": "Breeding cycle",
+  "breedingCycleKpiSubtitle": "Months since calving sets lactation nutrition and when the next breeding cycle can start.",
+  "monthsSinceCalvingLabel": "Months since calving",
+  "lactationPhaseLabel": "Lactation phase",
+  "monthsSinceCalvingValue": "{count, plural, =0{Fresh calving (0 mo)} =1{1 month} other{{count} months}}",
+  "@monthsSinceCalvingValue": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "decreaseMonthsSinceCalving": "Decrease months since calving",
+  "increaseMonthsSinceCalving": "Increase months since calving",
+  "breedingCycleReadyForRebreeding": "Ready for next breeding — mark Ready to Breed when scheduled.",
+  "breedingCycleWaitingPeriod": "Voluntary waiting period — {months} month(s) until re-breeding window.",
+  "@breedingCycleWaitingPeriod": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "breedingCycleBlockedPregnant": "Currently pregnant — next breeding cycle starts after calving.",
+  "groupBreedingCycleKpiTitle": "Herd breeding cycle",
+  "groupBreedingCycleKpiSubtitle": "Median months since calving across lactating females drives group nutrition and re-breeding planning.",
+  "groupMedianMonthsSinceCalving": "Median months since calving",
+  "groupLactatingFemales": "Lactating females",
+  "groupReadyForRebreeding": "Ready for re-breeding",
+  "groupWaitingForRebreeding": "In waiting period",
+  "groupLactationStageBreakdown": "Lactation stages in group",
+  "groupAnimalsCount": "{count, plural, =1{1 animal} other{{count} animals}}",
+  "@groupAnimalsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "groupBreedingCycleNutritionNote": "Voluntary waiting period is {months} months after calving. Edit individual animals below to update months since calving.",
+  "@groupBreedingCycleNutritionNote": {
+    "placeholders": {
+      "months": { "type": "int" }
+    }
+  },
+  "monthsSinceCalvingShort": "{count} mo since calving",
+  "@monthsSinceCalvingShort": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "readyToBreedEligibleNotTagged": "{count, plural, =1{1 over 2 mo since calving · not tagged ready} other{{count} over 2 mo since calving · not tagged ready}}",
+  "@readyToBreedEligibleNotTagged": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "feedRestrictedDueToAnimalStatus": "Some feed items are restricted due to the animal status.",
+  "feedEligibilityWarningTitle": "Feed restriction warning",
+  "feedEligibilityAddProductWarning": "{product} may not be suitable for all animals on your farm.",
+  "@feedEligibilityAddProductWarning": {
+    "placeholders": {
+      "product": { "type": "String" }
+    }
+  },
+  "feedEligibilityImpactedAnimals": "Impacted animals: {tags}",
+  "@feedEligibilityImpactedAnimals": {
+    "placeholders": {
+      "tags": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedTitle": "Meal plan \"{mealName}\" has restricted feeds",
+  "@feedMealPlanRestrictedTitle": {
+    "placeholders": {
+      "mealName": { "type": "String" }
+    }
+  },
+  "feedMealPlanRestrictedBody": "Some ingredients in this meal plan are not eligible for animals in the selected group.",
+  "addAnyway": "Add anyway"
 }

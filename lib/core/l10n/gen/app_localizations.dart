@@ -3815,6 +3815,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cull reason'**
   String get cullReason;
+
+  /// No description provided for @breedingCycleKpiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Breeding cycle'**
+  String get breedingCycleKpiTitle;
+
+  /// No description provided for @breedingCycleKpiSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Months since calving sets lactation nutrition and when the next breeding cycle can start.'**
+  String get breedingCycleKpiSubtitle;
+
+  /// No description provided for @monthsSinceCalvingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Months since calving'**
+  String get monthsSinceCalvingLabel;
+
+  /// No description provided for @lactationPhaseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation phase'**
+  String get lactationPhaseLabel;
+
+  /// No description provided for @monthsSinceCalvingValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Fresh calving (0 mo)} =1{1 month} other{{count} months}}'**
+  String monthsSinceCalvingValue(int count);
+
+  /// No description provided for @decreaseMonthsSinceCalving.
+  ///
+  /// In en, this message translates to:
+  /// **'Decrease months since calving'**
+  String get decreaseMonthsSinceCalving;
+
+  /// No description provided for @increaseMonthsSinceCalving.
+  ///
+  /// In en, this message translates to:
+  /// **'Increase months since calving'**
+  String get increaseMonthsSinceCalving;
+
+  /// No description provided for @breedingCycleReadyForRebreeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for next breeding — mark Ready to Breed when scheduled.'**
+  String get breedingCycleReadyForRebreeding;
+
+  /// No description provided for @breedingCycleWaitingPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Voluntary waiting period — {months} month(s) until re-breeding window.'**
+  String breedingCycleWaitingPeriod(int months);
+
+  /// No description provided for @breedingCycleBlockedPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'Currently pregnant — next breeding cycle starts after calving.'**
+  String get breedingCycleBlockedPregnant;
+
+  /// No description provided for @groupBreedingCycleKpiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Herd breeding cycle'**
+  String get groupBreedingCycleKpiTitle;
+
+  /// No description provided for @groupBreedingCycleKpiSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Median months since calving across lactating females drives group nutrition and re-breeding planning.'**
+  String get groupBreedingCycleKpiSubtitle;
+
+  /// No description provided for @groupMedianMonthsSinceCalving.
+  ///
+  /// In en, this message translates to:
+  /// **'Median months since calving'**
+  String get groupMedianMonthsSinceCalving;
+
+  /// No description provided for @groupLactatingFemales.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactating females'**
+  String get groupLactatingFemales;
+
+  /// No description provided for @groupReadyForRebreeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for re-breeding'**
+  String get groupReadyForRebreeding;
+
+  /// No description provided for @groupWaitingForRebreeding.
+  ///
+  /// In en, this message translates to:
+  /// **'In waiting period'**
+  String get groupWaitingForRebreeding;
+
+  /// No description provided for @groupLactationStageBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation stages in group'**
+  String get groupLactationStageBreakdown;
+
+  /// No description provided for @groupAnimalsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 animal} other{{count} animals}}'**
+  String groupAnimalsCount(int count);
+
+  /// No description provided for @groupBreedingCycleNutritionNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Voluntary waiting period is {months} months after calving. Edit individual animals below to update months since calving.'**
+  String groupBreedingCycleNutritionNote(int months);
+
+  /// No description provided for @monthsSinceCalvingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} mo since calving'**
+  String monthsSinceCalvingShort(int count);
+
+  /// No description provided for @readyToBreedEligibleNotTagged.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 over 2 mo since calving · not tagged ready} other{{count} over 2 mo since calving · not tagged ready}}'**
+  String readyToBreedEligibleNotTagged(int count);
+
+  /// No description provided for @feedRestrictedDueToAnimalStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Some feed items are restricted due to the animal status.'**
+  String get feedRestrictedDueToAnimalStatus;
+
+  /// No description provided for @feedEligibilityWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feed restriction warning'**
+  String get feedEligibilityWarningTitle;
+
+  /// No description provided for @feedEligibilityAddProductWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'{product} may not be suitable for all animals on your farm.'**
+  String feedEligibilityAddProductWarning(String product);
+
+  /// No description provided for @feedEligibilityImpactedAnimals.
+  ///
+  /// In en, this message translates to:
+  /// **'Impacted animals: {tags}'**
+  String feedEligibilityImpactedAnimals(String tags);
+
+  /// No description provided for @feedMealPlanRestrictedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal plan \"{mealName}\" has restricted feeds'**
+  String feedMealPlanRestrictedTitle(String mealName);
+
+  /// No description provided for @feedMealPlanRestrictedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Some ingredients in this meal plan are not eligible for animals in the selected group.'**
+  String get feedMealPlanRestrictedBody;
+
+  /// No description provided for @addAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Add anyway'**
+  String get addAnyway;
 }
 
 class _AppLocalizationsDelegate

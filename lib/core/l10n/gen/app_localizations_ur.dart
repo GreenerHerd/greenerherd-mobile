@@ -2017,4 +2017,131 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get cullReason => 'Cull reason';
+
+  @override
+  String get breedingCycleKpiTitle => 'نسل کی سائیکل';
+
+  @override
+  String get breedingCycleKpiSubtitle =>
+      'بچھڑنے کے بعد مہینے دودھ کی غذائیت اور اگلی نسل کی سائیکل کا وقت طے کرتے ہیں۔';
+
+  @override
+  String get monthsSinceCalvingLabel => 'بچھڑنے کے بعد مہینے';
+
+  @override
+  String get lactationPhaseLabel => 'دودھ کا مرحلہ';
+
+  @override
+  String monthsSinceCalvingValue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ماہ',
+      one: '1 ماہ',
+      zero: 'تازہ بچھڑنا (0 ماہ)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get decreaseMonthsSinceCalving => 'بچھڑنے کے بعد مہینے کم کریں';
+
+  @override
+  String get increaseMonthsSinceCalving => 'بچھڑنے کے بعد مہینے بڑھائیں';
+
+  @override
+  String get breedingCycleReadyForRebreeding =>
+      'اگلی نسل کے لیے تیار — شیڈول پر تیار برِیڈ نشان لگائیں۔';
+
+  @override
+  String breedingCycleWaitingPeriod(int months) {
+    return 'رضاکارانہ انتظار — دوبارہ نسل کی کھڑکی تک $months ماہ۔';
+  }
+
+  @override
+  String get breedingCycleBlockedPregnant =>
+      'فی الحال حامل — اگلی سائیکل بچھڑنے کے بعد شروع ہوگی۔';
+
+  @override
+  String get groupBreedingCycleKpiTitle => 'گروپ نسل کی سائیکل';
+
+  @override
+  String get groupBreedingCycleKpiSubtitle =>
+      'دودھ دینے والی مادہ جانوروں میں بچھڑنے کے بعد اوسط مہینے گروپ کی غذائیت اور دوبارہ نسل کی منصوبہ بندی طے کرتے ہیں۔';
+
+  @override
+  String get groupMedianMonthsSinceCalving => 'درمیانی مہینے بچھڑنے کے بعد';
+
+  @override
+  String get groupLactatingFemales => 'دودھ دینے والی مادائیں';
+
+  @override
+  String get groupReadyForRebreeding => 'دوبارہ نسل کے لیے تیار';
+
+  @override
+  String get groupWaitingForRebreeding => 'انتظار کی مدت میں';
+
+  @override
+  String get groupLactationStageBreakdown => 'گروپ میں دودھ کے مراحل';
+
+  @override
+  String groupAnimalsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count جانور',
+      one: '1 جانور',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String groupBreedingCycleNutritionNote(int months) {
+    return 'رضاکارانہ انتظار کی مدت بچھڑنے کے بعد $months ماہ ہے۔ نیچے انفرادی جانوروں میں مہینے اپ ڈیٹ کریں۔';
+  }
+
+  @override
+  String monthsSinceCalvingShort(int count) {
+    return 'بچھڑنے کے $count ماہ';
+  }
+
+  @override
+  String readyToBreedEligibleNotTagged(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count بچھڑنے کے 2+ ماہ · تیار برِیڈ نشان نہیں',
+      one: '1 بچھڑنے کے 2+ ماہ · تیار برِیڈ نشان نہیں',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get feedRestrictedDueToAnimalStatus =>
+      'کچھ فیڈ اشیاء جانوروں کی حالت کی وجہ سے محدود ہیں۔';
+
+  @override
+  String get feedEligibilityWarningTitle => 'فیڈ restriction انتباہ';
+
+  @override
+  String feedEligibilityAddProductWarning(String product) {
+    return '$product آپ کے تمام جانوروں کے لیے موزوں نہیں ہو سکتا۔';
+  }
+
+  @override
+  String feedEligibilityImpactedAnimals(String tags) {
+    return 'متاثرہ جانور: $tags';
+  }
+
+  @override
+  String feedMealPlanRestrictedTitle(String mealName) {
+    return 'میل پلان \"$mealName\" میں محدود فیڈ ہے';
+  }
+
+  @override
+  String get feedMealPlanRestrictedBody =>
+      'اس میل پلان کے کچھ اجزاء منتخب گروپ کے جانوروں کے لیے اہل نہیں۔';
+
+  @override
+  String get addAnyway => 'پھر بھی شامل کریں';
 }

@@ -1,5 +1,6 @@
 import '../models/enums.dart';
 import '../models/models.dart';
+import 'reproduction_status_rules.dart';
 
 /// Builds dashboard KPIs from live animal and task lists (API or cache).
 class DashboardStatsBuilder {
@@ -51,6 +52,9 @@ class DashboardStatsBuilder {
           filtered.where((a) => a.tags.contains(AnimalTagType.pregnant)).length,
       readyToBreed: filtered
           .where((a) => a.tags.contains(AnimalTagType.readyToBreed))
+          .length,
+      readyToBreedEligibleUntagged: filtered
+          .where(ReproductionStatusRules.needsReadyToBreedTag)
           .length,
       sick: filtered.where((a) => a.tags.contains(AnimalTagType.sick)).length,
       cullFlagged:
