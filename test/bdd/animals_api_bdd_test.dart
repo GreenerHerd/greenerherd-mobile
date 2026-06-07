@@ -80,7 +80,7 @@ class FakeAnimalsGateway implements AnimalsRemoteGateway {
   @override
   Future<({Map<String, dynamic> group, List<Map<String, dynamic>> animals})>
       createGroupBulk(String farmId, Map<String, dynamic> body) async {
-    final groupId = 'g-bulk';
+    const groupId = 'g-bulk';
     final group = {
       'id': groupId,
       'name': body['name'],

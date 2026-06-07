@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:greenerherd_mobile/data/models/inventory_models.dart';
 import 'package:greenerherd_mobile/data/repositories/local_inventory_repository.dart';
 
 void main() {

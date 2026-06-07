@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
+import '../../core/l10n/gen/app_localizations.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/data_refresh.dart';
 import '../../core/providers/providers.dart';
@@ -50,6 +52,27 @@ class AnimalHealthTab extends ConsumerWidget {
       return '#${animal.tag} · ${animal.name}';
     }
     return '#${animal.tag}';
+  }
+
+  String? _withdrawalSafeLine(AppLocalizations l10n) {
+    final t = animal.treatmentDetails;
+    if (t == null) return null;
+    final fmt = DateFormat.MMMd();
+    final milk = t.milkSafeDate(animal.species);
+    final meat = t.meatSafeDate(animal.species);
+    if (milk != null && meat != null) {
+      return 'Milk safe ${fmt.format(milk)} · Meat safe ${fmt.format(meat)}';
+    }
+    if (milk != null) {
+      return l10n.withdrawalMilkSafe(fmt.format(milk));
+    }
+    if (meat != null) {
+      return 'Meat safe from ${fmt.format(meat)}';
+    }
+    if ((animal.withdrawalDays ?? 0) > 0) {
+      return l10n.withdrawalDays(animal.withdrawalDays!);
+    }
+    return null;
   }
 
   @override
@@ -134,10 +157,14 @@ class AnimalHealthTab extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
-                  l10n.withdrawalMilkSafe('11 May'),
-                  style: const TextStyle(fontSize: 13, color: GhColors.textSecondary),
-                ),
+                if (_withdrawalSafeLine(l10n) != null)
+                  Text(
+                    _withdrawalSafeLine(l10n)!,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: GhColors.textSecondary,
+                    ),
+                  ),
               ],
             ),
           ),
@@ -176,14 +203,15 @@ class AnimalHealthTab extends ConsumerWidget {
                         OutlinedButton(
                           onPressed: () => showTreatmentSheet(
                             context,
+                            animalId: animal.id,
                             isSick: true,
                             illnessNote: animal.illnessNote,
-                            treatmentNote: animal.treatmentNote,
+                            initialTreatment: animal.treatmentDetails,
                             onRecordTreatment: (details) async {
                               final updated = lifecycle.recordTreatment(
                                 animal,
                                 illnessNote: details.illnessNote,
-                                treatmentNote: details.treatmentNote,
+                                treatment: details.treatment,
                               );
                               await persistTreatmentUpdate(
                                 ref,
@@ -231,14 +259,15 @@ class AnimalHealthTab extends ConsumerWidget {
           OutlinedButton.icon(
             onPressed: () => showTreatmentSheet(
               context,
+              animalId: animal.id,
               isSick: isSick,
               illnessNote: animal.illnessNote,
-              treatmentNote: animal.treatmentNote,
+              initialTreatment: animal.treatmentDetails,
               onRecordTreatment: (details) async {
                 final updated = lifecycle.recordTreatment(
                   animal,
                   illnessNote: details.illnessNote,
-                  treatmentNote: details.treatmentNote,
+                  treatment: details.treatment,
                 );
                 await persistTreatmentUpdate(
                   ref,

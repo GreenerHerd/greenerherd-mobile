@@ -231,7 +231,7 @@ class _BuyAnimalsWizardScreenState extends ConsumerState<BuyAnimalsWizardScreen>
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DropdownButtonFormField<Species>(
-            value: _species,
+            initialValue: _species,
             decoration: InputDecoration(labelText: l10n.species),
             items: Species.values
                 .map(
@@ -265,7 +265,7 @@ class _BuyAnimalsWizardScreenState extends ConsumerState<BuyAnimalsWizardScreen>
             )
           else
             DropdownButtonFormField<BreedReference>(
-              value: _selectedBreed,
+              initialValue: _selectedBreed,
               decoration: InputDecoration(
                 labelText: l10n.breedForSpecies(localizedSpecies(_species, l10n)),
                 isDense: true,
@@ -295,7 +295,7 @@ class _BuyAnimalsWizardScreenState extends ConsumerState<BuyAnimalsWizardScreen>
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _sex,
+            initialValue: _sex,
             decoration: const InputDecoration(labelText: 'Sex'),
             items: const [
               DropdownMenuItem(value: 'Female', child: Text('Female')),
@@ -307,7 +307,7 @@ class _BuyAnimalsWizardScreenState extends ConsumerState<BuyAnimalsWizardScreen>
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _ageRangeLabel,
+            initialValue: _ageRangeLabel,
             decoration: InputDecoration(labelText: l10n.ageRange),
             items: _ageRangeLabels
                 .map((l) => DropdownMenuItem(value: l, child: Text(l)))

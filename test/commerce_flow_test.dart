@@ -55,7 +55,7 @@ void main() {
           id: 'pur-1',
           purchaseDate: DateTime(2026, 1, 10),
           totalAmount: 25000,
-          animalIds: ['x1', 'x2'],
+          animalIds: const ['x1', 'x2'],
           supplierName: 'Neighbour farm',
           totalWeightKg: 1100,
           species: Species.sheep,
@@ -80,7 +80,7 @@ void main() {
           id: 'sale-1',
           saleDate: DateTime(2026, 2, 5),
           totalAmount: 9000,
-          animalIds: ['y1'],
+          animalIds: const ['y1'],
           buyerName: 'Abu Dhabi buyer',
           totalWeightKg: 380,
           salePurpose: 'Export',
@@ -155,7 +155,7 @@ void main() {
       final store = MockDataStore();
       final animals = MockAnimalRepository(store, lifecycle);
       final created = await animals.createAnimal(
-        Animal(
+        const Animal(
           id: 'new-pur-1',
           tag: 'PUR-001',
           name: '',

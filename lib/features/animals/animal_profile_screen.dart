@@ -13,9 +13,9 @@ import '../../data/models/models.dart';
 import '../../shared/widgets/animal_avatar.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import '../../shared/widgets/gh_design_icons.dart';
-import '../../shared/widgets/gh_status_tag.dart';
 import 'animal_form_helpers.dart';
 import 'animal_lifecycle_ui.dart';
+import 'move_group_sheet.dart';
 import 'animal_providers.dart';
 import '../tasks/tasks_screen.dart';
 import 'animal_breeding_tab.dart';
@@ -106,11 +106,7 @@ class _AnimalProfileScreenState extends ConsumerState<AnimalProfileScreen>
                 animal.cullReasonLabel!.isNotEmpty)
               animal.cullReasonLabel!,
           ].join(' · ')
-        : [
-            animal.breed,
-            animal.ageLabel,
-            ...animal.tags.map((t) => _tagLabel(t)),
-          ].join(' · ');
+        : [animal.breed, animal.ageLabel].join(' · ');
 
     return Scaffold(
       backgroundColor: GhColors.pageBackground,
@@ -168,22 +164,6 @@ class _AnimalProfileScreenState extends ConsumerState<AnimalProfileScreen>
                     color: GhColors.textSecondary,
                   ),
                 ),
-                if (animal.tags.isNotEmpty) ...[
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 6,
-                    alignment: WrapAlignment.center,
-                    children: animal.tags
-                        .map((t) => GhStatusTag(
-                              tag: t,
-                              onTap: t == AnimalTagType.lactating
-                                  ? () => context.push(
-                                      '/animals/${animal.id}/record-milk')
-                                  : null,
-                            ))
-                        .toList(),
-                  ),
-                ],
                 if ((animal.withdrawalDays ?? 0) > 0) ...[
                   const SizedBox(height: 8),
                   Container(
@@ -250,16 +230,6 @@ class _AnimalProfileScreenState extends ConsumerState<AnimalProfileScreen>
     );
   }
 
-  static String _tagLabel(AnimalTagType t) {
-    return switch (t) {
-      AnimalTagType.pregnant => 'Pregnant',
-      AnimalTagType.lactating => 'Lactating',
-      AnimalTagType.readyToBreed => 'Ready to breed',
-      AnimalTagType.sick => 'Sick',
-      AnimalTagType.cull => 'Cull',
-      _ => t.name,
-    };
-  }
 }
 
 class _QuickActions extends ConsumerWidget {
@@ -294,14 +264,15 @@ class _QuickActions extends ConsumerWidget {
             label: 'Treatment',
             onTap: () => showTreatmentSheet(
               context,
+              animalId: animal.id,
               isSick: animal.isSick,
               illnessNote: animal.illnessNote,
-              treatmentNote: animal.treatmentNote,
+              initialTreatment: animal.treatmentDetails,
               onRecordTreatment: (details) async {
                 final updated = lifecycle.recordTreatment(
                   animal,
                   illnessNote: details.illnessNote,
-                  treatmentNote: details.treatmentNote,
+                  treatment: details.treatment,
                 );
                 await repo.updateAnimal(updated);
                 if (!context.mounted) return;
@@ -332,11 +303,15 @@ class _QuickActions extends ConsumerWidget {
               },
             ),
           ),
-          _Action(icon: Icons.swap_horiz, label: 'Move group', onTap: () {}),
           _Action(
-            designIcon: GhDesignIcons.sale,
-            label: 'Status',
-            onTap: () {},
+            icon: Icons.swap_horiz,
+            label: 'Move group',
+            onTap: () => showMoveGroupSheet(
+              context,
+              ref,
+              animal: animal,
+              onMoved: onUpdated,
+            ),
           ),
           if (animal.tags.contains(AnimalTagType.pregnant))
             _Action(
@@ -421,7 +396,7 @@ class _Action extends StatelessWidget {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color: GhColors.primaryLight.withOpacity(0.45),
+                  color: GhColors.primaryLight.withValues(alpha: 0.45),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: designIcon != null

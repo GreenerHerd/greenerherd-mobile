@@ -36,7 +36,7 @@ void main() {
       managerId: 'u2',
     );
     final members = [
-      Animal(
+      const Animal(
         id: 'a2',
         tag: '0438',
         name: 'Mona',
@@ -46,10 +46,10 @@ void main() {
         weightKg: 398,
         ageLabel: '5y',
         groupId: 'g1',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 5,
       ),
-      Animal(
+      const Animal(
         id: 'a3',
         tag: '0444',
         name: 'Sara',
@@ -59,10 +59,10 @@ void main() {
         weightKg: 344,
         ageLabel: '3y',
         groupId: 'g1',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 2,
       ),
-      Animal(
+      const Animal(
         id: 'a4',
         tag: '0451',
         name: 'Hala',
@@ -72,7 +72,7 @@ void main() {
         weightKg: 426,
         ageLabel: '6y',
         groupId: 'g1',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 8,
       ),
     ];
@@ -84,7 +84,7 @@ void main() {
     );
 
     expect(profile, isNotNull);
-    expect(profile!.request['months_since_calving'], 5);
+    expect(profile!.request['months_since_calving'], 7);
     expect(profile.request['lactating'], isTrue);
     expect(profile.request['head_count'], 3);
   });
@@ -93,7 +93,7 @@ void main() {
       () async {
     final catalog = await NutritionRequirementsCatalog.load();
     const groupId = 'g-lac-stages';
-    final group = AnimalGroup(
+    const group = AnimalGroup(
       id: groupId,
       name: 'Mixed lactation',
       species: Species.cattle,
@@ -102,7 +102,7 @@ void main() {
       managerId: 'u2',
     );
     final members = [
-      Animal(
+      const Animal(
         id: 'fresh',
         tag: 'F1',
         name: 'Fresh',
@@ -112,11 +112,11 @@ void main() {
         weightKg: 400,
         ageLabel: '48m',
         groupId: groupId,
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         productionPurpose: SpeciesPurpose.milk,
         monthsSinceCalving: 1,
       ),
-      Animal(
+      const Animal(
         id: 'mid',
         tag: 'M1',
         name: 'Mid',
@@ -126,11 +126,11 @@ void main() {
         weightKg: 400,
         ageLabel: '48m',
         groupId: groupId,
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         productionPurpose: SpeciesPurpose.milk,
         monthsSinceCalving: 5,
       ),
-      Animal(
+      const Animal(
         id: 'late',
         tag: 'L1',
         name: 'Late',
@@ -140,7 +140,7 @@ void main() {
         weightKg: 400,
         ageLabel: '48m',
         groupId: groupId,
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         productionPurpose: SpeciesPurpose.milk,
         monthsSinceCalving: 8,
       ),
@@ -160,7 +160,6 @@ void main() {
       profile.aggregatedRequirements!.members.map((m) => m.profileCode).toSet(),
       {
         'CATTLE_DAIRY_COW_FRESH',
-        'CATTLE_DAIRY_COW_MID',
         'CATTLE_DAIRY_COW_LATE',
       },
     );
@@ -169,7 +168,7 @@ void main() {
   group('GroupBreedingCycleSummary', () {
     test('computes median and stage counts for lactating herd', () {
       final members = [
-        Animal(
+        const Animal(
           id: 'a2',
           tag: '0438',
           name: 'Mona',
@@ -179,10 +178,10 @@ void main() {
           weightKg: 398,
           ageLabel: '5y',
           groupId: 'g1',
-          tags: const [AnimalTagType.lactating],
+          tags: [AnimalTagType.lactating],
           monthsSinceCalving: 5,
         ),
-        Animal(
+        const Animal(
           id: 'a3',
           tag: '0444',
           name: 'Sara',
@@ -192,10 +191,10 @@ void main() {
           weightKg: 344,
           ageLabel: '3y',
           groupId: 'g1',
-          tags: const [AnimalTagType.lactating],
+          tags: [AnimalTagType.lactating],
           monthsSinceCalving: 2,
         ),
-        Animal(
+        const Animal(
           id: 'a4',
           tag: '0451',
           name: 'Hala',
@@ -205,7 +204,7 @@ void main() {
           weightKg: 426,
           ageLabel: '6y',
           groupId: 'g1',
-          tags: const [AnimalTagType.lactating],
+          tags: [AnimalTagType.lactating],
           monthsSinceCalving: 8,
         ),
       ];

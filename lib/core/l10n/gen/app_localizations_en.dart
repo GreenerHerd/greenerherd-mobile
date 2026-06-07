@@ -428,6 +428,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newGroup => 'New group';
 
   @override
+  String get moveGroupTitle => 'Move to group';
+
+  @override
+  String moveGroupCurrent(String name) {
+    return 'Current group: $name';
+  }
+
+  @override
+  String get moveToNewGroup => 'Create new group';
+
+  @override
+  String get moveToNewGroupSubtitle =>
+      'Add a group and move this animal into it';
+
+  @override
+  String get removeFromGroup => 'No group';
+
+  @override
+  String get moveGroupNoGroups =>
+      'No other groups for this species yet. Create one above.';
+
+  @override
+  String animalMovedToGroup(String tag, String groupName) {
+    return 'Moved #$tag to $groupName';
+  }
+
+  @override
+  String animalRemovedFromGroup(String tag) {
+    return 'Removed #$tag from its group';
+  }
+
+  @override
   String get onboardNewAnimal => 'Onboard new animal';
 
   @override
@@ -1291,6 +1323,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todaysMilkLitres => 'Today\'s milk (litres)';
 
   @override
+  String get milkSessionMorning => 'Morning';
+
+  @override
+  String get milkSessionEvening => 'Evening';
+
+  @override
+  String get milkSessionDaily => 'Daily total';
+
+  @override
+  String get milkRecordDate => 'Milk date';
+
+  @override
+  String get changeDate => 'Change';
+
+  @override
+  String get milkLitresMorning => 'Morning milk (litres)';
+
+  @override
+  String get milkLitresEvening => 'Evening milk (litres)';
+
+  @override
+  String get milkLitresDaily => 'Daily total milk (litres)';
+
+  @override
+  String get recentMilkRecords => 'Recent records';
+
+  @override
+  String recordedMilkSessionFor(
+      String litres, String session, String tag, String date) {
+    return 'Recorded $litres L ($session) for #$tag on $date';
+  }
+
+  @override
   String get recordMilkSaleIncome => 'Record milk sale income';
 
   @override
@@ -1896,6 +1961,87 @@ class AppLocalizationsEn extends AppLocalizations {
   String get treatmentMedicineLabel => 'Medicine / treatment';
 
   @override
+  String get treatmentStepIllness => 'Symptoms';
+
+  @override
+  String get treatmentStepMedicine => 'Treatment';
+
+  @override
+  String get administeredByLabel => 'Administered by';
+
+  @override
+  String get administeredByHint => 'Who administered';
+
+  @override
+  String get administeredDateLabel => 'Administered date';
+
+  @override
+  String get milkWithdrawalDaysLabel => 'Milk withdrawal (days)';
+
+  @override
+  String get milkWithdrawalHint => 'Days before milk is safe';
+
+  @override
+  String get meatWithdrawalDaysLabel => 'Meat withdrawal (days)';
+
+  @override
+  String get meatWithdrawalHint => 'Days before meat is safe';
+
+  @override
+  String get treatmentFrequencyLabel => 'Frequency';
+
+  @override
+  String get treatmentFrequencyOnce => 'Once';
+
+  @override
+  String get treatmentFrequencyDaily => 'Daily';
+
+  @override
+  String get treatmentFrequencyWeekly => 'Weekly';
+
+  @override
+  String get treatmentFrequencyMonthly => 'Monthly';
+
+  @override
+  String get treatmentNotesLabel => 'Treatment notes';
+
+  @override
+  String get batchNumberLabel => 'Batch number';
+
+  @override
+  String get batchNumberHint => 'Optional batch / lot number';
+
+  @override
+  String get expiryDateLabel => 'Expiry date';
+
+  @override
+  String get addTreatmentPhoto => 'Add photo';
+
+  @override
+  String get addTreatmentPhotoHint => 'Photo of medicine label or packaging';
+
+  @override
+  String get addMedicineToInventoryHint =>
+      'Add a product to your medical inventory';
+
+  @override
+  String get selectMedicineFirst => 'Select a medicine';
+
+  @override
+  String get medicineRequired =>
+      'Select a medicine from inventory or the product list';
+
+  @override
+  String get administeredByRequired => 'Enter who administered the treatment';
+
+  @override
+  String get dosageRequired => 'Enter dosage (e.g. 5 ml IM)';
+
+  @override
+  String get notInInventoryBanner =>
+      'Not in your inventory — add it to track stock';
+
+  @override
   String get treatmentRecorded => 'Treatment recorded';
 
   @override
@@ -2027,13 +2173,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get breedingCycleKpiSubtitle =>
-      'Months since calving sets lactation nutrition and when the next breeding cycle can start.';
+      'Months since calving drives when the next breeding cycle can start. Set lactation phase on the Milking tab.';
 
   @override
   String get monthsSinceCalvingLabel => 'Months since calving';
 
   @override
   String get lactationPhaseLabel => 'Lactation phase';
+
+  @override
+  String get milkingTabLactationUnavailable =>
+      'Lactation phase is set on this tab once the animal is old enough to lactate. Use the Breeding tab for months since calving and re-breeding timing.';
 
   @override
   String monthsSinceCalvingValue(int count) {
@@ -2121,6 +2271,41 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get dashboardKpiPregnant => 'PREGNANT';
+
+  @override
+  String get dashboardKpiReadyToBreed => 'READY TO BREED';
+
+  @override
+  String get dashboardKpiLactating => 'LACTATING';
+
+  @override
+  String get dashboardKpiWeaning => 'WEANING';
+
+  @override
+  String get dashboardKpiSick => 'SICK';
+
+  @override
+  String get dashboardKpiCullFlagged => 'CULL FLAGGED';
+
+  @override
+  String get dashboardKpiSickHint => 'under treatment';
+
+  @override
+  String get dashboardKpiCullHint => 'reviewable';
+
+  @override
+  String get dashboardKpiWeaningHint => '0–3 months · nutrition weaning';
+
+  @override
+  String dashboardKpiLactatingAvgMilk(String avg) {
+    return '$avg L/day avg (prior milk records)';
+  }
+
+  @override
+  String get dashboardKpiLactatingNoMilkData => 'record milk to show average';
+
+  @override
   String get feedRestrictedDueToAnimalStatus =>
       'Some feed items are restricted due to the animal status.';
 
@@ -2174,4 +2359,142 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addAnyway => 'Add anyway';
+
+  @override
+  String get groupBreedingMethodLabel => 'Default breeding method';
+
+  @override
+  String get groupBreedingMethodHint =>
+      'Used for all eligible animals in this group and to generate breeding tasks.';
+
+  @override
+  String get breedingTasksScheduled => 'Breeding tasks added to your task list';
+
+  @override
+  String get breedingTaskNaturalObserveTitle => 'Observe for heat';
+
+  @override
+  String get breedingTaskNaturalObserveSubtitle =>
+      'Watch for standing heat before natural service';
+
+  @override
+  String get breedingTaskCycleCheckTitle => 'Cycle check';
+
+  @override
+  String get breedingTaskCycleCheckSubtitle =>
+      'Confirm return to heat or schedule re-breeding';
+
+  @override
+  String get breedingTaskPregnancyConfirmTitle => 'Pregnancy check';
+
+  @override
+  String get breedingTaskPregnancyConfirmSubtitle =>
+      'Confirm pregnancy or plan next cycle';
+
+  @override
+  String get breedingTaskAiRecordTitle => 'Record AI';
+
+  @override
+  String get breedingTaskAiRecordSubtitle =>
+      'Log semen, technician, and timing';
+
+  @override
+  String get breedingTaskAiConceptionCheckTitle => 'Conception check';
+
+  @override
+  String get breedingTaskAiConceptionCheckSubtitle =>
+      'Palpation or ultrasound around day 18';
+
+  @override
+  String get breedingTaskPregnancyScanTitle => 'Pregnancy scan';
+
+  @override
+  String get breedingTaskPregnancyScanSubtitle =>
+      'Ultrasound or palpation to confirm pregnancy';
+
+  @override
+  String get breedingTaskPregnancyNutritionTitle =>
+      'Pregnancy nutrition review';
+
+  @override
+  String get breedingTaskPregnancyNutritionSubtitle =>
+      'Adjust ration for confirmed pregnancy';
+
+  @override
+  String get breedingTaskEmbryoTransferTitle => 'Embryo transfer';
+
+  @override
+  String get breedingTaskEmbryoTransferSubtitle =>
+      'Record donor, recipient sync, and transfer details';
+
+  @override
+  String get breedingTaskPostTransferCheckTitle => 'Post-transfer check';
+
+  @override
+  String get breedingTaskPostTransferCheckSubtitle =>
+      'Monitor recipient for acceptance signs';
+
+  @override
+  String get breedingTaskEarlyPregnancyCheckTitle => 'Early pregnancy check';
+
+  @override
+  String get breedingTaskEarlyPregnancyCheckSubtitle =>
+      'Confirm implantation around day 30';
+
+  @override
+  String get breedingTaskSpongeInsertTitle => 'Insert sponges';
+
+  @override
+  String get breedingTaskSpongeInsertSubtitle =>
+      'Synchronize heat for timed breeding';
+
+  @override
+  String get breedingTaskSpongeRemoveTitle => 'Remove sponges';
+
+  @override
+  String get breedingTaskSpongeRemoveSubtitle =>
+      'Remove sponges and prepare for AI or natural service';
+
+  @override
+  String get lactationCycleLabel => 'Lactation cycle';
+
+  @override
+  String get lactationCycleHint =>
+      'Sets lactating status and drives nutrition and feed eligibility for this animal.';
+
+  @override
+  String get lactationCycleEarly => 'Early lactation';
+
+  @override
+  String get lactationCycleMid => 'Mid lactation';
+
+  @override
+  String get lactationCycleLate => 'Late lactation';
+
+  @override
+  String get lactationCycleCloseLateLactation =>
+      'Close to dry-off (late lactation)';
+
+  @override
+  String get lactationCycleCloseToDryOffPreCalving =>
+      'Close to dry-off (pre-calving)';
+
+  @override
+  String get lactationCycleDry => 'Dry (not lactating)';
+
+  @override
+  String get lactationCycleNone => 'Not lactating';
+
+  @override
+  String get lactationCycleSingle => 'Lactating (single)';
+
+  @override
+  String get lactationCycleTwin => 'Lactating (twins)';
+
+  @override
+  String get groupLactationCycleTitle => 'Lactation cycle by animal';
+
+  @override
+  String get groupLactationCycleHint =>
+      'Set each female\'s cycle to update lactating status, nutrition, and which feeds they can receive.';
 }

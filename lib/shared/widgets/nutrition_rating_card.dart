@@ -137,7 +137,7 @@ class NutritionRatingCard extends StatelessWidget {
 
   _BadgeStyle _badgeStyle(String label) {
     if (label == 'On target') {
-      return _BadgeStyle(
+      return const _BadgeStyle(
         background: GhColors.successLight,
         dot: GhColors.success,
         text: GhColors.success,
@@ -145,17 +145,17 @@ class NutritionRatingCard extends StatelessWidget {
     }
     final light = nutritionTrafficLight(gap.energyDeviationPct);
     return switch (light) {
-      NutritionTrafficLight.green => _BadgeStyle(
+      NutritionTrafficLight.green => const _BadgeStyle(
           background: GhColors.successLight,
           dot: GhColors.success,
           text: GhColors.success,
         ),
-      NutritionTrafficLight.orange => _BadgeStyle(
+      NutritionTrafficLight.orange => const _BadgeStyle(
           background: GhColors.warningLight,
           dot: GhColors.warning,
           text: GhColors.warning,
         ),
-      NutritionTrafficLight.red => _BadgeStyle(
+      NutritionTrafficLight.red => const _BadgeStyle(
           background: GhColors.warningLight,
           dot: GhColors.warning,
           text: GhColors.warning,

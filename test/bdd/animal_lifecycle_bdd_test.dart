@@ -93,8 +93,12 @@ void main() {
       'Female can be marked ready to breed',
       tags: ['positive'],
       body: () {
-        final updated = lifecycle.markReadyToBreed(cow());
+        final updated = lifecycle.markReadyToBreed(
+          cow(),
+          method: BreedingMethod.ai,
+        );
         expect(updated.tags, contains(AnimalTagType.readyToBreed));
+        expect(updated.breedingMethod, BreedingMethod.ai);
       },
     );
 
@@ -213,7 +217,7 @@ void main() {
       'Male sheep can be marked ready to breed',
       tags: ['positive'],
       body: () {
-        final ram = Animal(
+        const ram = Animal(
           id: 's1',
           tag: 'S100',
           name: 'Ram',
@@ -236,7 +240,7 @@ void main() {
       'Breeding group purpose marks eligible animals ready to breed',
       tags: ['positive'],
       body: () {
-        final ewe = Animal(
+        const ewe = Animal(
           id: 'bdd-sheep',
           tag: 'S1',
           name: 'Ewe',
@@ -273,7 +277,19 @@ void main() {
       'Treatment marks sick and cure clears sick',
       tags: ['positive'],
       body: () {
-        final sick = lifecycle.recordTreatment(cow(), illnessNote: 'Mastitis');
+        final sick = lifecycle.recordTreatment(
+          cow(),
+          illnessNote: 'Mastitis',
+          treatment: AnimalTreatmentDetails(
+            medicineName: 'Penicillin G',
+            dosage: '5 ml IM',
+            frequency: TreatmentFrequency.daily,
+            administeredBy: 'Test vet',
+            administeredDate: DateTime(2026, 1, 1),
+            milkWithdrawalDays: 3,
+            meatWithdrawalDays: 7,
+          ),
+        );
         expect(sick.tags, contains(AnimalTagType.sick));
         final cured = lifecycle.markCured(sick);
         expect(cured.tags, isNot(contains(AnimalTagType.sick)));

@@ -11,7 +11,7 @@ import '../../data/services/reproduction_status_rules.dart';
 import '../../shared/widgets/animal_avatar.dart';
 import '../../shared/widgets/gh_design_icon.dart';
 import '../../shared/widgets/gh_design_icons.dart';
-import '../../shared/widgets/gh_status_tag.dart';
+import '../animals/breeding_workflow_actions.dart';
 import '../animals/widgets/member_status_dialogs.dart';
 import 'group_detail_widgets.dart';
 import 'group_providers.dart';
@@ -41,6 +41,9 @@ class _GroupBreedingAnimalRowState extends ConsumerState<GroupBreedingAnimalRow>
 
   bool get _isPregnant => _animal.tags.contains(AnimalTagType.pregnant);
 
+  bool get _isReadyToBreed =>
+      _animal.tags.contains(AnimalTagType.readyToBreed);
+
   int? get _ageMonths => ReproductionStatusRules.ageMonthsFromAnimal(_animal);
 
   bool get _canBePregnant => ReproductionStatusRules.canBePregnant(
@@ -48,6 +51,38 @@ class _GroupBreedingAnimalRowState extends ConsumerState<GroupBreedingAnimalRow>
         sex: _animal.sex,
         ageMonths: _ageMonths,
       );
+
+  bool get _canReadyToBreed =>
+      ReproductionStatusRules.canMarkReadyToBreedForAnimal(_animal);
+
+  Future<void> _toggleReadyToBreed() async {
+    if (_saving || (!_canReadyToBreed && !_isReadyToBreed)) return;
+    final lifecycle = ref.read(lifecycleServiceProvider);
+
+    if (_isReadyToBreed) {
+      await _persist(lifecycle.clearReadyToBreed(_animal));
+      await clearBreedingWorkflowTasks(ref, _animal.id);
+      return;
+    }
+
+    final result = await showDialog<ReadyToBreedDialogResult>(
+      context: context,
+      builder: (ctx) => ReadyToBreedDialog(
+        species: widget.species,
+        initialMethod: _animal.breedingMethod,
+      ),
+    );
+    if (!mounted || result == null) return;
+    final updated =
+        lifecycle.markReadyToBreed(_animal, method: result.method);
+    await _persist(updated);
+    await scheduleBreedingWorkflowTasks(
+      ref,
+      updated,
+      context: context,
+      method: result.method,
+    );
+  }
 
   Future<void> _togglePregnancy() async {
     if (_saving || (!_canBePregnant && !_isPregnant)) return;
@@ -191,11 +226,6 @@ class _GroupBreedingAnimalRowState extends ConsumerState<GroupBreedingAnimalRow>
               ),
             ),
             const Spacer(),
-            if (_isPregnant)
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: const GhStatusTag(tag: AnimalTagType.pregnant),
-              ),
             if (_saving)
               const SizedBox(
                 width: 40,
@@ -205,19 +235,35 @@ class _GroupBreedingAnimalRowState extends ConsumerState<GroupBreedingAnimalRow>
                   child: CircularProgressIndicator(strokeWidth: 2),
                 ),
               )
-            else
-              GhDesignStatusButton(
-                assetPath: GhDesignIcons.welfare,
-                active: _isPregnant,
-                enabled: _canBePregnant || _isPregnant,
-                tooltip: ReproductionStatusRules.disabledPregnancyTooltip(
-                  species: widget.species,
-                  sex: _animal.sex,
-                  ageMonths: _ageMonths,
+            else ...[
+              if (_canReadyToBreed || _isReadyToBreed)
+                Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: GhDesignStatusButton(
+                    assetPath: GhDesignIcons.readyToBreed,
+                    active: _isReadyToBreed,
+                    enabled: _canReadyToBreed || _isReadyToBreed,
+                    tooltip: _isReadyToBreed
+                        ? context.l10n.readyToBreed
+                        : context.l10n.markReadyToBreed,
+                    onTap: _toggleReadyToBreed,
+                    size: 40,
+                  ),
                 ),
-                onTap: _togglePregnancy,
-                size: 40,
-              ),
+              if (ReproductionStatusRules.isFemaleSex(_animal.sex))
+                GhDesignStatusButton(
+                  assetPath: GhDesignIcons.welfare,
+                  active: _isPregnant,
+                  enabled: _canBePregnant || _isPregnant,
+                  tooltip: ReproductionStatusRules.disabledPregnancyTooltip(
+                    species: widget.species,
+                    sex: _animal.sex,
+                    ageMonths: _ageMonths,
+                  ),
+                  onTap: _togglePregnancy,
+                  size: 40,
+                ),
+            ],
           ],
         ),
       ),

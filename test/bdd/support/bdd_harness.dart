@@ -17,6 +17,7 @@ import 'bdd_router.dart';
 import 'package:greenerherd_mobile/features/animals/animal_profile_screen.dart';
 import 'package:greenerherd_mobile/features/animals/record_birth_screen.dart';
 import 'package:greenerherd_mobile/features/animals/record_milk_screen.dart';
+import 'package:greenerherd_mobile/features/animals/record_treatment_screen.dart';
 import 'package:greenerherd_mobile/features/auth/sign_in_screen.dart';
 import 'package:greenerherd_mobile/features/onboarding/onboarding_screen.dart';
 
@@ -65,6 +66,9 @@ class BddHarness {
           ),
         ),
         groupRepositoryProvider.overrideWith((ref) => MockGroupRepository(store)),
+        inventoryRepositoryProvider.overrideWith(
+          (ref) => MockInventoryRepository(store),
+        ),
         nutritionRepositoryProvider.overrideWith(
           (ref) => MockNutritionRepository(store),
         ),
@@ -205,6 +209,18 @@ class BddHarness {
               builder: (_, state) => RecordBirthScreen(
                 animalId: state.pathParameters['id']!,
               ),
+            ),
+            GoRoute(
+              path: 'record-treatment',
+              builder: (_, state) {
+                final extra = state.extra as Map<String, dynamic>?;
+                return RecordTreatmentScreen(
+                  animalId: state.pathParameters['id']!,
+                  initialIllnessNote: extra?['illnessNote'] as String?,
+                  initialTreatment:
+                      extra?['treatment'] as AnimalTreatmentDetails?,
+                );
+              },
             ),
           ],
         ),

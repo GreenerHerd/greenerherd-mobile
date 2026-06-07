@@ -11,6 +11,8 @@ import '../../features/dashboard/dashboard_screen.dart';
 import '../../features/animals/record_birth_screen.dart';
 import '../../features/animals/record_miscarriage_screen.dart';
 import '../../features/animals/record_milk_screen.dart';
+import '../../features/animals/record_treatment_screen.dart';
+import '../../data/models/models.dart';
 import '../../features/finance/finance_screen.dart';
 import '../../features/finance/record_milk_sale_screen.dart';
 import '../../features/groups/group_detail_screen.dart';
@@ -120,6 +122,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                         builder: (_, state) => RecordMilkScreen(
                           animalId: state.pathParameters['id']!,
                         ),
+                      ),
+                      GoRoute(
+                        path: 'record-treatment',
+                        parentNavigatorKey: rootNavigatorKey,
+                        builder: (_, state) {
+                          final extra = state.extra as Map<String, dynamic>?;
+                          return RecordTreatmentScreen(
+                            animalId: state.pathParameters['id']!,
+                            initialIllnessNote:
+                                extra?['illnessNote'] as String?,
+                            initialTreatment: extra?['treatment']
+                                as AnimalTreatmentDetails?,
+                          );
+                        },
                       ),
                     ],
                   ),

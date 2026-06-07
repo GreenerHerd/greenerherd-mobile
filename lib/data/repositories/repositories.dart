@@ -1,5 +1,6 @@
 import '../models/breed_reference.dart';
 import '../models/lactation_models.dart';
+import '../models/milking_session.dart';
 import '../models/invite_models.dart';
 import '../models/enums.dart';
 import '../models/inventory_models.dart';
@@ -194,6 +195,13 @@ abstract class LactationRepository {
     required String animalId,
     required double litres,
     DateTime? onDate,
+  });
+
+  Future<void> recordMilk({
+    required String animalId,
+    required double litres,
+    required DateTime onDate,
+    required MilkingSession session,
   });
 }
 

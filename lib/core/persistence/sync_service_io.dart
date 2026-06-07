@@ -3,7 +3,6 @@ import 'dart:convert';
 import '../../core/config/app_config.dart';
 import '../../data/services/animals_api_client.dart';
 import '../../data/services/tasks_api_client.dart';
-import 'app_database.dart';
 import 'local_cache_store.dart';
 import 'network_status.dart';
 import 'sync_models.dart';
@@ -59,22 +58,22 @@ class SyncService {
     );
   }
 
-  Future<bool> _applyItem(SyncQueueData item) async {
+  Future<bool> _applyItem(QueuedSyncItem item) async {
     final payload = jsonDecode(item.payloadJson) as Map<String, dynamic>;
     switch ('${item.entityType}.${item.operation}') {
       case 'animal.create':
         if (_animalsApi == null) return true;
-        await _animalsApi!.createAnimal(_farmId, payload);
+        await _animalsApi.createAnimal(_farmId, payload);
         return true;
       case 'animal.update':
         return true;
       case 'task.complete':
         if (_tasksApi == null) return true;
-        await _tasksApi!.completeTask(item.entityId);
+        await _tasksApi.completeTask(item.entityId);
         return true;
       case 'task.dismiss':
         if (_tasksApi == null) return true;
-        await _tasksApi!.dismissTask(item.entityId);
+        await _tasksApi.dismissTask(item.entityId);
         return true;
       case 'task.create':
         return true;

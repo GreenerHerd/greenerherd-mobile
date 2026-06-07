@@ -14,7 +14,7 @@ class GroupPurposeBadge extends StatelessWidget {
         GroupPurpose.sick => (bg: GhColors.errorLight, fg: GhColors.error),
         GroupPurpose.fattening ||
         GroupPurpose.weaning =>
-          (bg: GhColors.secondaryLight.withOpacity(0.35), fg: GhColors.secondary),
+          (bg: GhColors.secondaryLight.withValues(alpha: 0.35), fg: GhColors.secondary),
         GroupPurpose.maintenance ||
         GroupPurpose.dry =>
           (bg: GhColors.pageBackground, fg: GhColors.textSecondary),

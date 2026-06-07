@@ -10,6 +10,7 @@ import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
 import '../../data/services/reproduction_status_rules.dart';
 import '../../data/services/gestation_dates.dart';
+import 'breeding_workflow_actions.dart';
 import '../../shared/widgets/gh_design_icon.dart';
 import '../../shared/widgets/gh_design_icons.dart';
 
@@ -38,8 +39,6 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
   late int _prolificacy;
   String? _error;
   bool _saving = false;
-
-  static const _prolificacyOptions = [2, 3, 4];
 
   Animal get _animal => widget.animal;
 
@@ -74,7 +73,6 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
     _dueDate = GestationDates.effectiveDueDate(_animal, now) ??
         GestationDates.dueDateFromGestMonths(_animal.species, 5, now);
     _prolificacy = GestationDates.effectiveProlificacy(_animal);
-    if (!_prolificacyOptions.contains(_prolificacy)) _prolificacy = 2;
   }
 
   Future<void> _pickDueDate() async {
@@ -104,9 +102,7 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
       return;
     }
 
-    if (_readyToBreed &&
-        BreedingMethodCatalog.requiresMethodOnReadyToBreed(_animal.species) &&
-        _method == null) {
+    if (_readyToBreed && _method == null) {
       setState(() => _error = l10n.fertilityMethodRequired);
       return;
     }
@@ -160,9 +156,28 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
 
       await ref.read(animalRepositoryProvider).updateAnimal(updated);
       if (!mounted) return;
+
+      if (updated.tags.contains(AnimalTagType.readyToBreed)) {
+        await scheduleBreedingWorkflowTasks(
+          ref,
+          updated,
+          context: context,
+          method: _method,
+        );
+      } else {
+        await clearBreedingWorkflowTasks(ref, updated.id);
+      }
+
+      if (!mounted) return;
       widget.onUpdated();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.breedingStatusUpdated)),
+        SnackBar(
+          content: Text(
+            updated.tags.contains(AnimalTagType.readyToBreed)
+                ? l10n.breedingTasksScheduled
+                : l10n.breedingStatusUpdated,
+          ),
+        ),
       );
     } catch (e) {
       if (mounted) setState(() => _error = '$e');
@@ -234,11 +249,7 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
                   initialValue: _method ?? _methods.first,
                   decoration: InputDecoration(
                     labelText: l10n.fertilityMethodLabel,
-                    helperText: BreedingMethodCatalog.requiresMethodOnReadyToBreed(
-                      _animal.species,
-                    )
-                        ? l10n.readyToBreedMethodHint
-                        : null,
+                    helperText: l10n.readyToBreedMethodHint,
                   ),
                   items: [
                     for (final method in _methods)
@@ -310,7 +321,7 @@ class _BreedingStatusSectionState extends ConsumerState<BreedingStatusSection> {
               const SizedBox(height: 6),
               SegmentedButton<int>(
                 segments: [
-                  for (final n in _prolificacyOptions)
+                  for (final n in GestationDates.prolificacyOptions)
                     ButtonSegment(value: n, label: Text('$n')),
                 ],
                 selected: {_prolificacy},

@@ -212,7 +212,7 @@ class _AgeBucket extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(muted ? 0.25 : 0.5),
+        color: GhColors.primaryLight.withValues(alpha: muted ? 0.25 : 0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(

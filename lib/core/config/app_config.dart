@@ -47,12 +47,12 @@ abstract final class AppConfig {
     return 'localhost';
   }
 
-  static String get nutritionApiBaseUrl => 'http://${apiDevHost}:3003';
-  static String get inventoryApiBaseUrl => 'http://${apiDevHost}:3005';
-  static String get tasksApiBaseUrl => 'http://${apiDevHost}:3004';
-  static String get animalsApiBaseUrl => 'http://${apiDevHost}:3006';
-  static String get authApiBaseUrl => 'http://${apiDevHost}:3001';
-  static String get farmsApiBaseUrl => 'http://${apiDevHost}:3002';
-  static String get peopleApiBaseUrl => 'http://${apiDevHost}:3007';
-  static String get financeApiBaseUrl => 'http://${apiDevHost}:3008';
+  static String get nutritionApiBaseUrl => 'http://$apiDevHost:3003';
+  static String get inventoryApiBaseUrl => 'http://$apiDevHost:3005';
+  static String get tasksApiBaseUrl => 'http://$apiDevHost:3004';
+  static String get animalsApiBaseUrl => 'http://$apiDevHost:3006';
+  static String get authApiBaseUrl => 'http://$apiDevHost:3001';
+  static String get farmsApiBaseUrl => 'http://$apiDevHost:3002';
+  static String get peopleApiBaseUrl => 'http://$apiDevHost:3007';
+  static String get financeApiBaseUrl => 'http://$apiDevHost:3008';
 }

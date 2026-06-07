@@ -147,7 +147,7 @@ class LactationMilkLineChart extends StatelessWidget {
             LineChartBarData(
               spots: expectedSpots,
               isCurved: true,
-              color: GhColors.textSecondary.withOpacity(0.35),
+              color: GhColors.textSecondary.withValues(alpha: 0.35),
               barWidth: 2,
               dashArray: [6, 4],
               dotData: const FlDotData(show: false),
@@ -168,7 +168,7 @@ class LactationMilkLineChart extends StatelessWidget {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                color: GhColors.primaryLight.withOpacity(0.35),
+                color: GhColors.primaryLight.withValues(alpha: 0.35),
               ),
             ),
           ],

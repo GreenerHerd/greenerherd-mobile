@@ -1,8 +1,9 @@
 import '../../data/models/models.dart';
+import 'sync_models.dart';
 
 /// No-op cache for web (no Drift/sqlite).
 class LocalCacheStore {
-  LocalCacheStore();
+  LocalCacheStore([Object? database]);
   Future<void> saveFarm(Farm farm) async {}
 
   Future<Farm?> loadFarm(String farmId) async => null;
@@ -30,22 +31,7 @@ class LocalCacheStore {
     required String payloadJson,
   }) async {}
 
-  Future<List<StubSyncQueueItem>> pendingSyncItems() async => [];
+  Future<List<QueuedSyncItem>> pendingSyncItems() async => [];
 
   Future<void> removeSyncItem(int id) async {}
-}
-
-/// Placeholder type so [SyncService] signatures match on web.
-class StubSyncQueueItem {
-  const StubSyncQueueItem({
-    required this.id,
-    required this.entityType,
-    required this.operation,
-    required this.payloadJson,
-  });
-
-  final int id;
-  final String entityType;
-  final String operation;
-  final String payloadJson;
 }

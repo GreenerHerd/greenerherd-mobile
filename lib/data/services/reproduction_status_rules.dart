@@ -55,6 +55,18 @@ abstract final class ReproductionStatusRules {
     return ageMonths >= minReproductionAgeMonths(species);
   }
 
+  /// Typical weaning window (months); aligns with nutrition WEANING profile.
+  static const int maxWeaningAgeMonths = 3;
+
+  static bool isWeaningAge(int? ageMonths) =>
+      ageMonths != null && ageMonths <= maxWeaningAgeMonths;
+
+  /// Weaning KPI: explicit tag or young stock in the 0–3 month window.
+  static bool isWeaningForDashboard(Animal animal) {
+    if (animal.tags.contains(AnimalTagType.weaning)) return true;
+    return isWeaningAge(ageMonthsFromAnimal(animal));
+  }
+
   static bool canMarkReadyToBreed({
     required Species species,
     required String sex,
@@ -72,6 +84,21 @@ abstract final class ReproductionStatusRules {
         sex: animal.sex,
         ageMonths: ageMonthsFromAnimal(animal),
       );
+
+  /// Male cattle never carry the ready-to-breed tag or breeding-group nutrition cycle.
+  static bool isMaleCattle(Animal animal) =>
+      animal.species == Species.cattle && !isFemaleSex(animal.sex);
+
+  /// True when the animal has the tag or belongs to a breeding-purpose group.
+  static bool inBreedingGroup(Animal animal, {AnimalGroup? group}) =>
+      group?.purpose == GroupPurpose.breeding;
+
+  /// Nutrition and tagging: eligible animals with the tag or in a breeding group.
+  static bool breedingForNutrition(Animal animal, {AnimalGroup? group}) {
+    if (!canMarkReadyToBreedForAnimal(animal)) return false;
+    if (animal.tags.contains(AnimalTagType.readyToBreed)) return true;
+    return inBreedingGroup(animal, group: group);
+  }
 
   /// Breeding tab shows status controls for females and breeding males (rams/bucks).
   static bool showsBreedingStatusTab(Animal animal) =>

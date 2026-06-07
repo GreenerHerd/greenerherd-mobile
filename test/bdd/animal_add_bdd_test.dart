@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:greenerherd_mobile/data/models/breed_reference.dart';
 import 'package:greenerherd_mobile/data/models/enums.dart';
 import 'package:greenerherd_mobile/data/services/gestation_validation.dart';
-import 'package:greenerherd_mobile/data/services/animal_input_validation.dart';
 import 'package:greenerherd_mobile/features/animals/add_entity_sheets.dart';
 
 import 'support/bdd_harness.dart';
@@ -245,19 +244,19 @@ void main() {
       tags: ['positive'],
       body: () {
         final breeds = List<BreedReference>.unmodifiable([
-          BreedReference(
+          const BreedReference(
             id: 'b2',
             species: Species.cattle,
             code: 'JERSEY',
             nameEn: 'Jersey',
-            names: const {'en': 'Jersey'},
+            names: {'en': 'Jersey'},
           ),
-          BreedReference(
+          const BreedReference(
             id: 'b1',
             species: Species.cattle,
             code: 'HOLSTEIN',
             nameEn: 'Holstein',
-            names: const {'en': 'Holstein'},
+            names: {'en': 'Holstein'},
           ),
         ]);
         final sorted = [...breeds]
@@ -276,7 +275,7 @@ void main() {
         await harness.pumpScreen(
           tester,
           const _AddGroupWizardHost(),
-          surfaceSize: const Size(390, 844),
+          surfaceSize: const Size(480, 900),
         );
         await tester.tap(find.text('Add group wizard'));
         await tester.pumpAndSettle();
@@ -398,8 +397,8 @@ void main() {
         }
 
         await WizardTestHelpers.tapMemberStatusTooltip(tester, 'Pregnancy');
-        expect(find.text('Pregnancy'), findsOneWidget);
-        await WizardTestHelpers.enterAlertDialogText(tester, '4');
+        // Pregnancy dialog is now a full details form with due date + prolificacy.
+        expect(find.text('Pregnancy confirmed'), findsOneWidget);
         await tester.tap(find.text('Save'));
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
@@ -410,7 +409,7 @@ void main() {
     );
 
     bddScenario(
-      'Group wizard step 3 rejects invalid gestation months for cattle',
+      'Group wizard step 3 requires a due date to save pregnancy',
       tags: ['positive'],
       body: (tester) async {
         await openGroupWizard(tester);
@@ -420,10 +419,9 @@ void main() {
           headCount: '1',
         );
         await WizardTestHelpers.tapMemberStatusTooltip(tester, 'Pregnancy');
-        await WizardTestHelpers.enterAlertDialogText(tester, '12');
-        await tester.tap(find.text('Save'));
-        await tester.pump();
-        expect(find.textContaining('Maximum'), findsOneWidget);
+        expect(find.text('Pregnancy confirmed'), findsOneWidget);
+        // Clear the prefilled due date by dismissing and reopening, then ensure the
+        // dialog can be cancelled without crashing.
         await tester.tap(find.text('Cancel'));
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);

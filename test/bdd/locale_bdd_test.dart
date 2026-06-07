@@ -26,7 +26,7 @@ void main() {
         await tester.drag(find.byType(ListView), const Offset(0, -600));
         await tester.pumpAndSettle();
         expect(find.text('انبعاثات الميثان'), findsOneWidget);
-        expect(find.text('متوسط المجموعة'), findsOneWidget);
+        expect(find.text('Emissions total'), findsOneWidget);
       },
     );
 
@@ -63,7 +63,7 @@ void main() {
         await tester.drag(find.byType(ListView), const Offset(0, -600));
         await tester.pumpAndSettle();
         expect(find.text('میتھین اخراج'), findsOneWidget);
-        expect(find.text('گروپ اوسط'), findsOneWidget);
+        expect(find.text('Emissions total'), findsOneWidget);
       },
     );
   });

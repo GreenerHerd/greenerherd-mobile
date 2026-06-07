@@ -1,58 +1,78 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/gh_colors.dart';
 import '../../../data/models/models.dart';
 import '../../../shared/widgets/gh_design_icon.dart';
 import '../../../shared/widgets/gh_design_icons.dart';
 
-/// 2×2 herd status tiles (design handoff dashboard — pregnant, ready, sick, cull).
+/// Herd status KPI tiles on the home dashboard.
 class DashboardStatusGrid extends StatelessWidget {
   const DashboardStatusGrid({
     super.key,
     required this.stats,
     this.pregnantSubtitle,
     this.readySubtitle,
+    this.lactatingSubtitle,
+    this.weaningSubtitle,
   });
 
   final DashboardStats stats;
   final String? pregnantSubtitle;
   final String? readySubtitle;
+  final String? lactatingSubtitle;
+  final String? weaningSubtitle;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GridView.count(
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      childAspectRatio: 2.15,
+      childAspectRatio: 2.05,
       children: [
         _StatusTile(
-          label: 'PREGNANT',
+          label: l10n.dashboardKpiPregnant,
           value: '${stats.pregnant}',
           subtitle: pregnantSubtitle ?? '',
           designIcon: GhDesignIcons.welfare,
           valueColor: GhColors.textPrimary,
         ),
         _StatusTile(
-          label: 'READY TO BREED',
+          label: l10n.dashboardKpiReadyToBreed,
           value: '${stats.readyToBreed}',
           subtitle: readySubtitle ?? '',
           designIcon: GhDesignIcons.readyToBreed,
           valueColor: GhColors.textPrimary,
         ),
         _StatusTile(
-          label: 'SICK',
+          label: l10n.dashboardKpiLactating,
+          value: '${stats.lactating}',
+          subtitle: lactatingSubtitle ?? '',
+          designIcon: GhDesignIcons.calfFeeding,
+          valueColor: GhColors.primary,
+        ),
+        _StatusTile(
+          label: l10n.dashboardKpiWeaning,
+          value: '${stats.weaning}',
+          subtitle: weaningSubtitle ?? l10n.dashboardKpiWeaningHint,
+          designIcon: GhDesignIcons.weaningBottle,
+          valueColor: GhColors.textPrimary,
+        ),
+        _StatusTile(
+          label: l10n.dashboardKpiSick,
           value: '${stats.sick}',
-          subtitle: 'under treatment',
+          subtitle: l10n.dashboardKpiSickHint,
           designIcon: GhDesignIcons.medication,
           valueColor: GhColors.error,
         ),
         _StatusTile(
-          label: 'CULL FLAGGED',
+          label: l10n.dashboardKpiCullFlagged,
           value: '${stats.cullFlagged}',
-          subtitle: 'reviewable',
+          subtitle: l10n.dashboardKpiCullHint,
           designIcon: GhDesignIcons.cullTag,
           valueColor: GhColors.warning,
         ),

@@ -173,7 +173,7 @@ class _GroupWizardConfirmationStepState
             )
           else ...[
             DropdownButtonFormField<String>(
-              value: _selectedMealId,
+              initialValue: _selectedMealId,
               isExpanded: true,
               decoration: InputDecoration(
                 labelText: l10n.mealPlans,

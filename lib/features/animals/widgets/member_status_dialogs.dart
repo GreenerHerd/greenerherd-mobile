@@ -155,8 +155,6 @@ class _PregnancyDetailsDialogState extends State<PregnancyDetailsDialog> {
   List<BreedingMethod> get _methods =>
       BreedingMethodCatalog.forSpecies(widget.species);
 
-  static const _prolificacyOptions = [2, 3, 4];
-
   @override
   void initState() {
     super.initState();
@@ -173,11 +171,10 @@ class _PregnancyDetailsDialogState extends State<PregnancyDetailsDialog> {
                 5,
                 now,
               ));
-    _prolificacy = widget.initialProlificacy ??
-        (widget.initialTwin ? 2 : 2);
-    if (!_prolificacyOptions.contains(_prolificacy)) {
-      _prolificacy = 2;
-    }
+    _prolificacy = GestationDates.clampProlificacy(
+      widget.initialProlificacy ??
+          (widget.initialTwin ? 2 : GestationDates.defaultProlificacy),
+    );
     _method = widget.initialBreedingMethod ?? _methods.first;
   }
 
@@ -250,7 +247,7 @@ class _PregnancyDetailsDialogState extends State<PregnancyDetailsDialog> {
           const SizedBox(height: 6),
           SegmentedButton<int>(
             segments: [
-              for (final n in _prolificacyOptions)
+              for (final n in GestationDates.prolificacyOptions)
                 ButtonSegment(value: n, label: Text('$n')),
             ],
             selected: {_prolificacy},
@@ -351,7 +348,7 @@ class _ReadyToBreedDialogState extends State<ReadyToBreedDialog> {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<BreedingMethod>(
-            value: _method,
+            initialValue: _method,
             decoration: InputDecoration(labelText: l10n.fertilityMethodLabel),
             items: [
               for (final method in _methods)

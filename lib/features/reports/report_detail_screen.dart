@@ -1,8 +1,6 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:printing/printing.dart';
 
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/providers.dart';
@@ -11,7 +9,6 @@ import '../../core/theme/gh_typography.dart';
 import '../../data/services/report_generator_service.dart';
 import 'report_export.dart' as report_export;
 import '../../shared/widgets/gh_app_bar.dart';
-import '../../shared/widgets/gh_kv_list.dart';
 
 final _reportGeneratorProvider = Provider<ReportGeneratorService>((ref) {
   return ReportGeneratorService(
@@ -70,7 +67,7 @@ class ReportDetailScreen extends ConsumerWidget {
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: GhColors.primaryLight.withOpacity(0.5),
+                          color: GhColors.primaryLight.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Icon(Icons.description, color: GhColors.primary),
@@ -149,7 +146,7 @@ class ReportDetailScreen extends ConsumerWidget {
               const SizedBox(height: 12),
               _BulletCard(
                 title: l10n.perGroup,
-                items: [
+                items: const [
                   'Breakdown by group · species · purpose',
                   'Compared to farm-wide average',
                 ],
@@ -157,7 +154,7 @@ class ReportDetailScreen extends ConsumerWidget {
               const SizedBox(height: 12),
               _BulletCard(
                 title: l10n.auditableDetail,
-                items: [
+                items: const [
                   'Source record IDs',
                   'Recorded-by attribution per row',
                 ],

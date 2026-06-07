@@ -4,14 +4,15 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
+import '../../core/l10n/l10n_extensions.dart';
+import '../../data/models/milking_session.dart';
 import '../../data/models/models.dart';
+import '../../data/services/milk_record_service.dart';
 import '../../shared/widgets/animal_avatar.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import '../../shared/widgets/gh_design_icon.dart';
 import '../../shared/widgets/gh_design_icons.dart';
 import 'group_milk_record.dart';
-
-enum MilkSession { morning, evening, daily }
 
 class GroupMilkRecordScreen extends ConsumerStatefulWidget {
   const GroupMilkRecordScreen({
@@ -27,18 +28,19 @@ class GroupMilkRecordScreen extends ConsumerStatefulWidget {
 }
 
 class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
-  MilkSession _session = MilkSession.morning;
+  MilkingSession _session = MilkingSession.morning;
+  late DateTime _selectedDate;
   AnimalGroup? _group;
   List<Animal> _lactating = [];
   final Map<String, TextEditingController> _controllers = {};
   bool _loading = true;
   bool _saving = false;
-  bool _recordSale = false;
-  final _saleAmount = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    final now = DateTime.now();
+    _selectedDate = DateTime(now.year, now.month, now.day);
     _load();
   }
 
@@ -73,8 +75,22 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
     for (final c in _controllers.values) {
       c.dispose();
     }
-    _saleAmount.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickDate() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: now.subtract(const Duration(days: 365 * 5)),
+      lastDate: now,
+    );
+    if (picked != null) {
+      setState(
+        () => _selectedDate = DateTime(picked.year, picked.month, picked.day),
+      );
+    }
   }
 
   double get _totalLitres {
@@ -85,11 +101,8 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
     return total;
   }
 
-  String get _sessionLabel => switch (_session) {
-        MilkSession.morning => 'Morning',
-        MilkSession.evening => 'Evening',
-        MilkSession.daily => 'Daily',
-      };
+  String _sessionLabel(BuildContext context) =>
+      _session.label(context.l10n);
 
   Future<void> _save() async {
     final total = _totalLitres;
@@ -111,20 +124,19 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
             double.tryParse(_controllers[animal.id]?.text ?? '') ?? 0;
         if (litres <= 0) continue;
         if (lifecycle.milkBlockedByWithdrawal(animal)) continue;
-        await lactation.recordDailyMilk(
-            animalId: animal.id, litres: litres);
-        final updated = lifecycle.recordMilk(animal, litres);
-        await animalRepo.updateAnimal(updated);
-      }
-
-      if (_recordSale) {
-        final amount = double.tryParse(_saleAmount.text.trim()) ?? 0;
-        if (amount > 0) {
-          await ref.read(financeLedgerProvider).recordMilkSale(
-                totalAmount: amount,
-                note:
-                    '$_sessionLabel · ${_group?.name} · ${total.toStringAsFixed(1)} L',
-              );
+        await lactation.recordMilk(
+          animalId: animal.id,
+          litres: litres,
+          onDate: _selectedDate,
+          session: _session,
+        );
+        if (MilkRecordService.isSameDay(_selectedDate, DateTime.now())) {
+          final history = await lactation.milkHistory(animal.id);
+          final dayTotal =
+              MilkRecordService.totalLitresForDay(history, _selectedDate) ??
+                  litres;
+          final updated = lifecycle.recordMilk(animal, dayTotal);
+          await animalRepo.updateAnimal(updated);
         }
       }
 
@@ -132,7 +144,7 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Recorded ${total.toStringAsFixed(1)} L ($_sessionLabel) across ${_lactating.length} animals',
+              'Recorded ${total.toStringAsFixed(1)} L (${_sessionLabel(context)}) across ${_lactating.length} animals',
             ),
           ),
         );
@@ -162,9 +174,9 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
           body: Center(child: CircularProgressIndicator()));
     }
     if (_group == null) {
-      return Scaffold(
-        appBar: const GhAppBar(title: 'Record milk'),
-        body: const Center(child: Text('Group not found')),
+      return const Scaffold(
+        appBar: GhAppBar(title: 'Record milk'),
+        body: Center(child: Text('Group not found')),
       );
     }
 
@@ -183,22 +195,22 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
             color: GhColors.pageBackground,
             child: Column(
               children: [
-                SegmentedButton<MilkSession>(
-                  segments: const [
+                SegmentedButton<MilkingSession>(
+                  segments: [
                     ButtonSegment(
-                      value: MilkSession.morning,
-                      label: Text('Morning'),
-                      icon: Icon(Icons.wb_sunny_outlined, size: 16),
+                      value: MilkingSession.morning,
+                      label: Text(context.l10n.milkSessionMorning),
+                      icon: const Icon(Icons.wb_sunny_outlined, size: 16),
                     ),
                     ButtonSegment(
-                      value: MilkSession.evening,
-                      label: Text('Evening'),
-                      icon: Icon(Icons.nights_stay_outlined, size: 16),
+                      value: MilkingSession.evening,
+                      label: Text(context.l10n.milkSessionEvening),
+                      icon: const Icon(Icons.nights_stay_outlined, size: 16),
                     ),
                     ButtonSegment(
-                      value: MilkSession.daily,
-                      label: Text('Daily'),
-                      icon: Icon(Icons.calendar_today, size: 16),
+                      value: MilkingSession.daily,
+                      label: Text(context.l10n.milkSessionDaily),
+                      icon: const Icon(Icons.calendar_today, size: 16),
                     ),
                   ],
                   selected: {_session},
@@ -206,6 +218,15 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
                       setState(() => _session = s.first),
                 ),
                 const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: _pickDate,
+                    icon: const Icon(Icons.calendar_month, size: 18),
+                    label: Text(context.l10n.milkRecordDate),
+                  ),
+                ),
+                const SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -322,64 +343,23 @@ class _GroupMilkRecordScreenState extends ConsumerState<GroupMilkRecordScreen> {
             ),
             child: SafeArea(
               top: false,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Material(
-                          color: Colors.transparent,
-                          child: SwitchListTile(
-                            contentPadding: EdgeInsets.zero,
-                            dense: true,
-                            title: const Text(
-                              'Record milk sale',
-                              style: TextStyle(fontSize: 13),
-                            ),
-                            value: _recordSale,
-                            onChanged: (v) =>
-                                setState(() => _recordSale = v),
-                          ),
-                        ),
-                      ),
-                      if (_recordSale)
-                        SizedBox(
-                          width: 120,
-                          child: TextField(
-                            controller: _saleAmount,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              labelText: 'SAR',
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                            ),
-                          ),
-                        ),
-                    ],
+              child: SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: _saving ? null : _save,
+                  style: FilledButton.styleFrom(
+                    backgroundColor: GhColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: _saving ? null : _save,
-                      style: FilledButton.styleFrom(
-                        backgroundColor: GhColors.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                      ),
-                      child: _saving
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                  strokeWidth: 2),
-                            )
-                          : Text(
-                              'Save ${total.toStringAsFixed(1)} L ($_sessionLabel)'),
-                    ),
-                  ),
-                ],
+                  child: _saving
+                      ? const SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(
+                          'Save ${total.toStringAsFixed(1)} L (${_sessionLabel(context)})'),
+                ),
               ),
             ),
           ),

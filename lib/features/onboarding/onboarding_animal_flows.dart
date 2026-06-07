@@ -168,14 +168,22 @@ Future<bool> runOnboardingBulkGroup(
         name: nameCtrl.text.trim(),
         purpose: purpose,
       );
-  if (purpose == GroupPurpose.breeding) {
-    final lifecycle = ref.read(lifecycleServiceProvider);
-    final animalRepo = ref.read(animalRepositoryProvider);
-    for (final animal in result.animals) {
-      final updated = lifecycle.applyBreedingGroupPurpose(animal, purpose);
-      if (updated != animal) {
-        await animalRepo.updateAnimal(updated);
-      }
+  final lifecycle = ref.read(lifecycleServiceProvider);
+  final animalRepo = ref.read(animalRepositoryProvider);
+  for (final animal in result.animals) {
+    var updated = animal;
+    if (purpose == GroupPurpose.breeding) {
+      updated = lifecycle.applyBreedingGroupPurpose(updated, purpose);
+    }
+    if (purpose == GroupPurpose.milk) {
+      updated = lifecycle.applyMilkingGroupPurpose(updated, purpose);
+      updated = lifecycle.syncLactationForGroupMembership(
+        updated,
+        group: result.group,
+      );
+    }
+    if (updated != animal) {
+      await animalRepo.updateAnimal(updated);
     }
   }
   return true;

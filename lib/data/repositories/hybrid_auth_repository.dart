@@ -97,16 +97,23 @@ class HybridAuthRepository implements AuthRepository {
   }
 
   Future<AuthSession> _loginEmail(String email) async {
-    final data = await _auth.login(email: email);
-    final session = AuthMapper.sessionFromLogin(data);
-    _store.session = session;
-    _syncFarmsBearer();
-    if (AppConfig.useFarmsApi) {
-      await refreshOnboardingStatus();
-    } else {
-      _store.onboardingComplete = true;
+    try {
+      final data = await _auth.login(email: email);
+      final session = AuthMapper.sessionFromLogin(data);
+      _store.session = session;
+      _syncFarmsBearer();
+      if (AppConfig.useFarmsApi) {
+        await refreshOnboardingStatus();
+      } else {
+        _store.onboardingComplete = true;
+      }
+      return session;
+    } catch (_) {
+      if (AppConfig.useMockData) {
+        return _mockSignIn();
+      }
+      rethrow;
     }
-    return session;
   }
 
   Future<AuthSession> _mockSignIn() async {

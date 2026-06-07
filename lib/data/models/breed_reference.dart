@@ -41,7 +41,7 @@ class BreedReference {
 
   factory BreedReference.fromJson(Map<String, dynamic> json) {
     String? optString(dynamic value) =>
-        value == null ? null : value.toString();
+        value?.toString();
 
     final names = parseCatalogNames(json);
     final nameEn = names[CatalogLocales.en] ?? json['name_en'] as String;

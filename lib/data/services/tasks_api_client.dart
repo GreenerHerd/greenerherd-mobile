@@ -33,6 +33,7 @@ class TasksApiClient implements TasksRemoteGateway {
 
   final Dio _dio;
 
+  @override
   Future<List<Map<String, dynamic>>> listTasks(
     String farmId, {
     String? status,
@@ -49,6 +50,7 @@ class TasksApiClient implements TasksRemoteGateway {
     return _dataList(response);
   }
 
+  @override
   Future<Map<String, dynamic>> completeTask(String taskId) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/api/v1/tasks/$taskId/complete',
@@ -56,6 +58,7 @@ class TasksApiClient implements TasksRemoteGateway {
     return _dataMap(response, expectedStatus: 200);
   }
 
+  @override
   Future<Map<String, dynamic>> dismissTask(String taskId) async {
     final response = await _dio.post<Map<String, dynamic>>(
       '/api/v1/tasks/$taskId/dismiss',

@@ -4,7 +4,6 @@ import '../../core/l10n/l10n_extensions.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../core/theme/gh_typography.dart';
 import '../../data/models/enums.dart';
-import '../../data/models/models.dart';
 import '../../data/services/reproduction_status_rules.dart';
 import '../../shared/widgets/gh_stat.dart';
 import 'group_detail_widgets.dart';

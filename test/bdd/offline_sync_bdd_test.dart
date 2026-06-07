@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:drift/drift.dart' hide isNot, isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:greenerherd_mobile/core/persistence/app_database.dart';
@@ -8,14 +7,12 @@ import 'package:greenerherd_mobile/core/persistence/entity_json_codec.dart';
 import 'package:greenerherd_mobile/core/persistence/local_cache_store.dart';
 import 'package:greenerherd_mobile/core/persistence/network_status.dart';
 import 'package:greenerherd_mobile/core/persistence/sync_service.dart';
-import 'package:greenerherd_mobile/data/mock/mock_data_store.dart';
 import 'package:greenerherd_mobile/data/mock/mock_repositories.dart';
 import 'package:greenerherd_mobile/data/models/enums.dart';
 import 'package:greenerherd_mobile/data/models/models.dart';
 import 'package:greenerherd_mobile/data/repositories/hybrid_animal_repository.dart';
 import 'package:greenerherd_mobile/data/repositories/offline_first_animal_repository.dart';
 import 'package:greenerherd_mobile/data/services/animal_lifecycle_service.dart';
-import 'package:greenerherd_mobile/data/services/animals_remote_gateway.dart';
 
 import 'animals_api_bdd_test.dart';
 import 'support/bdd_harness.dart';

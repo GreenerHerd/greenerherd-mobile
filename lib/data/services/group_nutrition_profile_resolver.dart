@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart' show rootBundle;
 
-import '../models/enums.dart';
 import '../models/models.dart';
 import 'group_nutrition_requirements_aggregator.dart';
 import 'nutrition_context_builder.dart';

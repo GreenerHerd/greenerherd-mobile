@@ -64,7 +64,7 @@ void main() {
       body: (tester) async {
         await openGroup(tester, 'g1');
         await tapTab(tester, 'Nutrition');
-        expect(find.text('Today vs requirement'), findsOneWidget);
+        expect(find.text('Today v Required Nutrition'), findsOneWidget);
         expect(find.text('Energy gap detected'), findsOneWidget);
         await tester.drag(find.byType(ListView), const Offset(0, -280));
         await tester.pumpAndSettle();
@@ -144,15 +144,14 @@ void main() {
         await tester.tap(pregnancyButton.first);
         await tester.pumpAndSettle();
 
-        expect(find.text('Pregnancy'), findsOneWidget);
-        await tester.enterText(find.byType(TextField).last, '5');
+        expect(find.text('Pregnancy confirmed'), findsOneWidget);
         await tester.tap(find.text('Save'));
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 100));
         await tester.pumpAndSettle();
 
         expect(tester.takeException(), isNull);
-        expect(find.text('Pregnant'), findsWidgets);
+        expect(find.textContaining('pregnant'), findsWidgets);
       },
     );
 

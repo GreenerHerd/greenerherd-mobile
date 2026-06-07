@@ -148,7 +148,7 @@ class GroupBreedingTab extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: GhColors.warningLight,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: GhColors.warning.withOpacity(0.4)),
+                border: Border.all(color: GhColors.warning.withValues(alpha: 0.4)),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

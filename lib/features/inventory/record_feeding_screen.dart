@@ -249,7 +249,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           DropdownButtonFormField<String>(
-            value: _groupId,
+            initialValue: _groupId,
             decoration: const InputDecoration(labelText: 'Animal group'),
             items: _groups
                 .map(
@@ -312,7 +312,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
               )
             else
               DropdownButtonFormField<String>(
-                value: _mealId,
+                initialValue: _mealId,
                 decoration: const InputDecoration(labelText: 'Meal plan'),
                 items: _eligibleMeals
                     .map(
@@ -347,7 +347,7 @@ class _RecordFeedingScreenState extends ConsumerState<RecordFeedingScreen> {
               )
             else
               DropdownButtonFormField<String>(
-                value: _feedItemId,
+                initialValue: _feedItemId,
                 decoration: const InputDecoration(labelText: 'Feed product'),
                 items: _eligibleFeedItems
                     .map(

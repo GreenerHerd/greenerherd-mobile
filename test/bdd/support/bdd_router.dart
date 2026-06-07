@@ -4,6 +4,8 @@ import 'package:greenerherd_mobile/features/animals/animal_profile_screen.dart';
 import 'package:greenerherd_mobile/features/animals/animals_list_screen.dart';
 import 'package:greenerherd_mobile/features/animals/record_birth_screen.dart';
 import 'package:greenerherd_mobile/features/animals/record_milk_screen.dart';
+import 'package:greenerherd_mobile/data/models/models.dart';
+import 'package:greenerherd_mobile/features/animals/record_treatment_screen.dart';
 import 'package:greenerherd_mobile/features/groups/group_detail_screen.dart';
 import 'package:greenerherd_mobile/features/shell/app_shell.dart';
 
@@ -56,6 +58,20 @@ GoRouter createBddShellRouter({
                         builder: (_, state) => RecordBirthScreen(
                           animalId: state.pathParameters['id']!,
                         ),
+                      ),
+                      GoRoute(
+                        path: 'record-treatment',
+                        parentNavigatorKey: rootNavigatorKey,
+                        builder: (_, state) {
+                          final extra = state.extra as Map<String, dynamic>?;
+                          return RecordTreatmentScreen(
+                            animalId: state.pathParameters['id']!,
+                            initialIllnessNote:
+                                extra?['illnessNote'] as String?,
+                            initialTreatment: extra?['treatment']
+                                as AnimalTreatmentDetails?,
+                          );
+                        },
                       ),
                     ],
                   ),

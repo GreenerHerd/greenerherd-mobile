@@ -69,8 +69,8 @@ void main() {
       expect(updated.breedingMethod, BreedingMethod.sponges);
     });
 
-    test('cattle ready to breed does not require method', () {
-      final cow = Animal(
+    test('cattle ready to breed requires and stores method', () {
+      const cow = Animal(
         id: 'c1',
         tag: 'C1',
         name: 'Bess',
@@ -81,9 +81,24 @@ void main() {
         ageLabel: '4y',
         groupId: 'grp',
       );
-      final updated = lifecycle.markReadyToBreed(cow);
+      expect(() => lifecycle.markReadyToBreed(cow), throwsStateError);
+      final updated = lifecycle.markReadyToBreed(
+        cow,
+        method: BreedingMethod.ai,
+      );
       expect(updated.tags, contains(AnimalTagType.readyToBreed));
-      expect(updated.breedingMethod, isNull);
+      expect(updated.breedingMethod, BreedingMethod.ai);
+    });
+
+    test('defaultForSpecies picks AI for cattle and natural for goats', () {
+      expect(
+        BreedingMethodCatalog.defaultForSpecies(Species.cattle),
+        BreedingMethod.ai,
+      );
+      expect(
+        BreedingMethodCatalog.defaultForSpecies(Species.goat),
+        BreedingMethod.natural,
+      );
     });
   });
 }

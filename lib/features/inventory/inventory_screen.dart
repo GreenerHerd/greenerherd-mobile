@@ -223,8 +223,8 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
               child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
+                const Padding(
+                  padding: EdgeInsets.only(top: 2),
                   child: Icon(Icons.grass, color: GhColors.primary),
                 ),
                 const SizedBox(width: 12),
@@ -309,7 +309,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.add_circle_outline, color: GhColors.primary),
+                leading: const Icon(Icons.add_circle_outline, color: GhColors.primary),
                 title: Text(l10n.buyAnimals),
                 subtitle: Text(l10n.buyAnimalsInventorySubtitle),
                 trailing: const Icon(Icons.chevron_right),

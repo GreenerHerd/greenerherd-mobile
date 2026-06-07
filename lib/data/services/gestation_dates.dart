@@ -50,10 +50,18 @@ abstract final class GestationDates {
     return null;
   }
 
+  static const prolificacyOptions = [1, 2, 3, 4];
+  static const defaultProlificacy = 1;
+
+  static int clampProlificacy(int value) =>
+      prolificacyOptions.contains(value) ? value : defaultProlificacy;
+
   static int effectiveProlificacy(Animal animal) {
-    if (animal.prolificacy != null) return animal.prolificacy!;
+    if (animal.prolificacy != null) {
+      return clampProlificacy(animal.prolificacy!);
+    }
     if (animal.isTwin == true) return 2;
-    return 2;
+    return defaultProlificacy;
   }
 
   static String formatDate(DateTime date) =>

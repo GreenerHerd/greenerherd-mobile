@@ -3,7 +3,7 @@
 import os
 import sys
 
-TARGET = float(os.environ.get("COVERAGE_TARGET", "85"))
+TARGET = float(os.environ.get("COVERAGE_TARGET", "90"))
 LCOV = os.path.join(os.path.dirname(__file__), "..", "coverage", "lcov.info")
 if len(sys.argv) > 1:
     LCOV = sys.argv[1]

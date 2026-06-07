@@ -8,6 +8,7 @@ import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../core/l10n/gen/app_localizations.dart';
 import '../../data/models/breed_reference.dart';
+import '../../data/models/animal_lactation_cycle.dart';
 import '../../data/models/breeding_methods.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
@@ -18,6 +19,7 @@ import '../../shared/widgets/gh_design_icons.dart';
 import '../../shared/widgets/gh_group_name_field.dart';
 import 'add_group_sheet.dart';
 import 'animal_form_helpers.dart';
+import '../tasks/task_completion.dart';
 import 'widgets/group_member_compact_row.dart';
 import 'widgets/group_wizard_confirmation_step.dart';
 import 'widgets/member_status_dialogs.dart';
@@ -99,6 +101,7 @@ class GroupMemberDraft {
   bool cull;
   bool readyToBreed;
   BreedingMethod? breedingMethod;
+  AnimalLactationCycle? lactationCycle;
   String? damTag;
   bool weaning;
 
@@ -116,7 +119,10 @@ class GroupMemberDraft {
         )) {
       tags.add(AnimalTagType.pregnant);
     }
-    if (lactating &&
+    final isLactating = lactationCycle != null
+        ? LactationCycleCatalog.isLactating(lactationCycle!)
+        : lactating;
+    if (isLactating &&
         ReproductionStatusRules.canLactate(
           species: species,
           sex: sex,
@@ -143,6 +149,7 @@ class GroupMemberDraft {
     required GroupPurpose purpose,
     required Species species,
     int? fallbackAgeMonths,
+    BreedingMethod? groupBreedingMethod,
   }) {
     if (purpose != GroupPurpose.breeding) {
       if (readyToBreed) {
@@ -165,9 +172,31 @@ class GroupMemberDraft {
     }
 
     readyToBreed = true;
-    if (BreedingMethodCatalog.requiresMethodOnReadyToBreed(species)) {
-      breedingMethod ??= BreedingMethod.natural;
+    breedingMethod = BreedingMethodCatalog.resolveMethod(
+      species: species,
+      explicit: breedingMethod ?? groupBreedingMethod,
+    );
+  }
+
+  /// Default lactation cycle when the group purpose is milking.
+  void applyMilkingGroupDefaults({
+    required GroupPurpose purpose,
+    required Species species,
+    int? fallbackAgeMonths,
+  }) {
+    if (purpose != GroupPurpose.milk) return;
+    final age = effectiveAgeMonths ?? fallbackAgeMonths;
+    if (!ReproductionStatusRules.canLactate(
+      species: species,
+      sex: sex,
+      ageMonths: age,
+    )) {
+      lactating = false;
+      lactationCycle = null;
+      return;
     }
+    lactating = true;
+    lactationCycle ??= LactationCycleCatalog.defaultForMilkingGroup(species);
   }
 }
 
@@ -193,6 +222,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
   final _descCtrl = TextEditingController();
   late Species _species;
   var _purpose = GroupPurpose.breeding;
+  late BreedingMethod _groupBreedingMethod;
   var _defaultAnimalPurpose = SpeciesPurpose.both;
 
   // Origin — selected on the first screen
@@ -219,6 +249,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
   void initState() {
     super.initState();
     _species = widget.initialSpecies ?? Species.cattle;
+    _groupBreedingMethod = BreedingMethodCatalog.defaultForSpecies(_species);
     _loadBreeds(_species);
   }
 
@@ -480,7 +511,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
           children: [
             Expanded(
               child: DropdownButtonFormField<Species>(
-                value: _species,
+                initialValue: _species,
                 decoration: InputDecoration(
                   labelText: l10n.species,
                   isDense: true,
@@ -495,9 +526,13 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
                     .toList(),
                 onChanged: (v) async {
                   if (v != null) {
-                    setState(() => _species = v);
+                    setState(() {
+                      _species = v;
+                      _groupBreedingMethod =
+                          BreedingMethodCatalog.defaultForSpecies(v);
+                    });
                     await _loadBreeds(v);
-                    _applyBreedingGroupDefaultsToAllMembers();
+                    _applyGroupPurposeDefaultsToAllMembers();
                   }
                 },
               ),
@@ -510,9 +545,33 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
           l10n: l10n,
           onChanged: (p) => setState(() {
             _purpose = p;
-            _applyBreedingGroupDefaultsToAllMembers();
+            _applyGroupPurposeDefaultsToAllMembers();
           }),
         ),
+        if (_purpose == GroupPurpose.breeding) ...[
+          const SizedBox(height: 16),
+          DropdownButtonFormField<BreedingMethod>(
+            initialValue: _groupBreedingMethod,
+            decoration: InputDecoration(
+              labelText: l10n.groupBreedingMethodLabel,
+              helperText: l10n.groupBreedingMethodHint,
+            ),
+            items: [
+              for (final method in BreedingMethodCatalog.forSpecies(_species))
+                DropdownMenuItem(
+                  value: method,
+                  child: Text(BreedingMethodCatalog.label(method, l10n)),
+                ),
+            ],
+            onChanged: (method) {
+              if (method == null) return;
+              setState(() {
+                _groupBreedingMethod = method;
+                _applyGroupPurposeDefaultsToAllMembers();
+              });
+            },
+          ),
+        ],
         const SizedBox(height: 16),
         TextField(
           controller: _descCtrl,
@@ -626,7 +685,8 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
           children: [
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _sex,
+                initialValue: _sex,
+                isExpanded: true,
                 decoration: const InputDecoration(
                   labelText: 'Sex',
                   isDense: true,
@@ -644,7 +704,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
                       for (final m in _members) {
                         m.sex = v;
                       }
-                      _applyBreedingGroupDefaultsToAllMembers();
+                      _applyGroupPurposeDefaultsToAllMembers();
                     });
                   }
                 },
@@ -653,7 +713,8 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
             const SizedBox(width: 12),
             Expanded(
               child: DropdownButtonFormField<String>(
-                value: _ageRangeLabel,
+                initialValue: _ageRangeLabel,
+                isExpanded: true,
                 decoration: InputDecoration(
                   labelText: l10n.ageRange,
                   isDense: true,
@@ -672,7 +733,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
                         m.ageMonths = ageMonths;
                         m.dob = null;
                       }
-                      _applyBreedingGroupDefaultsToAllMembers();
+                      _applyGroupPurposeDefaultsToAllMembers();
                     });
                   }
                 },
@@ -826,7 +887,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
     }
 
     return DropdownButtonFormField<VaccinationEvent>(
-      value: _selectedVaccinationEvent,
+      initialValue: _selectedVaccinationEvent,
       decoration: InputDecoration(
         labelText: l10n.selectVaccinationEvent,
         isDense: true,
@@ -1002,11 +1063,17 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
     return '${months ~/ 12}y';
   }
 
-  void _applyBreedingGroupDefaultsToAllMembers() {
+  void _applyGroupPurposeDefaultsToAllMembers() {
     if (_members.isEmpty) return;
     final fallbackAge = AnimalMapper.ageMidpointMonths(_ageRangeLabel);
     for (final m in _members) {
       m.applyBreedingGroupDefaults(
+        purpose: _purpose,
+        species: _species,
+        fallbackAgeMonths: fallbackAge,
+        groupBreedingMethod: _groupBreedingMethod,
+      );
+      m.applyMilkingGroupDefaults(
         purpose: _purpose,
         species: _species,
         fallbackAgeMonths: fallbackAge,
@@ -1038,7 +1105,7 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
         ),
       );
     }
-    _applyBreedingGroupDefaultsToAllMembers();
+    _applyGroupPurposeDefaultsToAllMembers();
   }
 
   Future<AnimalGroup?> _finishNewGroup() async {
@@ -1130,10 +1197,17 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
 
       final animalRepo = ref.read(animalRepositoryProvider);
       final animals = result.animals;
+      final savedMembers = <Animal>[];
 
       for (var i = 0; i < _members.length; i++) {
         final draft = _members[i];
         draft.applyBreedingGroupDefaults(
+          purpose: _purpose,
+          species: _species,
+          fallbackAgeMonths: AnimalMapper.ageMidpointMonths(_ageRangeLabel),
+          groupBreedingMethod: _groupBreedingMethod,
+        );
+        draft.applyMilkingGroupDefaults(
           purpose: _purpose,
           species: _species,
           fallbackAgeMonths: AnimalMapper.ageMidpointMonths(_ageRangeLabel),
@@ -1180,16 +1254,41 @@ class _AddGroupWizardScreenState extends ConsumerState<AddGroupWizardScreen> {
           prolificacy: draft.pregnant ? draft.prolificacy : null,
           isTwin: draft.isTwin,
           breedingMethod: draft.breedingMethod,
+          lactationCycle: draft.lactationCycle,
           weightIndicative: draft.weightKg == null,
           status: draft.cull ? AnimalStatus.culled : base.status,
           dam: draft.damTag,
           productionPurpose: draft.productionPurpose,
         );
 
+        final lifecycle = ref.read(lifecycleServiceProvider);
+        var toSave = lifecycle.syncReadyToBreedForGroupMembership(
+          updated,
+          group: result.group,
+          method: _purpose == GroupPurpose.breeding ? _groupBreedingMethod : null,
+        );
+        toSave = lifecycle.syncLactationForGroupMembership(
+          toSave,
+          group: result.group,
+        );
+
         if (i < animals.length) {
-          await animalRepo.updateAnimal(updated);
+          await animalRepo.updateAnimal(toSave);
         } else {
-          await animalRepo.createAnimal(updated);
+          await animalRepo.createAnimal(toSave);
+        }
+        savedMembers.add(toSave);
+      }
+
+      if (_purpose == GroupPurpose.breeding && savedMembers.isNotEmpty) {
+        final count = await ref.read(breedingWorkflowServiceProvider).scheduleForGroup(
+              tasks: ref.read(taskRepositoryProvider),
+              members: savedMembers,
+              defaultMethod: _groupBreedingMethod,
+              l10n: context.l10n,
+            );
+        if (count > 0) {
+          invalidateTaskProviders(ref);
         }
       }
 

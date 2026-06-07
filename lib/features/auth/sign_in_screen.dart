@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/config/app_config.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/data_refresh.dart';
 import '../../core/providers/providers.dart';
@@ -38,7 +39,7 @@ class SignInScreen extends ConsumerWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -98,18 +99,39 @@ class SignInScreen extends ConsumerWidget {
     BuildContext context,
     AuthProvider provider,
   ) async {
-    await ref.read(authRepositoryProvider).signInWithProvider(provider);
-    refreshAllAppData(ref);
-    if (context.mounted) context.go('/home');
+    try {
+      await ref.read(authRepositoryProvider).signInWithProvider(provider);
+      refreshAllAppData(ref);
+      if (context.mounted) context.go('/home');
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Could not reach auth API (${AppConfig.authApiBaseUrl}). '
+              'Check services on port 3001. $e',
+            ),
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _newFarmSetup(WidgetRef ref, BuildContext context) async {
-    await ref.read(authRepositoryProvider).signInWithProvider(AuthProvider.google);
-    final store = ref.read(mockDataStoreProvider);
-    store.onboardingComplete = false;
-    store.forceOnboarding = true;
-    refreshAllAppData(ref);
-    if (context.mounted) context.go('/onboarding');
+    try {
+      await ref.read(authRepositoryProvider).signInWithProvider(AuthProvider.google);
+      final store = ref.read(mockDataStoreProvider);
+      store.onboardingComplete = false;
+      store.forceOnboarding = true;
+      refreshAllAppData(ref);
+      if (context.mounted) context.go('/onboarding');
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign-in failed: $e')),
+        );
+      }
+    }
   }
 }
 

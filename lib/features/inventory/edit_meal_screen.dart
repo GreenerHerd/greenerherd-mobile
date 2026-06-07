@@ -232,7 +232,7 @@ class _EditMealScreenState extends ConsumerState<EditMealScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DropdownButtonFormField<String>(
-                      value: row.feedId,
+                      initialValue: row.feedId,
                       decoration: const InputDecoration(labelText: 'Feed item'),
                       items: _feedOptions.map((f) {
                         final check = _checkForFeedItem(f);

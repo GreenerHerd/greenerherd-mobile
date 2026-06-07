@@ -1,4 +1,8 @@
 import 'package:equatable/equatable.dart';
+
+export 'animal_treatment.dart';
+import 'animal_lactation_cycle.dart';
+import 'animal_treatment.dart';
 import 'breeding_methods.dart';
 import 'enums.dart';
 
@@ -104,7 +108,9 @@ class Animal extends Equatable {
     this.breedingMethod,
     this.illnessNote,
     this.treatmentNote,
+    this.treatmentDetails,
     this.monthsSinceCalving,
+    this.lactationCycle,
   });
 
   final String id;
@@ -138,9 +144,13 @@ class Animal extends Equatable {
   final String? cullReason;
   final BreedingMethod? breedingMethod;
   final String? illnessNote;
+  /// Legacy one-line medicine summary; prefer [treatmentDetails].
   final String? treatmentNote;
+  final AnimalTreatmentDetails? treatmentDetails;
   /// Months since last calving when [AnimalTagType.lactating]; drives lactation stage.
   final int? monthsSinceCalving;
+  /// Milking-tab lactation phase (cattle stage or small-ruminant single/twin).
+  final AnimalLactationCycle? lactationCycle;
 
   bool get cullFlagged => tags.contains(AnimalTagType.cull);
 
@@ -153,7 +163,13 @@ class Animal extends Equatable {
     if (illnessNote != null && illnessNote!.trim().isNotEmpty) {
       parts.add(illnessNote!.trim());
     }
-    if (treatmentNote != null && treatmentNote!.trim().isNotEmpty) {
+    if (treatmentDetails != null) {
+      parts.add(treatmentDetails!.displaySummary());
+      if (treatmentDetails!.notes != null &&
+          treatmentDetails!.notes!.trim().isNotEmpty) {
+        parts.add(treatmentDetails!.notes!.trim());
+      }
+    } else if (treatmentNote != null && treatmentNote!.trim().isNotEmpty) {
       parts.add(treatmentNote!.trim());
     }
     return parts.isEmpty ? null : parts.join('\n');
@@ -204,8 +220,11 @@ class Animal extends Equatable {
     BreedingMethod? breedingMethod,
     String? illnessNote,
     String? treatmentNote,
+    AnimalTreatmentDetails? treatmentDetails,
     int? monthsSinceCalving,
     bool clearMonthsSinceCalving = false,
+    AnimalLactationCycle? lactationCycle,
+    bool clearLactationCycle = false,
     String? tag,
     String? name,
     String? breed,
@@ -226,6 +245,7 @@ class Animal extends Equatable {
     bool clearProlificacy = false,
     bool clearIllnessNote = false,
     bool clearTreatmentNote = false,
+    bool clearTreatmentDetails = false,
   }) {
     return Animal(
       id: id,
@@ -267,9 +287,15 @@ class Animal extends Equatable {
           clearIllnessNote ? null : (illnessNote ?? this.illnessNote),
       treatmentNote:
           clearTreatmentNote ? null : (treatmentNote ?? this.treatmentNote),
+      treatmentDetails: clearTreatmentDetails
+          ? null
+          : (treatmentDetails ?? this.treatmentDetails),
       monthsSinceCalving: clearMonthsSinceCalving
           ? null
           : (monthsSinceCalving ?? this.monthsSinceCalving),
+      lactationCycle: clearLactationCycle
+          ? null
+          : (lactationCycle ?? this.lactationCycle),
     );
   }
 
@@ -727,6 +753,8 @@ class DashboardStats extends Equatable {
     required this.sick,
     required this.cullFlagged,
     required this.lactating,
+    this.avgLactatingMilkLitres,
+    required this.weaning,
     required this.tasksOverdue,
     required this.tasksToday,
     required this.tasksThisWeek,
@@ -740,6 +768,9 @@ class DashboardStats extends Equatable {
   final int sick;
   final int cullFlagged;
   final int lactating;
+  /// Mean daily litres across lactating animals (prior milk records, else today).
+  final double? avgLactatingMilkLitres;
+  final int weaning;
   final int tasksOverdue;
   final int tasksToday;
   final int tasksThisWeek;

@@ -5,13 +5,13 @@ import 'package:go_router/go_router.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
-import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
-import '../../data/services/animal_lifecycle_service.dart';
 import '../../shared/widgets/gh_design_icon.dart';
 import '../../shared/widgets/gh_design_icons.dart';
+import 'lactation_cycle_editor.dart';
 import 'lactation_milk_chart.dart';
 import 'lactation_providers.dart';
+import '../../data/services/reproduction_status_rules.dart';
 
 class AnimalMilkingTab extends ConsumerWidget {
   const AnimalMilkingTab({
@@ -33,9 +33,34 @@ class AnimalMilkingTab extends ConsumerWidget {
     final historyAsync = ref.watch(milkHistoryProvider(animal.id));
     final l10n = context.l10n;
 
+    final canManageLactation = ReproductionStatusRules.canLactate(
+      species: animal.species,
+      sex: animal.sex,
+      ageMonths: ReproductionStatusRules.ageMonthsFromAnimal(animal),
+    );
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        if (canManageLactation) ...[
+          LactationCycleEditor(animal: animal, onUpdated: onUpdated),
+          const SizedBox(height: 16),
+        ] else if (ReproductionStatusRules.isFemaleSex(animal.sex)) ...[
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                l10n.milkingTabLactationUnavailable,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: GhColors.textSecondary,
+                  height: 1.35,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
         cycleAsync.when(
           loading: () => const SizedBox.shrink(),
           error: (_, __) => const SizedBox.shrink(),
@@ -101,10 +126,23 @@ class _StatusRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: const TextStyle(color: GhColors.textSecondary)),
-        Text(value, style: const TextStyle(fontWeight: FontWeight.w700)),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(color: GhColors.textSecondary),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(
+            value,
+            style: const TextStyle(fontWeight: FontWeight.w700),
+            textAlign: TextAlign.right,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }

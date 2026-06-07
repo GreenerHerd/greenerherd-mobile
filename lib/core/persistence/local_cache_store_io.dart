@@ -4,6 +4,7 @@ import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
 import 'app_database.dart' hide Farm;
 import 'entity_json_codec.dart';
+import 'sync_models.dart';
 
 /// Read/write Drift cache for core harness entities.
 class LocalCacheStore {
@@ -143,8 +144,20 @@ class LocalCacheStore {
     );
   }
 
-  Future<List<SyncQueueData>> pendingSyncItems() =>
-      _db.select(_db.syncQueue).get();
+  Future<List<QueuedSyncItem>> pendingSyncItems() async {
+    final rows = await _db.select(_db.syncQueue).get();
+    return rows
+        .map(
+          (r) => QueuedSyncItem(
+            id: r.id,
+            entityType: r.entityType,
+            entityId: r.entityId,
+            operation: r.operation,
+            payloadJson: r.payloadJson,
+          ),
+        )
+        .toList();
+  }
 
   Future<void> removeSyncItem(int id) async {
     await (_db.delete(_db.syncQueue)..where((t) => t.id.equals(id))).go();

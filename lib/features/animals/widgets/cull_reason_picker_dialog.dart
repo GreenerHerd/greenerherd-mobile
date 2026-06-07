@@ -62,7 +62,7 @@ class _CullReasonPickerDialogState extends State<CullReasonPickerDialog> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DropdownButtonFormField<String>(
-            value: _type,
+            initialValue: _type,
             decoration: InputDecoration(labelText: l10n.cullType),
             items: [
               for (final type in CullReasonCatalog.types)
@@ -79,7 +79,7 @@ class _CullReasonPickerDialogState extends State<CullReasonPickerDialog> {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _reason,
+            initialValue: _reason,
             decoration: InputDecoration(
               labelText: l10n.cullReason,
               errorText: _error,

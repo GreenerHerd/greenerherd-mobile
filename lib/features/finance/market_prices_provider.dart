@@ -18,7 +18,7 @@ class MarketPrices {
   final Map<Species, double> milkTrend;
   final Map<Species, double> meatTrend;
 
-  static MarketPrices defaults = MarketPrices(
+  static MarketPrices defaults = const MarketPrices(
     milkPerLitre: {
       Species.cattle: 4.50,
       Species.goat: 6.00,

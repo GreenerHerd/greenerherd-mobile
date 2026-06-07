@@ -42,7 +42,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             'assets/design/splash_background.png',
             fit: BoxFit.cover,
           ),
-          Container(color: GhColors.primary.withOpacity(0.35)),
+          Container(color: GhColors.primary.withValues(alpha: 0.35)),
         ],
       ),
     );

@@ -320,7 +320,7 @@ class _LinkedAccountChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(0.4),
+        color: GhColors.primaryLight.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(99),
       ),
       child: Row(

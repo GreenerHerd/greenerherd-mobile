@@ -41,7 +41,7 @@ class MethaneEmissionsCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(Icons.cloud_outlined, color: GhColors.secondary, size: 22),
+                const Icon(Icons.cloud_outlined, color: GhColors.secondary, size: 22),
                 const SizedBox(width: 8),
                 Text(l10n.methaneEmissions, style: GhTypography.h03),
               ],

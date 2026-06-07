@@ -75,17 +75,31 @@ void main() {
     );
 
     bddScenario(
-      'Lactating status tag opens record milk',
+      'Record milk quick action opens record milk',
       tags: ['positive'],
       body: (tester) async {
         await harness.pumpAnimalProfile(tester, animalId: 'a2');
-        final lactatingBadge = find.descendant(
-          of: find.byType(Wrap),
-          matching: find.text('Lactating'),
-        );
-        expect(lactatingBadge, findsOneWidget);
-        await tester.tap(lactatingBadge);
+        await tester.tap(find.text('Record milk'));
         await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      },
+    );
+
+    bddScenario(
+      'Health tab record treatment opens treatment form',
+      tags: ['positive'],
+      body: (tester) async {
+        await harness.pumpAnimalProfile(tester, animalId: 'c1');
+        await tapProfileTab(tester, 'Health');
+        await tester.tap(find.widgetWithText(OutlinedButton, 'Update treatment'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.descendant(
+          of: find.byType(BottomSheet),
+          matching: find.text('Update treatment'),
+        ));
+        await tester.pumpAndSettle();
+        expect(find.text('Illness / symptoms'), findsOneWidget);
+        expect(find.text('Select a medicine'), findsOneWidget);
         expect(tester.takeException(), isNull);
       },
     );

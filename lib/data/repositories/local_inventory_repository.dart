@@ -99,7 +99,7 @@ class LocalInventoryRepository implements InventoryRepository {
   ];
 
   static final _seedMedical = [
-    MedicalInventoryItem(
+    const MedicalInventoryItem(
       id: 'med-penicillin',
       name: 'Penicillin',
       medicineType: 'ANTIBIOTIC',
@@ -109,7 +109,7 @@ class LocalInventoryRepository implements InventoryRepository {
       supplierName: 'Vet Supplies KSA',
       purpose: 'Mastitis treatment',
       lowStock: true,
-      withdrawalPeriods: const [
+      withdrawalPeriods: [
         WithdrawalPeriod(species: 'cattle', meatDays: 14, milkDays: 72),
         WithdrawalPeriod(species: 'goat', meatDays: 14, milkDays: 60),
         WithdrawalPeriod(species: 'sheep', meatDays: 14, milkDays: 60),
@@ -117,7 +117,7 @@ class LocalInventoryRepository implements InventoryRepository {
     ),
   ];
 
-  static final _seedMeal = MealPlan(
+  static const _seedMeal = MealPlan(
     id: 'meal-morning',
     name: 'Morning mix',
     description: 'Milking group ration',

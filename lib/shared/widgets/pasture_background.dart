@@ -32,7 +32,7 @@ class PastureBackground extends StatelessWidget {
           fit: BoxFit.cover,
           errorBuilder: (_, __, ___) => const SizedBox.shrink(),
         ),
-        Container(color: GhColors.primary.withOpacity(overlayOpacity)),
+        Container(color: GhColors.primary.withValues(alpha: overlayOpacity)),
         if (child != null) child!,
       ],
     );

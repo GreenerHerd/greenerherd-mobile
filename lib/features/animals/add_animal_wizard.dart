@@ -301,7 +301,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
           (_ageRangeLabel != null
               ? AnimalMapper.dobFromAgeLabel(_ageRangeLabel!)
               : null);
-      final animal = Animal(
+      var animal = Animal(
         id: const Uuid().v4(),
         tag: tag,
         name: displayName,
@@ -318,6 +318,11 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
         dam: _damCtrl.text.trim().isEmpty ? null : _damCtrl.text.trim(),
         isTwin: _twin,
         productionPurpose: _productionPurpose,
+      );
+      animal = await syncAnimalReadyToBreedWithGroup(
+        ref,
+        animal,
+        context: context,
       );
       await ref.read(animalRepositoryProvider).createAnimal(animal);
       if (!mounted) return;
@@ -590,7 +595,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
           Text(l10n.loadingBreeds)
         else
           DropdownButtonFormField<BreedReference>(
-            value: _breed,
+            initialValue: _breed,
             decoration: InputDecoration(
               labelText: l10n.breedForSpecies(
                 _speciesTileLabel(_species, l10n).toLowerCase(),
@@ -702,7 +707,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
           ),
           const SizedBox(height: 14),
           DropdownButtonFormField<String>(
-            value: _ageRangeLabel,
+            initialValue: _ageRangeLabel,
             decoration: InputDecoration(labelText: l10n.ageRangeIfUnknown),
             items: [
               DropdownMenuItem(value: null, child: Text(l10n.pickAgeRange)),
@@ -792,7 +797,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
             children: [
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  value: _birthSize,
+                  initialValue: _birthSize,
                   decoration: InputDecoration(labelText: l10n.sizeAtBirth),
                   isExpanded: true,
                   items: [
@@ -816,7 +821,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
               const SizedBox(width: 10),
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  value: _vigour,
+                  initialValue: _vigour,
                   decoration: InputDecoration(labelText: l10n.vigour),
                   isExpanded: true,
                   items: [
@@ -840,7 +845,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
           ),
           const SizedBox(height: 10),
           DropdownButtonFormField<String>(
-            value: _assistance,
+            initialValue: _assistance,
             decoration: InputDecoration(labelText: l10n.birthingAssistance),
             isExpanded: true,
             items: [
@@ -895,7 +900,7 @@ class _AddAnimalWizardSheetState extends ConsumerState<_AddAnimalWizardSheet> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DropdownButtonFormField<String>(
-          value: _groupId,
+          initialValue: _groupId,
           decoration: InputDecoration(labelText: l10n.group),
           isExpanded: true,
           items: [

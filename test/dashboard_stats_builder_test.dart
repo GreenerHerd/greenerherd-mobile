@@ -65,7 +65,7 @@ void main() {
   test('counts eligible but untagged ready to breed from months since calving',
       () {
     final animals = [
-      Animal(
+      const Animal(
         id: 'tagged',
         tag: 'T1',
         name: 'Tagged',
@@ -75,9 +75,9 @@ void main() {
         weightKg: 500,
         ageLabel: '4y',
         groupId: 'g1',
-        tags: const [AnimalTagType.readyToBreed],
+        tags: [AnimalTagType.readyToBreed],
       ),
-      Animal(
+      const Animal(
         id: 'eligible',
         tag: 'E1',
         name: 'Eligible',
@@ -87,10 +87,10 @@ void main() {
         weightKg: 500,
         ageLabel: '4y',
         groupId: 'g1',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 5,
       ),
-      Animal(
+      const Animal(
         id: 'waiting',
         tag: 'W1',
         name: 'Waiting',
@@ -100,7 +100,7 @@ void main() {
         weightKg: 500,
         ageLabel: '4y',
         groupId: 'g1',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 1,
       ),
     ];

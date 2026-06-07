@@ -88,7 +88,7 @@ Future<void> showInviteUserSheet(BuildContext context, WidgetRef ref) async {
                   ),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<UserRole>(
-                  value: role,
+                  initialValue: role,
                   decoration: InputDecoration(labelText: l10n.role),
                   items: [
                     DropdownMenuItem(

@@ -55,7 +55,7 @@ class GhStatusTag extends StatelessWidget {
         color: _bg(),
         borderRadius: BorderRadius.circular(99),
         border: onTap != null
-            ? Border.all(color: _fg().withOpacity(0.35))
+            ? Border.all(color: _fg().withValues(alpha: 0.35))
             : null,
       ),
       child: Row(

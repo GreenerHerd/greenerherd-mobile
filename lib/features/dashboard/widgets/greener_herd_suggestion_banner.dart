@@ -18,9 +18,9 @@ class GreenerHerdSuggestionBanner extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(0.65),
+        color: GhColors.primaryLight.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: GhColors.primary.withOpacity(0.15)),
+        border: Border.all(color: GhColors.primary.withValues(alpha: 0.15)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

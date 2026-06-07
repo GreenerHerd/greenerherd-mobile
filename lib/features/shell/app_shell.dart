@@ -186,7 +186,7 @@ class _Tab extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: selected ? context.ghPrimaryLight.withOpacity(0.5) : null,
+          color: selected ? context.ghPrimaryLight.withValues(alpha: 0.5) : null,
           borderRadius: BorderRadius.circular(14),
         ),
         child: Column(

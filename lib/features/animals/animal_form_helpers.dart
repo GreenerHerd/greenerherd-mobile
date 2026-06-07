@@ -6,11 +6,12 @@ import '../../core/l10n/gen/app_localizations.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/data_refresh.dart';
 import '../../core/providers/providers.dart';
+import '../../data/models/breeding_methods.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
 import '../../data/services/animal_input_validation.dart';
 import '../../shared/widgets/gh_group_name_field.dart';
-import 'animal_providers.dart';
+import 'breeding_workflow_actions.dart';
 
 /// Applies [normalizeGroupName] to [controller] and returns the normalized value.
 String syncGroupNameController(TextEditingController controller) {
@@ -45,17 +46,31 @@ class AnimalPurposeField extends StatelessWidget {
         ? const EdgeInsets.symmetric(horizontal: 12, vertical: 12)
         : null;
     return DropdownButtonFormField<SpeciesPurpose>(
-      value: value,
+      initialValue: value,
+      isExpanded: true,
       decoration: InputDecoration(
         labelText: l10n.animalPurpose,
         isDense: isDense,
         contentPadding: padding,
       ),
+      selectedItemBuilder: (context) => [
+        for (final p in SpeciesPurpose.values)
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              localizedSpeciesPurpose(p, l10n),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+      ],
       items: SpeciesPurpose.values
           .map(
             (p) => DropdownMenuItem(
               value: p,
-              child: Text(localizedSpeciesPurpose(p, l10n)),
+              child: Text(
+                localizedSpeciesPurpose(p, l10n),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           )
           .toList(),
@@ -119,8 +134,52 @@ Future<AnimalGroup?> promptCreateGroupForAnimal(
   );
 }
 
+/// Breeding and milking group defaults when an animal is assigned to a group.
+Future<Animal> syncAnimalReadyToBreedWithGroup(
+  WidgetRef ref,
+  Animal animal, {
+  BuildContext? context,
+  BreedingMethod? groupBreedingMethod,
+}) async {
+  if (animal.groupId.isEmpty) return animal;
+  final group = await ref.read(groupRepositoryProvider).getGroup(animal.groupId);
+  if (group == null) return animal;
+  var synced = ref.read(lifecycleServiceProvider).syncReadyToBreedForGroupMembership(
+        animal,
+        group: group,
+        method: group.purpose == GroupPurpose.breeding ? groupBreedingMethod : null,
+      );
+  synced = ref
+      .read(lifecycleServiceProvider)
+      .syncLactationForGroupMembership(synced, group: group);
+  if (context != null &&
+      synced.tags.contains(AnimalTagType.readyToBreed) &&
+      synced.breedingMethod != null) {
+    await scheduleBreedingWorkflowTasks(
+      ref,
+      synced,
+      context: context,
+      method: synced.breedingMethod,
+    );
+  }
+  return synced;
+}
+
+/// Tags and lactation cycle when the animal is assigned to a milking-purpose group.
+Future<Animal> syncAnimalLactationWithGroup(
+  WidgetRef ref,
+  Animal animal,
+) async {
+  if (animal.groupId.isEmpty) return animal;
+  final group = await ref.read(groupRepositoryProvider).getGroup(animal.groupId);
+  if (group == null) return animal;
+  return ref
+      .read(lifecycleServiceProvider)
+      .syncLactationForGroupMembership(animal, group: group);
+}
+
 class QuickCreateGroupDialog extends ConsumerStatefulWidget {
-  const QuickCreateGroupDialog({required this.species});
+  const QuickCreateGroupDialog({super.key, required this.species});
 
   final Species species;
 
@@ -188,7 +247,7 @@ class _QuickCreateGroupDialogState extends ConsumerState<QuickCreateGroupDialog>
           ],
           const SizedBox(height: 12),
           DropdownButtonFormField<GroupPurpose>(
-            value: _purpose,
+            initialValue: _purpose,
             decoration: InputDecoration(labelText: l10n.purpose),
             items: GroupPurpose.values
                 .map(

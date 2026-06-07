@@ -155,7 +155,7 @@ class ReportGeneratorService {
         build: (context) => [
           pw.Header(
             level: 0,
-            child: pw.Text(title, style: pw.TextStyle(fontSize: 22)),
+            child: pw.Text(title, style: const pw.TextStyle(fontSize: 22)),
           ),
           pw.Text(subtitle, style: const pw.TextStyle(fontSize: 12)),
           pw.SizedBox(height: 8),

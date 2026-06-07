@@ -15,6 +15,7 @@ class NutritionProfileContext {
     this.weaning = false,
     this.maintenance = false,
     this.breeding = false,
+    this.lactatingTwin = false,
     this.monthsSinceCalving,
     this.headCount = 1,
     this.countryCode = 'SA',
@@ -52,6 +53,7 @@ class NutritionProfileContext {
   final bool weaning;
   final bool maintenance;
   final bool breeding;
+  final bool lactatingTwin;
   final int? monthsSinceCalving;
   final int headCount;
   final String countryCode;
@@ -202,6 +204,11 @@ abstract final class NutritionProfileResolver {
     NutritionRequirementsCatalog catalog,
     NutritionProfileContext ctx,
   ) {
+    final hintStage = _dairyStageFromFeedCycleHint(ctx.feedCycleHint);
+    if (hintStage != null) {
+      return _dairyProfileForStage(catalog, hintStage);
+    }
+
     late final String stage;
     if (ctx.lactating) {
       final m = ctx.monthsSinceCalving ?? 2;
@@ -228,6 +235,25 @@ abstract final class NutritionProfileResolver {
       stage = 'Dry (Far off)';
     }
 
+    return _dairyProfileForStage(catalog, stage);
+  }
+
+  static String? _dairyStageFromFeedCycleHint(String? hint) {
+    return switch (hint) {
+      NutritionFeedCycle.fresh => 'Cow - Fresh',
+      NutritionFeedCycle.earlyLactation => 'Cow - Early',
+      NutritionFeedCycle.midLactation => 'Cow - Mid',
+      NutritionFeedCycle.lateLactation => 'Cow - Late',
+      NutritionFeedCycle.dryFarOff => 'Dry (Far off)',
+      NutritionFeedCycle.closeUp => 'Close (Close up)',
+      _ => null,
+    };
+  }
+
+  static ResolvedNutritionProfile _dairyProfileForStage(
+    NutritionRequirementsCatalog catalog,
+    String stage,
+  ) {
     final code = _dairyStageCode[stage];
     final profile = (code != null ? catalog.getByCode(code) : null) ??
         catalog
@@ -384,11 +410,15 @@ abstract final class NutritionProfileResolver {
     NutritionRequirementProfile profile,
     int headCount, {
     bool fattening = false,
+    bool lactatingTwin = false,
   }) {
     final heads = headCount < 1 ? 1 : headCount;
     var dmi = profile.dmiKgDay;
     if (fattening && profile.productionSystem == 'SMALL_RUMINANT') {
       dmi *= 1.18;
+    }
+    if (lactatingTwin && profile.productionSystem == 'SMALL_RUMINANT') {
+      dmi *= 1.2;
     }
 
     if (profile.productionSystem == 'DAIRY') {

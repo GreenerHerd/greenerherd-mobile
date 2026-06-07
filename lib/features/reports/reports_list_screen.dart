@@ -50,7 +50,7 @@ class ReportsListScreen extends ConsumerWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: GhColors.primaryLight.withOpacity(0.45),
+                            color: GhColors.primaryLight.withValues(alpha: 0.45),
                             borderRadius: BorderRadius.circular(99),
                           ),
                           child: Text(
@@ -177,7 +177,7 @@ class _ReportRow extends StatelessWidget {
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: GhColors.primaryLight.withOpacity(0.5),
+                color: GhColors.primaryLight.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(_icon(report.iconName), size: 18, color: GhColors.primary),

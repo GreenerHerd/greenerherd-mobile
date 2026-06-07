@@ -882,6 +882,54 @@ abstract class AppLocalizations {
   /// **'New group'**
   String get newGroup;
 
+  /// No description provided for @moveGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to group'**
+  String get moveGroupTitle;
+
+  /// No description provided for @moveGroupCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current group: {name}'**
+  String moveGroupCurrent(String name);
+
+  /// No description provided for @moveToNewGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new group'**
+  String get moveToNewGroup;
+
+  /// No description provided for @moveToNewGroupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a group and move this animal into it'**
+  String get moveToNewGroupSubtitle;
+
+  /// No description provided for @removeFromGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'No group'**
+  String get removeFromGroup;
+
+  /// No description provided for @moveGroupNoGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'No other groups for this species yet. Create one above.'**
+  String get moveGroupNoGroups;
+
+  /// No description provided for @animalMovedToGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Moved #{tag} to {groupName}'**
+  String animalMovedToGroup(String tag, String groupName);
+
+  /// No description provided for @animalRemovedFromGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed #{tag} from its group'**
+  String animalRemovedFromGroup(String tag);
+
   /// No description provided for @onboardNewAnimal.
   ///
   /// In en, this message translates to:
@@ -2490,6 +2538,67 @@ abstract class AppLocalizations {
   /// **'Today\'s milk (litres)'**
   String get todaysMilkLitres;
 
+  /// No description provided for @milkSessionMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning'**
+  String get milkSessionMorning;
+
+  /// No description provided for @milkSessionEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening'**
+  String get milkSessionEvening;
+
+  /// No description provided for @milkSessionDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily total'**
+  String get milkSessionDaily;
+
+  /// No description provided for @milkRecordDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Milk date'**
+  String get milkRecordDate;
+
+  /// No description provided for @changeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get changeDate;
+
+  /// No description provided for @milkLitresMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning milk (litres)'**
+  String get milkLitresMorning;
+
+  /// No description provided for @milkLitresEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening milk (litres)'**
+  String get milkLitresEvening;
+
+  /// No description provided for @milkLitresDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily total milk (litres)'**
+  String get milkLitresDaily;
+
+  /// No description provided for @recentMilkRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent records'**
+  String get recentMilkRecords;
+
+  /// No description provided for @recordedMilkSessionFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded {litres} L ({session}) for #{tag} on {date}'**
+  String recordedMilkSessionFor(
+      String litres, String session, String tag, String date);
+
   /// No description provided for @recordMilkSaleIncome.
   ///
   /// In en, this message translates to:
@@ -3582,6 +3691,162 @@ abstract class AppLocalizations {
   /// **'Medicine / treatment'**
   String get treatmentMedicineLabel;
 
+  /// No description provided for @treatmentStepIllness.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms'**
+  String get treatmentStepIllness;
+
+  /// No description provided for @treatmentStepMedicine.
+  ///
+  /// In en, this message translates to:
+  /// **'Treatment'**
+  String get treatmentStepMedicine;
+
+  /// No description provided for @administeredByLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Administered by'**
+  String get administeredByLabel;
+
+  /// No description provided for @administeredByHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Who administered'**
+  String get administeredByHint;
+
+  /// No description provided for @administeredDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Administered date'**
+  String get administeredDateLabel;
+
+  /// No description provided for @milkWithdrawalDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Milk withdrawal (days)'**
+  String get milkWithdrawalDaysLabel;
+
+  /// No description provided for @milkWithdrawalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Days before milk is safe'**
+  String get milkWithdrawalHint;
+
+  /// No description provided for @meatWithdrawalDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meat withdrawal (days)'**
+  String get meatWithdrawalDaysLabel;
+
+  /// No description provided for @meatWithdrawalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Days before meat is safe'**
+  String get meatWithdrawalHint;
+
+  /// No description provided for @treatmentFrequencyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency'**
+  String get treatmentFrequencyLabel;
+
+  /// No description provided for @treatmentFrequencyOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'Once'**
+  String get treatmentFrequencyOnce;
+
+  /// No description provided for @treatmentFrequencyDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get treatmentFrequencyDaily;
+
+  /// No description provided for @treatmentFrequencyWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get treatmentFrequencyWeekly;
+
+  /// No description provided for @treatmentFrequencyMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get treatmentFrequencyMonthly;
+
+  /// No description provided for @treatmentNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Treatment notes'**
+  String get treatmentNotesLabel;
+
+  /// No description provided for @batchNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch number'**
+  String get batchNumberLabel;
+
+  /// No description provided for @batchNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional batch / lot number'**
+  String get batchNumberHint;
+
+  /// No description provided for @expiryDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry date'**
+  String get expiryDateLabel;
+
+  /// No description provided for @addTreatmentPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo'**
+  String get addTreatmentPhoto;
+
+  /// No description provided for @addTreatmentPhotoHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo of medicine label or packaging'**
+  String get addTreatmentPhotoHint;
+
+  /// No description provided for @addMedicineToInventoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a product to your medical inventory'**
+  String get addMedicineToInventoryHint;
+
+  /// No description provided for @selectMedicineFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a medicine'**
+  String get selectMedicineFirst;
+
+  /// No description provided for @medicineRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a medicine from inventory or the product list'**
+  String get medicineRequired;
+
+  /// No description provided for @administeredByRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter who administered the treatment'**
+  String get administeredByRequired;
+
+  /// No description provided for @dosageRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter dosage (e.g. 5 ml IM)'**
+  String get dosageRequired;
+
+  /// No description provided for @notInInventoryBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in your inventory — add it to track stock'**
+  String get notInInventoryBanner;
+
   /// No description provided for @treatmentRecorded.
   ///
   /// In en, this message translates to:
@@ -3825,7 +4090,7 @@ abstract class AppLocalizations {
   /// No description provided for @breedingCycleKpiSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Months since calving sets lactation nutrition and when the next breeding cycle can start.'**
+  /// **'Months since calving drives when the next breeding cycle can start. Set lactation phase on the Milking tab.'**
   String get breedingCycleKpiSubtitle;
 
   /// No description provided for @monthsSinceCalvingLabel.
@@ -3839,6 +4104,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lactation phase'**
   String get lactationPhaseLabel;
+
+  /// No description provided for @milkingTabLactationUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation phase is set on this tab once the animal is old enough to lactate. Use the Breeding tab for months since calving and re-breeding timing.'**
+  String get milkingTabLactationUnavailable;
 
   /// No description provided for @monthsSinceCalvingValue.
   ///
@@ -3942,6 +4213,72 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 over 2 mo since calving · not tagged ready} other{{count} over 2 mo since calving · not tagged ready}}'**
   String readyToBreedEligibleNotTagged(int count);
 
+  /// No description provided for @dashboardKpiPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'PREGNANT'**
+  String get dashboardKpiPregnant;
+
+  /// No description provided for @dashboardKpiReadyToBreed.
+  ///
+  /// In en, this message translates to:
+  /// **'READY TO BREED'**
+  String get dashboardKpiReadyToBreed;
+
+  /// No description provided for @dashboardKpiLactating.
+  ///
+  /// In en, this message translates to:
+  /// **'LACTATING'**
+  String get dashboardKpiLactating;
+
+  /// No description provided for @dashboardKpiWeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'WEANING'**
+  String get dashboardKpiWeaning;
+
+  /// No description provided for @dashboardKpiSick.
+  ///
+  /// In en, this message translates to:
+  /// **'SICK'**
+  String get dashboardKpiSick;
+
+  /// No description provided for @dashboardKpiCullFlagged.
+  ///
+  /// In en, this message translates to:
+  /// **'CULL FLAGGED'**
+  String get dashboardKpiCullFlagged;
+
+  /// No description provided for @dashboardKpiSickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'under treatment'**
+  String get dashboardKpiSickHint;
+
+  /// No description provided for @dashboardKpiCullHint.
+  ///
+  /// In en, this message translates to:
+  /// **'reviewable'**
+  String get dashboardKpiCullHint;
+
+  /// No description provided for @dashboardKpiWeaningHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0–3 months · nutrition weaning'**
+  String get dashboardKpiWeaningHint;
+
+  /// No description provided for @dashboardKpiLactatingAvgMilk.
+  ///
+  /// In en, this message translates to:
+  /// **'{avg} L/day avg (prior milk records)'**
+  String dashboardKpiLactatingAvgMilk(String avg);
+
+  /// No description provided for @dashboardKpiLactatingNoMilkData.
+  ///
+  /// In en, this message translates to:
+  /// **'record milk to show average'**
+  String get dashboardKpiLactatingNoMilkData;
+
   /// No description provided for @feedRestrictedDueToAnimalStatus.
   ///
   /// In en, this message translates to:
@@ -4019,6 +4356,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add anyway'**
   String get addAnyway;
+
+  /// No description provided for @groupBreedingMethodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Default breeding method'**
+  String get groupBreedingMethodLabel;
+
+  /// No description provided for @groupBreedingMethodHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for all eligible animals in this group and to generate breeding tasks.'**
+  String get groupBreedingMethodHint;
+
+  /// No description provided for @breedingTasksScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Breeding tasks added to your task list'**
+  String get breedingTasksScheduled;
+
+  /// No description provided for @breedingTaskNaturalObserveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Observe for heat'**
+  String get breedingTaskNaturalObserveTitle;
+
+  /// No description provided for @breedingTaskNaturalObserveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch for standing heat before natural service'**
+  String get breedingTaskNaturalObserveSubtitle;
+
+  /// No description provided for @breedingTaskCycleCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle check'**
+  String get breedingTaskCycleCheckTitle;
+
+  /// No description provided for @breedingTaskCycleCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm return to heat or schedule re-breeding'**
+  String get breedingTaskCycleCheckSubtitle;
+
+  /// No description provided for @breedingTaskPregnancyConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy check'**
+  String get breedingTaskPregnancyConfirmTitle;
+
+  /// No description provided for @breedingTaskPregnancyConfirmSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm pregnancy or plan next cycle'**
+  String get breedingTaskPregnancyConfirmSubtitle;
+
+  /// No description provided for @breedingTaskAiRecordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record AI'**
+  String get breedingTaskAiRecordTitle;
+
+  /// No description provided for @breedingTaskAiRecordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log semen, technician, and timing'**
+  String get breedingTaskAiRecordSubtitle;
+
+  /// No description provided for @breedingTaskAiConceptionCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conception check'**
+  String get breedingTaskAiConceptionCheckTitle;
+
+  /// No description provided for @breedingTaskAiConceptionCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Palpation or ultrasound around day 18'**
+  String get breedingTaskAiConceptionCheckSubtitle;
+
+  /// No description provided for @breedingTaskPregnancyScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy scan'**
+  String get breedingTaskPregnancyScanTitle;
+
+  /// No description provided for @breedingTaskPregnancyScanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultrasound or palpation to confirm pregnancy'**
+  String get breedingTaskPregnancyScanSubtitle;
+
+  /// No description provided for @breedingTaskPregnancyNutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy nutrition review'**
+  String get breedingTaskPregnancyNutritionTitle;
+
+  /// No description provided for @breedingTaskPregnancyNutritionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust ration for confirmed pregnancy'**
+  String get breedingTaskPregnancyNutritionSubtitle;
+
+  /// No description provided for @breedingTaskEmbryoTransferTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Embryo transfer'**
+  String get breedingTaskEmbryoTransferTitle;
+
+  /// No description provided for @breedingTaskEmbryoTransferSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record donor, recipient sync, and transfer details'**
+  String get breedingTaskEmbryoTransferSubtitle;
+
+  /// No description provided for @breedingTaskPostTransferCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Post-transfer check'**
+  String get breedingTaskPostTransferCheckTitle;
+
+  /// No description provided for @breedingTaskPostTransferCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor recipient for acceptance signs'**
+  String get breedingTaskPostTransferCheckSubtitle;
+
+  /// No description provided for @breedingTaskEarlyPregnancyCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Early pregnancy check'**
+  String get breedingTaskEarlyPregnancyCheckTitle;
+
+  /// No description provided for @breedingTaskEarlyPregnancyCheckSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm implantation around day 30'**
+  String get breedingTaskEarlyPregnancyCheckSubtitle;
+
+  /// No description provided for @breedingTaskSpongeInsertTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert sponges'**
+  String get breedingTaskSpongeInsertTitle;
+
+  /// No description provided for @breedingTaskSpongeInsertSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronize heat for timed breeding'**
+  String get breedingTaskSpongeInsertSubtitle;
+
+  /// No description provided for @breedingTaskSpongeRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove sponges'**
+  String get breedingTaskSpongeRemoveTitle;
+
+  /// No description provided for @breedingTaskSpongeRemoveSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove sponges and prepare for AI or natural service'**
+  String get breedingTaskSpongeRemoveSubtitle;
+
+  /// No description provided for @lactationCycleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation cycle'**
+  String get lactationCycleLabel;
+
+  /// No description provided for @lactationCycleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets lactating status and drives nutrition and feed eligibility for this animal.'**
+  String get lactationCycleHint;
+
+  /// No description provided for @lactationCycleEarly.
+  ///
+  /// In en, this message translates to:
+  /// **'Early lactation'**
+  String get lactationCycleEarly;
+
+  /// No description provided for @lactationCycleMid.
+  ///
+  /// In en, this message translates to:
+  /// **'Mid lactation'**
+  String get lactationCycleMid;
+
+  /// No description provided for @lactationCycleLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Late lactation'**
+  String get lactationCycleLate;
+
+  /// No description provided for @lactationCycleCloseLateLactation.
+  ///
+  /// In en, this message translates to:
+  /// **'Close to dry-off (late lactation)'**
+  String get lactationCycleCloseLateLactation;
+
+  /// No description provided for @lactationCycleCloseToDryOffPreCalving.
+  ///
+  /// In en, this message translates to:
+  /// **'Close to dry-off (pre-calving)'**
+  String get lactationCycleCloseToDryOffPreCalving;
+
+  /// No description provided for @lactationCycleDry.
+  ///
+  /// In en, this message translates to:
+  /// **'Dry (not lactating)'**
+  String get lactationCycleDry;
+
+  /// No description provided for @lactationCycleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not lactating'**
+  String get lactationCycleNone;
+
+  /// No description provided for @lactationCycleSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactating (single)'**
+  String get lactationCycleSingle;
+
+  /// No description provided for @lactationCycleTwin.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactating (twins)'**
+  String get lactationCycleTwin;
+
+  /// No description provided for @groupLactationCycleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lactation cycle by animal'**
+  String get groupLactationCycleTitle;
+
+  /// No description provided for @groupLactationCycleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Set each female\'s cycle to update lactating status, nutrition, and which feeds they can receive.'**
+  String get groupLactationCycleHint;
 }
 
 class _AppLocalizationsDelegate

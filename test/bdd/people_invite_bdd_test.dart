@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:greenerherd_mobile/data/mock/mock_data_store.dart';
 import 'package:greenerherd_mobile/data/models/enums.dart';
 import 'package:greenerherd_mobile/data/models/invite_models.dart';
 import 'package:greenerherd_mobile/data/repositories/hybrid_people_repository.dart';

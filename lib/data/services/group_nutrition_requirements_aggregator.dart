@@ -96,6 +96,7 @@ abstract final class GroupNutritionRequirementsAggregator {
         resolved.profile,
         1,
         fattening: ctx.fattening,
+        lactatingTwin: ctx.lactatingTwin,
       );
       optimizer = requirements['optimizer'] as String;
       final perAnimal = Map<String, num>.from(

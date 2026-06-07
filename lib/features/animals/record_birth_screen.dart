@@ -33,7 +33,7 @@ class _RecordBirthScreenState extends ConsumerState<RecordBirthScreen> {
       final updated = lifecycle.recordCalvingOutcome(animal, _outcome);
       await ref.read(animalRepositoryProvider).updateAnimal(updated);
       ref
-        ..invalidate(animalProvider(widget.animalId));
+        .invalidate(animalProvider(widget.animalId));
       refreshHerdDataProviders(ref);
       if (mounted) {
         final l10n = context.l10n;

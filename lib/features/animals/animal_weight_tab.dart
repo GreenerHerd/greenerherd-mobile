@@ -79,9 +79,9 @@ class AnimalWeightTab extends StatelessWidget {
                               const SizedBox(height: 4),
                               Container(
                                 height: ((p.kg - minKg) / range) * 100 + 12,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: GhColors.primary,
-                                  borderRadius: const BorderRadius.vertical(
+                                  borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(4),
                                   ),
                                 ),

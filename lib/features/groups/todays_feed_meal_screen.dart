@@ -217,7 +217,7 @@ class _TodaysFeedMealScreenState extends ConsumerState<TodaysFeedMealScreen> {
                 child: Column(
                   children: [
                     DropdownButtonFormField<String>(
-                      value: row.feedId,
+                      initialValue: row.feedId,
                       decoration: const InputDecoration(labelText: 'Feed item'),
                       items: _feedOptions
                           .map(

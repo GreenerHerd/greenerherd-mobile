@@ -74,6 +74,7 @@ class FeedEligibilityContext {
     required this.lactating,
     this.sex,
     this.pregnant = false,
+    this.lactatingTwin = false,
     this.feedTypes,
   });
 
@@ -83,6 +84,7 @@ class FeedEligibilityContext {
   final String productionFocus;
   final bool lactating;
   final bool pregnant;
+  final bool lactatingTwin;
   final List<String>? feedTypes;
 }
 

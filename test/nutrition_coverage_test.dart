@@ -93,6 +93,30 @@ void main() {
       expect(resolved.profile.feedCycle, NutritionFeedCycle.breeding);
     });
 
+    test('male cattle in breeding group keeps bull profile not breeding cycle',
+        () {
+      final group = _mockGroup(
+        species: Species.cattle,
+        purpose: GroupPurpose.breeding,
+      );
+      final bull = Animal(
+        id: 'bull',
+        tag: '0401',
+        name: 'Sultan',
+        species: Species.cattle,
+        sex: 'M',
+        breed: 'Angus',
+        weightKg: 800,
+        ageLabel: '48m',
+        groupId: group.id,
+        productionPurpose: SpeciesPurpose.milk,
+      );
+      final ctx = NutritionContextBuilder.fromMemberInGroup(bull, group);
+      expect(ctx.breeding, isFalse);
+      final resolved = NutritionProfileResolver.resolve(catalog, ctx);
+      expect(resolved.profileCode, 'CATTLE_DAIRY_BREEDING_BULL');
+    });
+
     test('sick and weaning group purpose alone does not override untagged members',
         () {
       for (final purpose in [GroupPurpose.sick, GroupPurpose.weaning]) {
@@ -104,7 +128,7 @@ void main() {
     });
 
     test('male dairy cattle uses breeding bull profile', () {
-      final ctx = NutritionProfileContext(
+      const ctx = NutritionProfileContext(
         species: 'CATTLE',
         sex: 'MALE',
         ageMonths: 48,

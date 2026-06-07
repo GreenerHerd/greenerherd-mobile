@@ -1,10 +1,12 @@
 import 'dart:math' as math;
 
+import '../models/animal_lactation_cycle.dart';
 import '../models/enums.dart';
 import '../models/feed_eligibility_models.dart';
 import '../models/inventory_models.dart';
 import '../models/models.dart';
 import '../services/feed_catalog_loader.dart';
+import 'lactation_cycle_service.dart';
 import 'reproduction_status_rules.dart';
 
 /// Feed product eligibility — Dart port of `services/gh-shared/db/feed-eligibility.ts`.
@@ -22,6 +24,8 @@ abstract final class FeedEligibilityService {
     return false;
   }
 
+  static const _lactationCycles = LactationCycleService();
+
   static FeedEligibilityContext contextFromAnimal(Animal animal) {
     final species = switch (animal.species) {
       Species.cattle => 'CATTLE',
@@ -33,12 +37,19 @@ abstract final class FeedEligibilityService {
       SpeciesPurpose.meat => 'MEAT',
       SpeciesPurpose.both => 'BOTH',
     };
+    final cycle = _lactationCycles.effectiveCycle(animal);
+    final lactating = cycle != null
+        ? LactationCycleCatalog.isLactating(cycle)
+        : animal.tags.contains(AnimalTagType.lactating);
+
     return FeedEligibilityContext(
       species: species,
       sex: ReproductionStatusRules.isFemaleSex(animal.sex) ? 'FEMALE' : 'MALE',
       ageMonths: ReproductionStatusRules.ageMonthsFromAnimal(animal) ?? 24,
       productionFocus: production,
-      lactating: animal.tags.contains(AnimalTagType.lactating),
+      lactating: lactating,
+      lactatingTwin:
+          cycle != null && LactationCycleCatalog.isTwinLactation(cycle),
       pregnant: animal.tags.contains(AnimalTagType.pregnant),
     );
   }

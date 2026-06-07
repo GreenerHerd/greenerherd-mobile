@@ -25,7 +25,7 @@ class HelpScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           Card(
-            color: GhColors.primaryLight.withOpacity(0.4),
+            color: GhColors.primaryLight.withValues(alpha: 0.4),
             child: ListTile(
               leading: const Icon(Icons.support_agent, color: GhColors.primary),
               title: const Text('Need help?', style: TextStyle(fontWeight: FontWeight.w700)),

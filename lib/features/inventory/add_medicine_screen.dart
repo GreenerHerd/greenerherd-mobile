@@ -344,7 +344,7 @@ class _AddMedicineScreenState extends ConsumerState<AddMedicineScreen> {
             ),
             const SizedBox(height: 8),
             DropdownButtonFormField<MedicinePickerOption>(
-              value: _selectedOption,
+              initialValue: _selectedOption,
               isExpanded: true,
               decoration: InputDecoration(
                 labelText: l10n.selectMedicineProduct,

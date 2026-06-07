@@ -706,7 +706,7 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
             isDense: true,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           ),
-          value: _mpSupplierFilter,
+          initialValue: _mpSupplierFilter,
           items: [
             const DropdownMenuItem<String>(
               value: null,
@@ -988,7 +988,7 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
                   )
                   .toList(),
               onChanged: _onCatalogProductSelected,
-              value: _catalogProduct,
+              initialValue: _catalogProduct,
             ),
           ] else if (_source == InventorySourceType.marketplace) ...[
             if (_hasRestrictedMarketplaceProducts) ...[
@@ -1033,7 +1033,7 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
               style: const TextStyle(fontWeight: FontWeight.w700),
             ),
             DropdownButtonFormField<InventoryFeedType>(
-              value: _customFeedType,
+              initialValue: _customFeedType,
               decoration: InputDecoration(labelText: l10n.feedType),
               items: InventoryFeedType.values
                   .map(

@@ -142,7 +142,7 @@ class TasksDueMiniStat extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(0.45),
+        color: GhColors.primaryLight.withValues(alpha: 0.45),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

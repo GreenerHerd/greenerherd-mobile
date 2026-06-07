@@ -48,17 +48,6 @@ class _BreedingCycleKpiCardState extends ConsumerState<BreedingCycleKpiCard> {
     }
   }
 
-  String _lactationStageLabel(BuildContext context, int months) {
-    final l10n = context.l10n;
-    return switch (ReproductionStatusRules.lactationStageKey(months)) {
-      'fresh' => l10n.lactationStageFresh,
-      'peak' => l10n.lactationStagePeak,
-      'mid' => l10n.lactationStageMid,
-      'late' => l10n.lactationStageLate,
-      _ => l10n.lactationStageMid,
-    };
-  }
-
   Future<void> _persist(int months) async {
     if (_saving) return;
     setState(() {
@@ -109,26 +98,11 @@ class _BreedingCycleKpiCardState extends ConsumerState<BreedingCycleKpiCard> {
               ),
             ),
             const SizedBox(height: 12),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: GhStat(
-                    label: l10n.monthsSinceCalvingLabel,
-                    value: '$_months',
-                    valueColor: GhColors.primary,
-                    dense: true,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: GhStat(
-                    label: l10n.lactationPhaseLabel,
-                    value: _lactationStageLabel(context, _months),
-                    dense: true,
-                  ),
-                ),
-              ],
+            GhStat(
+              label: l10n.monthsSinceCalvingLabel,
+              value: '$_months',
+              valueColor: GhColors.primary,
+              dense: true,
             ),
             const SizedBox(height: 12),
             Row(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../../data/models/animal_lactation_cycle.dart';
 import '../../data/models/breeding_methods.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
@@ -55,8 +56,14 @@ abstract final class EntityJsonCodec {
         if (a.dueDate != null) 'due_date': a.dueDate!.toIso8601String(),
         if (a.prolificacy != null) 'prolificacy': a.prolificacy,
         if (a.isHeifer == true) 'is_heifer': true,
+        if (a.monthsSinceCalving != null)
+          'months_since_calving': a.monthsSinceCalving,
+        if (a.lactationCycle != null)
+          'lactation_cycle': LactationCycleCatalog.wire(a.lactationCycle!),
         if (a.illnessNote != null) 'illness_note': a.illnessNote,
         if (a.treatmentNote != null) 'treatment_note': a.treatmentNote,
+        if (a.treatmentDetails != null)
+          'treatment_details': a.treatmentDetails!.toJson(),
       };
 
   static Animal _animalFromMap(Map<String, dynamic> m) {
@@ -102,6 +109,15 @@ abstract final class EntityJsonCodec {
       isHeifer: m['is_heifer'] == true ? true : null,
       illnessNote: m['illness_note'] as String?,
       treatmentNote: m['treatment_note'] as String?,
+      treatmentDetails: m['treatment_details'] == null
+          ? null
+          : AnimalTreatmentDetails.fromJson(
+              Map<String, dynamic>.from(m['treatment_details'] as Map),
+            ),
+      monthsSinceCalving: m['months_since_calving'] as int?,
+      lactationCycle: LactationCycleCatalog.fromWire(
+        m['lactation_cycle'] as String?,
+      ),
     );
   }
 

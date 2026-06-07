@@ -23,7 +23,7 @@ class GhBottomSheet extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => GhBottomSheet(title: title, child: child, footer: footer),
+      builder: (ctx) => GhBottomSheet(title: title, footer: footer, child: child),
     );
   }
 

@@ -93,7 +93,7 @@ void main() {
     });
 
     test('excludes dairy lactation feed for dry cows', () {
-      final ctx = FeedEligibilityContext(
+      const ctx = FeedEligibilityContext(
         species: 'CATTLE',
         ageMonths: 36,
         productionFocus: 'MILK',
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('includes dairy lactation feed for lactating dairy cows', () {
-      final ctx = FeedEligibilityContext(
+      const ctx = FeedEligibilityContext(
         species: 'CATTLE',
         ageMonths: 36,
         productionFocus: 'MILK',
@@ -119,7 +119,7 @@ void main() {
     });
 
     test('excludes cattle-only feed for sheep', () {
-      final ctx = FeedEligibilityContext(
+      const ctx = FeedEligibilityContext(
         species: 'SHEEP',
         ageMonths: 24,
         productionFocus: 'MILK',
@@ -132,13 +132,13 @@ void main() {
     });
 
     test('includes barley for cattle and sheep via ALL scope', () {
-      final cattle = FeedEligibilityContext(
+      const cattle = FeedEligibilityContext(
         species: 'CATTLE',
         ageMonths: 24,
         productionFocus: 'MEAT',
         lactating: false,
       );
-      final sheep = FeedEligibilityContext(
+      const sheep = FeedEligibilityContext(
         species: 'SHEEP',
         ageMonths: 24,
         productionFocus: 'MEAT',
@@ -155,7 +155,7 @@ void main() {
     });
 
     test('enforces minimum age on rules', () {
-      final young = FeedEligibilityContext(
+      const young = FeedEligibilityContext(
         species: 'CATTLE',
         ageMonths: 6,
         productionFocus: 'MILK',
@@ -300,7 +300,7 @@ void main() {
           ),
         ],
       );
-      final feedItem = FeedInventoryItem(
+      const feedItem = FeedInventoryItem(
         id: 'f1',
         name: 'Steamed Corn Flake',
         sourceType: InventorySourceType.standard,
@@ -308,11 +308,11 @@ void main() {
         unit: 'kg',
         feedProductNumber: 1014,
       );
-      final meal = MealPlan(
+      const meal = MealPlan(
         id: 'm1',
         name: 'Morning mix',
         totalKgPerBatch: 2,
-        ingredients: const [
+        ingredients: [
           MealIngredientLine(
             feedInventoryItemId: 'f1',
             feedItemName: 'Steamed Corn Flake',
@@ -358,7 +358,7 @@ void main() {
       expect(barley!.eligibilityRules.length, 2);
 
       final cow = _cow(id: 'c1', tag: '2001', ageMonths: 36);
-      final goat = Animal(
+      const goat = Animal(
         id: 'g1',
         tag: '3001',
         name: '3001',
@@ -433,7 +433,7 @@ void main() {
       expect(barley, isNotNull);
 
       final cow = _cow(id: 'c1', tag: '2001', ageMonths: 36);
-      final goat = Animal(
+      const goat = Animal(
         id: 'g1',
         tag: '3001',
         name: '3001',

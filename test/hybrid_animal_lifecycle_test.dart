@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:greenerherd_mobile/data/mock/mock_data_store.dart';
 import 'package:greenerherd_mobile/data/models/enums.dart';
-import 'package:greenerherd_mobile/data/models/models.dart';
 import 'package:greenerherd_mobile/data/repositories/hybrid_animal_repository.dart';
 import 'package:greenerherd_mobile/data/services/animals_remote_gateway.dart';
 

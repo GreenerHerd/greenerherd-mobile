@@ -1,13 +1,18 @@
+import '../models/animal_lactation_cycle.dart';
 import '../models/breeding_methods.dart';
 import '../models/cull_reasons.dart';
 import '../models/enums.dart';
 import '../models/models.dart';
 import 'gestation_dates.dart';
+import 'lactation_cycle_service.dart';
 import 'reproduction_status_rules.dart';
 
 /// Client-side lifecycle rules mirroring future server validation.
 class AnimalLifecycleService {
-  const AnimalLifecycleService();
+  const AnimalLifecycleService({LactationCycleService? lactationCycles})
+      : _lactationCycles = lactationCycles ?? const LactationCycleService();
+
+  final LactationCycleService _lactationCycles;
 
   static const gestationDays = {
     Species.cattle: 283,
@@ -80,26 +85,92 @@ class AnimalLifecycleService {
     if (animal.tags.contains(AnimalTagType.pregnant)) {
       throw StateError('Cannot mark pregnant animal ready to breed');
     }
-    if (BreedingMethodCatalog.requiresMethodOnReadyToBreed(animal.species) &&
-        method == null) {
-      throw StateError('Fertility method required for goats and sheep');
+    if (method == null) {
+      throw StateError('Breeding method is required');
     }
     final tags = {...animal.tags}..add(AnimalTagType.readyToBreed);
     return animal.copyWith(tags: tags.toList(), breedingMethod: method);
   }
 
   /// When a group is created with breeding purpose, eligible animals are ready to breed.
-  Animal applyBreedingGroupPurpose(Animal animal, GroupPurpose purpose) {
+  Animal applyBreedingGroupPurpose(
+    Animal animal,
+    GroupPurpose purpose, {
+    BreedingMethod? method,
+  }) {
     if (purpose != GroupPurpose.breeding) return animal;
     if (animal.tags.contains(AnimalTagType.pregnant)) return animal;
-    if (animal.tags.contains(AnimalTagType.readyToBreed)) return animal;
+    if (animal.tags.contains(AnimalTagType.readyToBreed) &&
+        animal.breedingMethod != null) {
+      return animal;
+    }
     if (!canHaveReadyToBreedTag(animal)) return animal;
-    final method = BreedingMethodCatalog.requiresMethodOnReadyToBreed(
-      animal.species,
-    )
-        ? BreedingMethod.natural
-        : null;
-    return markReadyToBreed(animal, method: method);
+    final resolved = BreedingMethodCatalog.resolveMethod(
+      species: animal.species,
+      explicit: method,
+    );
+    return markReadyToBreed(animal, method: resolved);
+  }
+
+  /// When a group is created with milk purpose, eligible females get a default lactation cycle.
+  Animal applyMilkingGroupPurpose(Animal animal, GroupPurpose purpose) {
+    if (purpose != GroupPurpose.milk) return animal;
+    if (animal.lactationCycle != null) return animal;
+    if (!ReproductionStatusRules.canLactate(
+      species: animal.species,
+      sex: animal.sex,
+      ageMonths: ReproductionStatusRules.ageMonthsFromAnimal(animal),
+    )) {
+      return animal;
+    }
+    return _lactationCycles.applyCycle(
+      animal,
+      LactationCycleCatalog.defaultForMilkingGroup(animal.species),
+    );
+  }
+
+  /// Applies default lactation cycle when [group] has milk purpose.
+  Animal syncLactationForGroupMembership(
+    Animal animal, {
+    AnimalGroup? group,
+  }) {
+    if (group == null || group.purpose != GroupPurpose.milk) {
+      return animal;
+    }
+    if (animal.lactationCycle != null) return animal;
+    if (!ReproductionStatusRules.canLactate(
+      species: animal.species,
+      sex: animal.sex,
+      ageMonths: ReproductionStatusRules.ageMonthsFromAnimal(animal),
+    )) {
+      return animal;
+    }
+    return _lactationCycles.applyCycle(
+      animal,
+      LactationCycleCatalog.defaultForMilkingGroup(animal.species),
+    );
+  }
+
+  /// Applies ready-to-breed when [group] has breeding purpose (not male cattle).
+  Animal syncReadyToBreedForGroupMembership(
+    Animal animal, {
+    AnimalGroup? group,
+    BreedingMethod? method,
+  }) {
+    if (group == null || group.purpose != GroupPurpose.breeding) {
+      return animal;
+    }
+    if (animal.tags.contains(AnimalTagType.pregnant)) return animal;
+    if (animal.tags.contains(AnimalTagType.readyToBreed) &&
+        animal.breedingMethod != null) {
+      return animal;
+    }
+    if (!canHaveReadyToBreedTag(animal)) return animal;
+    final resolved = BreedingMethodCatalog.resolveMethod(
+      species: animal.species,
+      explicit: method,
+    );
+    return markReadyToBreed(animal, method: resolved);
   }
 
   Animal clearReadyToBreed(Animal animal) {
@@ -112,7 +183,7 @@ class AnimalLifecycleService {
     Animal animal, {
     int? gestMonths,
     DateTime? dueDate,
-    int prolificacy = 2,
+    int prolificacy = GestationDates.defaultProlificacy,
     BreedingMethod? method,
   }) {
     if (gestMonths == null && dueDate == null) {
@@ -147,15 +218,19 @@ class AnimalLifecycleService {
         .toList();
     switch (outcome) {
       case CalvingOutcome.bornLive:
-        if (!tags.contains(AnimalTagType.lactating)) {
-          tags = [...tags, AnimalTagType.lactating];
-        }
-        return animal.copyWith(
-          tags: _uniqueTags(tags),
-          monthsSinceCalving: 0,
-          isHeifer: false,
-          clearGestMonths: true,
-          clearDueDate: true,
+        final cycle = LactationCycleCatalog.defaultAfterCalving(
+          species: animal.species,
+          prolificacy: animal.prolificacy ?? 1,
+        );
+        return _lactationCycles.applyCycle(
+          animal.copyWith(
+            tags: _uniqueTags(tags),
+            monthsSinceCalving: 0,
+            isHeifer: false,
+            clearGestMonths: true,
+            clearDueDate: true,
+          ),
+          cycle,
         );
       case CalvingOutcome.stillborn:
         if (!tags.contains(AnimalTagType.stillborn)) {
@@ -181,16 +256,18 @@ class AnimalLifecycleService {
   Animal recordTreatment(
     Animal animal, {
     required String illnessNote,
-    String? treatmentNote,
+    required AnimalTreatmentDetails treatment,
   }) {
     final tags = {...animal.tags}..add(AnimalTagType.sick);
-    final illness = illnessNote.trim().isEmpty ? 'Under treatment' : illnessNote.trim();
-    final medicine = treatmentNote?.trim();
+    final illness =
+        illnessNote.trim().isEmpty ? 'Under treatment' : illnessNote.trim();
+    final withdrawal = treatment.maxWithdrawalDays;
     return animal.copyWith(
       tags: tags.toList(),
       illnessNote: illness,
-      treatmentNote: medicine == null || medicine.isEmpty ? null : medicine,
-      clearTreatmentNote: medicine == null || medicine.isEmpty,
+      treatmentDetails: treatment,
+      treatmentNote: treatment.displaySummary(),
+      withdrawalDays: withdrawal > 0 ? withdrawal : 0,
     );
   }
 
@@ -200,6 +277,8 @@ class AnimalLifecycleService {
       tags: tags,
       clearIllnessNote: true,
       clearTreatmentNote: true,
+      clearTreatmentDetails: true,
+      withdrawalDays: 0,
     );
   }
 

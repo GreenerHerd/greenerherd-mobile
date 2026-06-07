@@ -51,6 +51,64 @@ void main() {
       );
     });
 
+    test('male cattle never uses breeding-for-nutrition state', () {
+      const bull = Animal(
+        id: 'bull',
+        tag: '0401',
+        name: 'Sultan',
+        species: Species.cattle,
+        sex: 'M',
+        breed: 'Angus',
+        weightKg: 800,
+        ageLabel: '48m',
+        groupId: 'g-breed',
+      );
+      const breedingGroup = AnimalGroup(
+        id: 'g-breed',
+        name: 'Breeding',
+        species: Species.cattle,
+        purpose: GroupPurpose.breeding,
+        headCount: 1,
+      );
+      expect(ReproductionStatusRules.isMaleCattle(bull), isTrue);
+      expect(
+        ReproductionStatusRules.breedingForNutrition(
+          bull,
+          group: breedingGroup,
+        ),
+        isFalse,
+      );
+    });
+
+    test('breeding group applies nutrition breeding for eligible untagged ewe',
+        () {
+      const ewe = Animal(
+        id: 'ewe',
+        tag: 'S2',
+        name: 'Ewe',
+        species: Species.sheep,
+        sex: 'F',
+        breed: 'Najdi',
+        weightKg: 50,
+        ageLabel: '18m',
+        groupId: 'g-breed',
+      );
+      const breedingGroup = AnimalGroup(
+        id: 'g-breed',
+        name: 'Breeding',
+        species: Species.sheep,
+        purpose: GroupPurpose.breeding,
+        headCount: 1,
+      );
+      expect(
+        ReproductionStatusRules.breedingForNutrition(
+          ewe,
+          group: breedingGroup,
+        ),
+        isTrue,
+      );
+    });
+
     test('male goat and sheep may be ready to breed at breeding age', () {
       expect(
         ReproductionStatusRules.canMarkReadyToBreed(
@@ -62,7 +120,7 @@ void main() {
       );
       expect(
         ReproductionStatusRules.showsBreedingStatusTab(
-          Animal(
+          const Animal(
             id: 'g1',
             tag: 'G1',
             name: 'Buck',
@@ -95,7 +153,7 @@ void main() {
     });
 
     test('breeding cycle KPI shows for lactating cows and hides for heifers', () {
-      final lactating = Animal(
+      const lactating = Animal(
         id: 'c1',
         tag: 'C1',
         name: 'Cow',
@@ -120,7 +178,7 @@ void main() {
     });
 
     test('re-breeding eligibility respects voluntary waiting period', () {
-      final fresh = Animal(
+      const fresh = Animal(
         id: 'c2',
         tag: 'C2',
         name: 'Fresh',
@@ -160,7 +218,7 @@ void main() {
     });
 
     test('needsReadyToBreedTag when past waiting period and not tagged', () {
-      final eligible = Animal(
+      const eligible = Animal(
         id: 'c1',
         tag: 'C1',
         name: 'Cow',
@@ -170,7 +228,7 @@ void main() {
         weightKg: 500,
         ageLabel: '4y',
         groupId: 'g',
-        tags: const [AnimalTagType.lactating],
+        tags: [AnimalTagType.lactating],
         monthsSinceCalving: 5,
       );
       expect(ReproductionStatusRules.needsReadyToBreedTag(eligible), isTrue);

@@ -6,6 +6,8 @@ export '../theme/theme_mode_controller.dart' show themeModeProvider;
 import '../config/app_config.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
+import '../../data/models/lactation_models.dart';
+import '../../data/services/dashboard_milk_metrics.dart';
 import '../../data/services/dashboard_stats_builder.dart';
 import '../../data/mock/mock_breed_reference_repository.dart';
 import '../../data/mock/mock_data_store.dart';
@@ -30,6 +32,7 @@ import '../../data/repositories/notification_preference_repository.dart';
 import '../../data/repositories/repositories.dart';
 import '../../data/services/animal_input_validation.dart';
 import '../../data/services/animal_lifecycle_service.dart';
+import '../../data/services/breeding_workflow_service.dart';
 import '../../data/services/finance_ledger_service.dart';
 
 final mockDataStoreProvider = Provider<MockDataStore>((ref) => MockDataStore());
@@ -40,6 +43,9 @@ final financeLedgerProvider = Provider<FinanceLedgerService>((ref) {
 
 final lifecycleServiceProvider =
     Provider<AnimalLifecycleService>((ref) => const AnimalLifecycleService());
+
+final breedingWorkflowServiceProvider =
+    Provider<BreedingWorkflowService>((ref) => const BreedingWorkflowService());
 
 final animalInputValidationProvider =
     Provider<AnimalInputValidation>((ref) => const AnimalInputValidation());
@@ -299,11 +305,19 @@ final dashboardStatsProvider = FutureProvider<DashboardStats>((ref) async {
     final tasks = AppConfig.useTasksApi
         ? await ref.watch(taskRepositoryProvider).listTasks()
         : store.tasks;
+    final lactationRepo = ref.read(lactationRepositoryProvider);
+    final milkByAnimal = <String, List<MilkYieldRecord>>{};
+    for (final animal in animals) {
+      if (animal.status != AnimalStatus.active) continue;
+      if (!DashboardMilkMetrics.isLactatingAnimal(animal)) continue;
+      milkByAnimal[animal.id] = await lactationRepo.milkHistory(animal.id);
+    }
     return DashboardStatsBuilder.fromLists(
       animals: animals,
       groups: groups,
       tasks: tasks,
       speciesFilter: species,
+      milkHistoryFor: (id) => milkByAnimal[id] ?? const [],
     );
   }
   return ref.watch(dashboardRepositoryProvider).getStats(species: species);

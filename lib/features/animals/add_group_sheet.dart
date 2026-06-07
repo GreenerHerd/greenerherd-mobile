@@ -9,6 +9,7 @@ import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../core/theme/gh_typography.dart';
 import '../../data/models/breed_reference.dart';
+import '../../data/models/breeding_methods.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
 import '../../data/services/animal_input_validation.dart';
@@ -16,6 +17,7 @@ import '../../shared/widgets/gh_group_name_field.dart';
 import '../../shared/widgets/species_icon.dart';
 import '../groups/group_mock_extras.dart';
 import 'animal_form_helpers.dart';
+import '../tasks/task_completion.dart';
 enum GroupLivestockOrigin { existing, born, purchased }
 
 /// Group purpose (milking, breeding, pregnant, etc.).
@@ -34,7 +36,7 @@ class GroupPurposeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<GroupPurpose>(
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         labelText: l10n.groupPurpose,
         isDense: true,
@@ -105,7 +107,7 @@ class BreedDropdownField extends StatelessWidget {
         : breeds.first.nameEn;
 
     return DropdownButtonFormField<String>(
-      value: selected,
+      initialValue: selected,
       isExpanded: true,
       style: TextStyle(
         fontSize: isDense ? 14 : 16,
@@ -205,6 +207,7 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
 
   late Species _species;
   var _purpose = GroupPurpose.milk;
+  late BreedingMethod _groupBreedingMethod;
   var _defaultAnimalPurpose = SpeciesPurpose.both;
   var _step = 0;
   var _origin = GroupLivestockOrigin.existing;
@@ -222,6 +225,7 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
   void initState() {
     super.initState();
     _species = widget.initialSpecies;
+    _groupBreedingMethod = BreedingMethodCatalog.defaultForSpecies(_species);
     _load();
     _loadBreeds();
   }
@@ -291,6 +295,7 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
     if (value == null) return;
     setState(() {
       _species = value;
+      _groupBreedingMethod = BreedingMethodCatalog.defaultForSpecies(value);
       _selectedExisting.clear();
       _clearNewDrafts();
     });
@@ -423,14 +428,25 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
 
       final animalRepo = ref.read(animalRepositoryProvider);
       final lifecycle = ref.read(lifecycleServiceProvider);
+      final savedMembers = <Animal>[];
+      final breedingMethod = _purpose == GroupPurpose.breeding
+          ? _groupBreedingMethod
+          : null;
 
       for (final animalId in _selectedExisting) {
         final animal = _allAnimals.firstWhere((a) => a.id == animalId);
-        final updated = lifecycle.applyBreedingGroupPurpose(
+        var updated = lifecycle.applyBreedingGroupPurpose(
           animal.copyWith(groupId: groupId),
           _purpose,
+          method: breedingMethod,
+        );
+        updated = lifecycle.applyMilkingGroupPurpose(updated, _purpose);
+        updated = lifecycle.syncLactationForGroupMembership(
+          updated,
+          group: group,
         );
         await animalRepo.updateAnimal(updated);
+        savedMembers.add(updated);
       }
 
       for (final d in _newDrafts) {
@@ -439,7 +455,7 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
         );
         final tag = d.tagCtrl.text.trim();
         final breed = d.breed.trim().isEmpty ? _defaultBreedName() : d.breed.trim();
-        final animal = lifecycle.applyBreedingGroupPurpose(
+        var animal = lifecycle.applyBreedingGroupPurpose(
           Animal(
             id: const Uuid().v4(),
             tag: tag,
@@ -455,8 +471,22 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
             productionPurpose: d.animalPurpose,
           ),
           _purpose,
+          method: breedingMethod,
         );
+        animal = lifecycle.applyMilkingGroupPurpose(animal, _purpose);
+        animal = lifecycle.syncLactationForGroupMembership(animal, group: group);
         await animalRepo.createAnimal(animal);
+        savedMembers.add(animal);
+      }
+
+      if (_purpose == GroupPurpose.breeding && savedMembers.isNotEmpty) {
+        final count = await ref.read(breedingWorkflowServiceProvider).scheduleForGroup(
+              tasks: ref.read(taskRepositoryProvider),
+              members: savedMembers,
+              defaultMethod: _groupBreedingMethod,
+              l10n: l10n,
+            );
+        if (count > 0) invalidateTaskProviders(ref);
       }
 
       if (!mounted) return;
@@ -619,7 +649,7 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
           children: [
             Expanded(
               child: DropdownButtonFormField<Species>(
-                value: _species,
+                initialValue: _species,
                 decoration: InputDecoration(
                   labelText: l10n.species,
                   isDense: true,
@@ -645,6 +675,26 @@ class _AddGroupSheetState extends ConsumerState<_AddGroupSheet> {
           l10n: l10n,
           onChanged: (p) => setState(() => _purpose = p),
         ),
+        if (_purpose == GroupPurpose.breeding) ...[
+          const SizedBox(height: 16),
+          DropdownButtonFormField<BreedingMethod>(
+            initialValue: _groupBreedingMethod,
+            decoration: InputDecoration(
+              labelText: l10n.groupBreedingMethodLabel,
+              helperText: l10n.groupBreedingMethodHint,
+            ),
+            items: [
+              for (final method in BreedingMethodCatalog.forSpecies(_species))
+                DropdownMenuItem(
+                  value: method,
+                  child: Text(BreedingMethodCatalog.label(method, l10n)),
+                ),
+            ],
+            onChanged: (method) {
+              if (method != null) setState(() => _groupBreedingMethod = method);
+            },
+          ),
+        ],
         const SizedBox(height: 16),
         TextField(
           controller: _descCtrl,
@@ -1111,7 +1161,7 @@ class _NewLivestockRow extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: DropdownButtonFormField<String>(
-                  value: draft.sex,
+                  initialValue: draft.sex,
                   decoration: InputDecoration(
                     labelText: l10n.sex,
                     isDense: true,

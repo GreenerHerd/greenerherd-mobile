@@ -162,22 +162,18 @@ class _GroupMemberCompactRowState extends State<GroupMemberCompactRow> {
       });
       return;
     }
-    if (BreedingMethodCatalog.requiresMethodOnReadyToBreed(widget.species)) {
-      final result = await showDialog<ReadyToBreedDialogResult>(
-        context: context,
-        builder: (ctx) => ReadyToBreedDialog(
-          species: widget.species,
-          initialMethod: draft.breedingMethod,
-        ),
-      );
-      if (!mounted || result == null) return;
-      setState(() {
-        draft.readyToBreed = true;
-        draft.breedingMethod = result.method;
-      });
-      return;
-    }
-    setState(() => draft.readyToBreed = true);
+    final result = await showDialog<ReadyToBreedDialogResult>(
+      context: context,
+      builder: (ctx) => ReadyToBreedDialog(
+        species: widget.species,
+        initialMethod: draft.breedingMethod,
+      ),
+    );
+    if (!mounted || result == null) return;
+    setState(() {
+      draft.readyToBreed = true;
+      draft.breedingMethod = result.method;
+    });
   }
 
   void _toggleAgeMode(_AgeInputMode mode) {
@@ -387,7 +383,7 @@ class _GroupMemberCompactRowState extends State<GroupMemberCompactRow> {
                     child: _Field(
                       label: l10n.sex,
                       child: DropdownButtonFormField<String>(
-                        value: draft.sex,
+                        initialValue: draft.sex == 'Male' ? 'M' : 'F',
                         isDense: true,
                         isExpanded: true,
                         style: const TextStyle(
@@ -402,19 +398,13 @@ class _GroupMemberCompactRowState extends State<GroupMemberCompactRow> {
                           ),
                         ),
                         items: const [
-                          DropdownMenuItem(
-                            value: 'Female',
-                            child: Text('F'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'Male',
-                            child: Text('M'),
-                          ),
+                          DropdownMenuItem(value: 'F', child: Text('F')),
+                          DropdownMenuItem(value: 'M', child: Text('M')),
                         ],
                         onChanged: (v) {
                           if (v == null) return;
                           setState(() {
-                            draft.sex = v;
+                            draft.sex = v == 'M' ? 'Male' : 'Female';
                             _reconcileReproductionTags();
                           });
                         },
@@ -437,7 +427,6 @@ class _GroupMemberCompactRowState extends State<GroupMemberCompactRow> {
                         style: const TextStyle(fontSize: 14),
                         decoration: const InputDecoration(
                           isDense: true,
-                          suffixText: 'kg',
                           contentPadding: EdgeInsets.symmetric(
                             horizontal: 6,
                             vertical: 10,

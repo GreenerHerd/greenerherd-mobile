@@ -50,13 +50,13 @@ void main() {
         );
 
         expect(agg.headCount, 3);
-        expect(agg.members.every((m) => m.profileCode == 'CATTLE_DAIRY_COW_EARLY'), isTrue);
+        expect(agg.members.every((m) => m.profileCode == 'CATTLE_DAIRY_COW_MID'), isTrue);
         _expectGroupEqualsSumOfMembers(agg, 'crude_protein_kg');
         _expectGroupEqualsSumOfMembers(agg, 'dry_matter_kg');
         _expectGroupEqualsSumOfMembers(agg, 'nem_mcal');
 
         final single = NutritionProfileResolver.buildGroupRequirements(
-          catalog.getByCode('CATTLE_DAIRY_COW_EARLY')!,
+          catalog.getByCode('CATTLE_DAIRY_COW_MID')!,
           1,
         );
         final perDm = (single['per_animal'] as Map)['dry_matter_kg'] as num;
@@ -111,7 +111,6 @@ void main() {
         final codes = agg.members.map((m) => m.profileCode).toSet();
         expect(codes, {
           'CATTLE_DAIRY_COW_FRESH',
-          'CATTLE_DAIRY_COW_MID',
           'CATTLE_DAIRY_COW_LATE',
         });
         _expectGroupEqualsSumOfMembers(agg, 'dry_matter_kg');

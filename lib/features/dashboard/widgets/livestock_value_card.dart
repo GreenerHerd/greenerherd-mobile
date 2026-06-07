@@ -111,7 +111,7 @@ class _SpeciesValueChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(0.5),
+        color: GhColors.primaryLight.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

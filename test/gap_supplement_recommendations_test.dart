@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:greenerherd_mobile/data/services/feed_catalog_loader.dart';
 import 'package:greenerherd_mobile/data/services/feed_eligibility_service.dart';
 import 'package:greenerherd_mobile/data/services/supplement_nutrition.dart';
-import 'package:greenerherd_mobile/features/nutrition/gap_supplement_recommendations.dart';
 
 import 'support/feed_eligibility_fixtures.dart';
 import 'support/nutrition_recommendation_fixtures.dart';

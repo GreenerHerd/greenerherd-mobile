@@ -167,7 +167,7 @@ void main() {
       tags: ['positive'],
       body: () async {
         final added = await inventory.addFeed(
-          CreateFeedInventoryInput(
+          const CreateFeedInventoryInput(
             name: 'BDD test hay',
             sourceType: InventorySourceType.custom,
             quantityKg: 250,
@@ -181,7 +181,7 @@ void main() {
         expect(added.purchasedVolumeKg, 250);
 
         final restock = await inventory.addFeed(
-          CreateFeedInventoryInput(
+          const CreateFeedInventoryInput(
             name: 'BDD test hay',
             sourceType: InventorySourceType.custom,
             quantityKg: 50,
@@ -234,7 +234,7 @@ void main() {
         final dropdown = find.byWidgetPredicate(
           (w) =>
               w is DropdownButtonFormField &&
-              w.decoration?.labelText == 'Select medicine',
+              w.decoration.labelText == 'Select medicine',
         );
         expect(find.byType(TextField), findsWidgets);
         await tester.enterText(find.byType(TextField).first, 'Penicillin');

@@ -124,11 +124,11 @@ abstract final class NutritionMealPool {
   }
 
   static MealPlan morningBarleyMeal() {
-    return MealPlan(
+    return const MealPlan(
       id: morningMealId,
       name: 'Morning barley mix',
       totalKgPerBatch: 10,
-      ingredients: const [
+      ingredients: [
         MealIngredientLine(
           feedInventoryItemId: barleyFeedId,
           feedItemName: 'Barley',
@@ -139,11 +139,11 @@ abstract final class NutritionMealPool {
   }
 
   static MealPlan lightHayMeal() {
-    return MealPlan(
+    return const MealPlan(
       id: lightMealId,
       name: 'Light hay ration',
       totalKgPerBatch: 8,
-      ingredients: const [
+      ingredients: [
         MealIngredientLine(
           feedInventoryItemId: hayFeedId,
           feedItemName: 'Low energy hay',
@@ -540,7 +540,7 @@ abstract final class NutritionRecommendationAsserts {
       expect(
         scoreA >= scoreB,
         isTrue,
-        reason: '${a.name} (${scoreA}) should rank above ${b.name} (${scoreB})',
+        reason: '${a.name} ($scoreA) should rank above ${b.name} ($scoreB)',
       );
     }
   }

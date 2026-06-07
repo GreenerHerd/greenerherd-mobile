@@ -20,8 +20,19 @@ abstract final class BreedingMethodCatalog {
           ],
       };
 
-  static bool requiresMethodOnReadyToBreed(Species species) =>
-      species == Species.goat || species == Species.sheep;
+  /// All species require a method when marking ready to breed (drives task schedules).
+  static bool requiresMethodOnReadyToBreed(Species species) => true;
+
+  static BreedingMethod defaultForSpecies(Species species) => switch (species) {
+        Species.cattle => BreedingMethod.ai,
+        Species.goat || Species.sheep => BreedingMethod.natural,
+      };
+
+  static BreedingMethod resolveMethod({
+    required Species species,
+    BreedingMethod? explicit,
+  }) =>
+      explicit ?? defaultForSpecies(species);
 
   static BreedingMethod? fromWire(String? wire) {
     if (wire == null || wire.isEmpty) return null;

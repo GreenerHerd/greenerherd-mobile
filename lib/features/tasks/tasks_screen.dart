@@ -165,11 +165,11 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               ),
               const SizedBox(height: 12),
               Card(
-                color: GhColors.primaryLight.withOpacity(0.35),
+                color: GhColors.primaryLight.withValues(alpha: 0.35),
                 child: ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
                     backgroundColor: GhColors.primaryLight,
-                    child: const Icon(Icons.mic, color: GhColors.primary),
+                    child: Icon(Icons.mic, color: GhColors.primary),
                   ),
                   title: Text(
                     l10n.voiceAddTask,

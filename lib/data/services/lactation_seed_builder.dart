@@ -1,7 +1,44 @@
+import '../models/animal_lactation_cycle.dart';
 import '../models/lactation_models.dart';
 
 /// Builds realistic lactation curves for demo / BDD seed data.
 abstract final class LactationSeedBuilder {
+  /// Typical days in milk for demo cows at each farmer-selected cattle stage.
+  static int dimForFarmerCycle(AnimalLactationCycle cycle) => switch (cycle) {
+        AnimalLactationCycle.cattleEarly => 24,
+        AnimalLactationCycle.cattleMid => 128,
+        AnimalLactationCycle.cattleLate => 215,
+        AnimalLactationCycle.cattleClose => 278,
+        _ => 128,
+      };
+
+  /// Representative daily milk (litres) for mock UI / KPIs at each stage.
+  static double todayLitresForCycle(
+    AnimalLactationCycle cycle, {
+    String? breed,
+  }) {
+    final scale = _breedMilkScale(breed);
+    final base = switch (cycle) {
+      AnimalLactationCycle.cattleEarly => 26.0,
+      AnimalLactationCycle.cattleMid => 32.5,
+      AnimalLactationCycle.cattleLate => 23.5,
+      AnimalLactationCycle.cattleClose => 14.8,
+      AnimalLactationCycle.cattleDry ||
+      AnimalLactationCycle.cattlePreCalvingCloseToDryOff ||
+      AnimalLactationCycle.nonLactating =>
+        0.0,
+      AnimalLactationCycle.lactatingSingle => 2.4,
+      AnimalLactationCycle.lactatingTwin => 3.6,
+    };
+    return double.parse((base * scale).toStringAsFixed(1));
+  }
+
+  static double _breedMilkScale(String? breed) {
+    final b = breed?.toLowerCase() ?? '';
+    if (b.contains('jersey')) return 0.82;
+    if (b.contains('holstein')) return 1.0;
+    return 0.92;
+  }
   /// Typical 305-day lactation curve (litres/day) by DIM.
   static double expectedYieldLitres(int dim) {
     if (dim <= 0) return 0;
@@ -50,5 +87,44 @@ abstract final class LactationSeedBuilder {
       cycleNumber: cycleNumber,
       calvingDate: calvingDate,
     );
+  }
+
+  /// Today's yield aligned with [cycle] (uses [dimForFarmerCycle] + curve noise).
+  static double todayLitresFromCurve(AnimalLactationCycle cycle) {
+    final dim = dimForFarmerCycle(cycle);
+    return double.parse(expectedYieldLitres(dim).toStringAsFixed(1));
+  }
+
+  /// Weekly milk history for a cow at a given farmer lactation stage.
+  static ({LactationCycle cycle, List<MilkYieldRecord> history}) seedForFarmerCycle({
+    required String animalId,
+    required AnimalLactationCycle cycle,
+    required int cycleNumber,
+    required DateTime now,
+    int weeksOfHistory = 16,
+    String? breed,
+  }) {
+    final dim = dimForFarmerCycle(cycle);
+    final calving = now.subtract(Duration(days: dim));
+    final cycleModel = cycleFor(
+      animalId: animalId,
+      cycleNumber: cycleNumber,
+      calvingDate: calving,
+    );
+    var history = weeklyHistory(calvingDate: calving, toDate: now);
+    if (history.length > weeksOfHistory) {
+      history = history.sublist(history.length - weeksOfHistory);
+    }
+    if (history.isNotEmpty) {
+      final target = todayLitresForCycle(cycle, breed: breed);
+      final last = history.last;
+      history[history.length - 1] = MilkYieldRecord(
+        date: last.date,
+        litres: target,
+        lactationDay: last.lactationDay,
+        milkingSession: last.milkingSession,
+      );
+    }
+    return (cycle: cycleModel, history: history);
   }
 }

@@ -126,6 +126,41 @@ void main() {
       expect(gap.energyActualMj, 0);
       expect(gap.calciumActualKg, 0);
     });
+
+    test('sums nutrients from explicit fedIngredients breakdown', () {
+      final gap = TodaysFeedNutritionCalculator.applyToGap(
+        base: baseGap,
+        entries: [
+          TodaysFeedEntry(
+            id: '2',
+            groupId: 'g1',
+            recordedAt: _now,
+            title: 'Edited meal',
+            subtitle: '80 kg',
+            costSar: 0,
+            weightKg: 80,
+            mealTypeId: 'meal-morning',
+            fedIngredients: const [
+              MealIngredientLine(
+                feedInventoryItemId: 'feed-alfalfa',
+                amountKg: 56,
+                feedItemName: 'Alfalfa',
+              ),
+              MealIngredientLine(
+                feedInventoryItemId: 'feed-barley',
+                amountKg: 24,
+                feedItemName: 'Barley',
+              ),
+            ],
+          ),
+        ],
+        meals: [meal],
+        feedItems: feeds,
+      );
+      expect(gap.dryMatterActualKg, greaterThan(50));
+      expect(gap.proteinActualKg, greaterThan(5));
+      expect(gap.energyActualMj, greaterThan(100));
+    });
   });
 }
 

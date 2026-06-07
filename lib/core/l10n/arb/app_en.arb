@@ -195,6 +195,30 @@
   "saveGroup": "Save group",
   "newAnimal": "New animal",
   "newGroup": "New group",
+  "moveGroupTitle": "Move to group",
+  "moveGroupCurrent": "Current group: {name}",
+  "@moveGroupCurrent": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "moveToNewGroup": "Create new group",
+  "moveToNewGroupSubtitle": "Add a group and move this animal into it",
+  "removeFromGroup": "No group",
+  "moveGroupNoGroups": "No other groups for this species yet. Create one above.",
+  "animalMovedToGroup": "Moved #{tag} to {groupName}",
+  "@animalMovedToGroup": {
+    "placeholders": {
+      "tag": { "type": "String" },
+      "groupName": { "type": "String" }
+    }
+  },
+  "animalRemovedFromGroup": "Removed #{tag} from its group",
+  "@animalRemovedFromGroup": {
+    "placeholders": {
+      "tag": { "type": "String" }
+    }
+  },
   "onboardNewAnimal": "Onboard new animal",
   "onboardNewGroup": "Onboard new group",
   "groupWizardDetails": "Group details",
@@ -575,6 +599,24 @@
     }
   },
   "todaysMilkLitres": "Today's milk (litres)",
+  "milkSessionMorning": "Morning",
+  "milkSessionEvening": "Evening",
+  "milkSessionDaily": "Daily total",
+  "milkRecordDate": "Milk date",
+  "changeDate": "Change",
+  "milkLitresMorning": "Morning milk (litres)",
+  "milkLitresEvening": "Evening milk (litres)",
+  "milkLitresDaily": "Daily total milk (litres)",
+  "recentMilkRecords": "Recent records",
+  "recordedMilkSessionFor": "Recorded {litres} L ({session}) for #{tag} on {date}",
+  "@recordedMilkSessionFor": {
+    "placeholders": {
+      "litres": { "type": "String" },
+      "session": { "type": "String" },
+      "tag": { "type": "String" },
+      "date": { "type": "String" }
+    }
+  },
   "recordMilkSaleIncome": "Record milk sale income",
   "recordMilkSaleIncomeSubtitle": "Adds income on the Finance tab",
   "saleAmountSar": "Sale amount (SAR)",
@@ -867,6 +909,32 @@
   "updateTreatmentSubtitle": "Change illness notes or medicine details",
   "illnessSymptomsLabel": "Illness / symptoms",
   "treatmentMedicineLabel": "Medicine / treatment",
+  "treatmentStepIllness": "Symptoms",
+  "treatmentStepMedicine": "Treatment",
+  "administeredByLabel": "Administered by",
+  "administeredByHint": "Who administered",
+  "administeredDateLabel": "Administered date",
+  "milkWithdrawalDaysLabel": "Milk withdrawal (days)",
+  "milkWithdrawalHint": "Days before milk is safe",
+  "meatWithdrawalDaysLabel": "Meat withdrawal (days)",
+  "meatWithdrawalHint": "Days before meat is safe",
+  "treatmentFrequencyLabel": "Frequency",
+  "treatmentFrequencyOnce": "Once",
+  "treatmentFrequencyDaily": "Daily",
+  "treatmentFrequencyWeekly": "Weekly",
+  "treatmentFrequencyMonthly": "Monthly",
+  "treatmentNotesLabel": "Treatment notes",
+  "batchNumberLabel": "Batch number",
+  "batchNumberHint": "Optional batch / lot number",
+  "expiryDateLabel": "Expiry date",
+  "addTreatmentPhoto": "Add photo",
+  "addTreatmentPhotoHint": "Photo of medicine label or packaging",
+  "addMedicineToInventoryHint": "Add a product to your medical inventory",
+  "selectMedicineFirst": "Select a medicine",
+  "medicineRequired": "Select a medicine from inventory or the product list",
+  "administeredByRequired": "Enter who administered the treatment",
+  "dosageRequired": "Enter dosage (e.g. 5 ml IM)",
+  "notInInventoryBanner": "Not in your inventory — add it to track stock",
   "treatmentRecorded": "Treatment recorded",
   "treatmentUpdated": "Treatment updated",
   "markedCured": "Marked as cured",
@@ -925,9 +993,10 @@
   "cullType": "Cull type",
   "cullReason": "Cull reason",
   "breedingCycleKpiTitle": "Breeding cycle",
-  "breedingCycleKpiSubtitle": "Months since calving sets lactation nutrition and when the next breeding cycle can start.",
+  "breedingCycleKpiSubtitle": "Months since calving drives when the next breeding cycle can start. Set lactation phase on the Milking tab.",
   "monthsSinceCalvingLabel": "Months since calving",
   "lactationPhaseLabel": "Lactation phase",
+  "milkingTabLactationUnavailable": "Lactation phase is set on this tab once the animal is old enough to lactate. Use the Breeding tab for months since calving and re-breeding timing.",
   "monthsSinceCalvingValue": "{count, plural, =0{Fresh calving (0 mo)} =1{1 month} other{{count} months}}",
   "@monthsSinceCalvingValue": {
     "placeholders": {
@@ -975,6 +1044,22 @@
       "count": { "type": "int" }
     }
   },
+  "dashboardKpiPregnant": "PREGNANT",
+  "dashboardKpiReadyToBreed": "READY TO BREED",
+  "dashboardKpiLactating": "LACTATING",
+  "dashboardKpiWeaning": "WEANING",
+  "dashboardKpiSick": "SICK",
+  "dashboardKpiCullFlagged": "CULL FLAGGED",
+  "dashboardKpiSickHint": "under treatment",
+  "dashboardKpiCullHint": "reviewable",
+  "dashboardKpiWeaningHint": "0–3 months · nutrition weaning",
+  "dashboardKpiLactatingAvgMilk": "{avg} L/day avg (prior milk records)",
+  "@dashboardKpiLactatingAvgMilk": {
+    "placeholders": {
+      "avg": { "type": "String" }
+    }
+  },
+  "dashboardKpiLactatingNoMilkData": "record milk to show average",
   "feedRestrictedDueToAnimalStatus": "Some feed items are restricted due to the animal status.",
   "feedEligibilityWarningTitle": "Feed restriction warning",
   "feedEligibilityAddProductWarning": "{product} may not be suitable for all animals on your farm.",
@@ -1017,5 +1102,45 @@
     }
   },
   "supplementDosageCappedHint": "Suggested amount capped by feed eligibility rules",
-  "addAnyway": "Add anyway"
+  "addAnyway": "Add anyway",
+  "groupBreedingMethodLabel": "Default breeding method",
+  "groupBreedingMethodHint": "Used for all eligible animals in this group and to generate breeding tasks.",
+  "breedingTasksScheduled": "Breeding tasks added to your task list",
+  "breedingTaskNaturalObserveTitle": "Observe for heat",
+  "breedingTaskNaturalObserveSubtitle": "Watch for standing heat before natural service",
+  "breedingTaskCycleCheckTitle": "Cycle check",
+  "breedingTaskCycleCheckSubtitle": "Confirm return to heat or schedule re-breeding",
+  "breedingTaskPregnancyConfirmTitle": "Pregnancy check",
+  "breedingTaskPregnancyConfirmSubtitle": "Confirm pregnancy or plan next cycle",
+  "breedingTaskAiRecordTitle": "Record AI",
+  "breedingTaskAiRecordSubtitle": "Log semen, technician, and timing",
+  "breedingTaskAiConceptionCheckTitle": "Conception check",
+  "breedingTaskAiConceptionCheckSubtitle": "Palpation or ultrasound around day 18",
+  "breedingTaskPregnancyScanTitle": "Pregnancy scan",
+  "breedingTaskPregnancyScanSubtitle": "Ultrasound or palpation to confirm pregnancy",
+  "breedingTaskPregnancyNutritionTitle": "Pregnancy nutrition review",
+  "breedingTaskPregnancyNutritionSubtitle": "Adjust ration for confirmed pregnancy",
+  "breedingTaskEmbryoTransferTitle": "Embryo transfer",
+  "breedingTaskEmbryoTransferSubtitle": "Record donor, recipient sync, and transfer details",
+  "breedingTaskPostTransferCheckTitle": "Post-transfer check",
+  "breedingTaskPostTransferCheckSubtitle": "Monitor recipient for acceptance signs",
+  "breedingTaskEarlyPregnancyCheckTitle": "Early pregnancy check",
+  "breedingTaskEarlyPregnancyCheckSubtitle": "Confirm implantation around day 30",
+  "breedingTaskSpongeInsertTitle": "Insert sponges",
+  "breedingTaskSpongeInsertSubtitle": "Synchronize heat for timed breeding",
+  "breedingTaskSpongeRemoveTitle": "Remove sponges",
+  "breedingTaskSpongeRemoveSubtitle": "Remove sponges and prepare for AI or natural service",
+  "lactationCycleLabel": "Lactation cycle",
+  "lactationCycleHint": "Sets lactating status and drives nutrition and feed eligibility for this animal.",
+  "lactationCycleEarly": "Early lactation",
+  "lactationCycleMid": "Mid lactation",
+  "lactationCycleLate": "Late lactation",
+  "lactationCycleCloseLateLactation": "Close to dry-off (late lactation)",
+  "lactationCycleCloseToDryOffPreCalving": "Close to dry-off (pre-calving)",
+  "lactationCycleDry": "Dry (not lactating)",
+  "lactationCycleNone": "Not lactating",
+  "lactationCycleSingle": "Lactating (single)",
+  "lactationCycleTwin": "Lactating (twins)",
+  "groupLactationCycleTitle": "Lactation cycle by animal",
+  "groupLactationCycleHint": "Set each female's cycle to update lactating status, nutrition, and which feeds they can receive."
 }

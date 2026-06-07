@@ -1,3 +1,4 @@
+import '../models/animal_lactation_cycle.dart';
 import '../models/enums.dart';
 import '../models/lactation_models.dart';
 import '../models/models.dart';
@@ -27,7 +28,7 @@ abstract final class MockSeedData {
       name: 'Milking A',
       species: Species.cattle,
       purpose: GroupPurpose.milk,
-      headCount: 22,
+      headCount: 25,
       managerId: 'u2',
       description:
           'Lactating Holstein/Jersey cows in 1st–3rd parity. Twice-daily milking, free-stall barn with fans.',
@@ -118,35 +119,88 @@ abstract final class MockSeedData {
           id: 'a1', tag: '0421', name: 'Bessie', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 412, ageLabel: '4y 2m',
           dob: DateTime(2022, 3, 14), groupId: 'g3',
-          tags: [AnimalTagType.pregnant, AnimalTagType.lactating],
+          tags: const [AnimalTagType.pregnant, AnimalTagType.lactating],
           milkTodayLitres: 18.4, withdrawalDays: 3, sire: 'Tornado', dam: 'Faten', bcs: 3.5,
         ),
         Animal(
           id: 'a2', tag: '0438', name: 'Mona', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 398, ageLabel: '5y 1m',
           dob: DateTime(2021, 4, 2), groupId: 'g1',
-          tags: [AnimalTagType.lactating], milkTodayLitres: 22.1, sire: 'Tornado', dam: 'Hala',
-          monthsSinceCalving: 5,
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleMid,
+            breed: 'Holstein',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleMid,
+          monthsSinceCalving: 4,
+          sire: 'Tornado', dam: 'Hala',
         ),
         Animal(
           id: 'a3', tag: '0444', name: 'Sara', species: Species.cattle, sex: 'F',
           breed: 'Jersey', weightKg: 344, ageLabel: '3y 6m',
           dob: DateTime(2022, 11, 4), groupId: 'g1',
-          tags: [AnimalTagType.lactating], milkTodayLitres: 14.7, withdrawalDays: 3,
-          monthsSinceCalving: 2,
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleEarly,
+            breed: 'Jersey',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleEarly,
+          withdrawalDays: 3,
+          monthsSinceCalving: 1,
         ),
         Animal(
           id: 'a4', tag: '0451', name: 'Hala', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 426, ageLabel: '6y 3m',
           dob: DateTime(2020, 2, 10), groupId: 'g1',
-          tags: [AnimalTagType.lactating], milkTodayLitres: 19.8,
-          monthsSinceCalving: 8,
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleLate,
+            breed: 'Holstein',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleLate,
+          monthsSinceCalving: 7,
+        ),
+        Animal(
+          id: 'a9', tag: '0468', name: 'Dana', species: Species.cattle, sex: 'F',
+          breed: 'Holstein', weightKg: 405, ageLabel: '4y 8m',
+          dob: DateTime(2021, 9, 12), groupId: 'g1',
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleClose,
+            breed: 'Holstein',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleClose,
+          monthsSinceCalving: 9,
+        ),
+        Animal(
+          id: 'a10', tag: '0472', name: 'Rim', species: Species.cattle, sex: 'F',
+          breed: 'Holstein', weightKg: 372, ageLabel: '3y 4m',
+          dob: DateTime(2023, 1, 8), groupId: 'g1',
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleEarly,
+            breed: 'Holstein',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleEarly,
+          monthsSinceCalving: 1,
+        ),
+        Animal(
+          id: 'a11', tag: '0475', name: 'Lama', species: Species.cattle, sex: 'F',
+          breed: 'Jersey', weightKg: 352, ageLabel: '5y 0m',
+          dob: DateTime(2021, 5, 1), groupId: 'g1',
+          tags: const [AnimalTagType.lactating],
+          milkTodayLitres: LactationSeedBuilder.todayLitresForCycle(
+            AnimalLactationCycle.cattleLate,
+            breed: 'Jersey',
+          ),
+          lactationCycle: AnimalLactationCycle.cattleLate,
+          monthsSinceCalving: 7,
         ),
         Animal(
           id: 'a5', tag: '0462', name: 'Noor', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 388, ageLabel: '3y 1m',
           dob: DateTime(2023, 4, 1), groupId: 'g2',
-          tags: [AnimalTagType.readyToBreed], isHeifer: true,
+          tags: const [AnimalTagType.readyToBreed], isHeifer: true,
         ),
         Animal(
           id: 'a8', tag: '0401', name: 'Sultan', species: Species.cattle, sex: 'M',
@@ -159,37 +213,37 @@ abstract final class MockSeedData {
           id: 'a6', tag: '0470', name: 'Khulud', species: Species.cattle, sex: 'F',
           breed: 'Jersey', weightKg: 360, ageLabel: '4y 9m',
           dob: DateTime(2021, 8, 4), groupId: 'g3',
-          tags: [AnimalTagType.pregnant],
+          tags: const [AnimalTagType.pregnant],
         ),
         Animal(
           id: 'a7', tag: '0512', name: 'Yara', species: Species.cattle, sex: 'F',
           breed: 'Holstein', weightKg: 96, ageLabel: '8m',
           dob: DateTime(2025, 9, 2), groupId: 'g4',
-          tags: [AnimalTagType.weaning], dam: 'Bessie',
+          tags: const [AnimalTagType.weaning], dam: 'Bessie',
         ),
         Animal(
           id: 'c1', tag: 'S009', name: 'Najma', species: Species.sheep, sex: 'F',
           breed: 'Najdi', weightKg: 54, ageLabel: '3y 2m',
           dob: DateTime(2023, 3, 12), groupId: 'g9',
-          tags: [AnimalTagType.sick],
+          tags: const [AnimalTagType.sick],
         ),
         Animal(
           id: 'c2', tag: 'S012', name: '—', species: Species.sheep, sex: 'M',
           breed: 'Najdi', weightKg: 48, ageLabel: '2y 8m',
           dob: DateTime(2023, 9, 4), groupId: 'g8',
-          tags: [AnimalTagType.cull],
+          tags: const [AnimalTagType.cull],
         ),
         Animal(
           id: 'b2', tag: 'G022', name: '—', species: Species.goat, sex: 'M',
           breed: 'Aardi', weightKg: 45, ageLabel: '3y 1m',
           dob: DateTime(2023, 4, 1), groupId: 'g5',
-          tags: [AnimalTagType.readyToBreed],
+          tags: const [AnimalTagType.readyToBreed],
         ),
         Animal(
           id: 'b1', tag: 'G014', name: 'Layla', species: Species.goat, sex: 'F',
           breed: 'Aardi', weightKg: 38, ageLabel: '2y 0m',
           dob: DateTime(2024, 5, 4), groupId: 'g6',
-          tags: [AnimalTagType.pregnant],
+          tags: const [AnimalTagType.pregnant],
         ),
       ];
 
@@ -232,7 +286,7 @@ abstract final class MockSeedData {
     ),
   ];
 
-  static final finance = FinanceSummary(
+  static const finance = FinanceSummary(
     income3mo: 84200,
     expense3mo: 41600,
     net3mo: 42600,
@@ -386,39 +440,71 @@ abstract final class MockSeedData {
     isActive: true,
   );
 
-  /// BDD / demo lactation + milk history (Mona #0438 has full curve).
+  /// BDD / demo lactation + milk history for Milking A cows at each cattle stage.
   static ({Map<String, LactationCycle> cycles, Map<String, List<MilkYieldRecord>> history})
       lactationSeed() {
     final now = DateTime.now();
     final cycles = <String, LactationCycle>{};
     final history = <String, List<MilkYieldRecord>>{};
 
-    void seedCow({
-      required String id,
-      required int dimStart,
-      required int weeksOfHistory,
-      required int cycleNumber,
-    }) {
-      final calving = now.subtract(Duration(days: dimStart));
-      final cycle = LactationSeedBuilder.cycleFor(
-        animalId: id,
-        cycleNumber: cycleNumber,
-        calvingDate: calving,
-      );
-      cycles[id] = cycle;
-      history[id] = LactationSeedBuilder.weeklyHistory(
-        calvingDate: calving,
-        toDate: now,
-      );
-      if (history[id]!.length > weeksOfHistory) {
-        history[id] = history[id]!.sublist(history[id]!.length - weeksOfHistory);
-      }
-    }
+    const stages =
+        <({String id, String breed, AnimalLactationCycle cycle, int cycleNumber, int weeks})>[
+      (
+        id: 'a2',
+        breed: 'Holstein',
+        cycle: AnimalLactationCycle.cattleMid,
+        cycleNumber: 3,
+        weeks: 18,
+      ),
+      (
+        id: 'a3',
+        breed: 'Jersey',
+        cycle: AnimalLactationCycle.cattleEarly,
+        cycleNumber: 2,
+        weeks: 14,
+      ),
+      (
+        id: 'a4',
+        breed: 'Holstein',
+        cycle: AnimalLactationCycle.cattleLate,
+        cycleNumber: 4,
+        weeks: 16,
+      ),
+      (
+        id: 'a9',
+        breed: 'Holstein',
+        cycle: AnimalLactationCycle.cattleClose,
+        cycleNumber: 3,
+        weeks: 12,
+      ),
+      (
+        id: 'a10',
+        breed: 'Holstein',
+        cycle: AnimalLactationCycle.cattleEarly,
+        cycleNumber: 1,
+        weeks: 10,
+      ),
+      (
+        id: 'a11',
+        breed: 'Jersey',
+        cycle: AnimalLactationCycle.cattleLate,
+        cycleNumber: 5,
+        weeks: 14,
+      ),
+    ];
 
-    // Mona — primary BDD animal: mid-lactation, rich history
-    seedCow(id: 'a2', dimStart: 128, weeksOfHistory: 18, cycleNumber: 3);
-    seedCow(id: 'a3', dimStart: 95, weeksOfHistory: 14, cycleNumber: 2);
-    seedCow(id: 'a4', dimStart: 72, weeksOfHistory: 12, cycleNumber: 4);
+    for (final row in stages) {
+      final seeded = LactationSeedBuilder.seedForFarmerCycle(
+        animalId: row.id,
+        cycle: row.cycle,
+        cycleNumber: row.cycleNumber,
+        now: now,
+        weeksOfHistory: row.weeks,
+        breed: row.breed,
+      );
+      cycles[row.id] = seeded.cycle;
+      history[row.id] = seeded.history;
+    }
 
     return (cycles: cycles, history: history);
   }

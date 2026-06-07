@@ -33,7 +33,7 @@ class SubscriptionScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Card(
-                  color: GhColors.primaryLight.withOpacity(0.35),
+                  color: GhColors.primaryLight.withValues(alpha: 0.35),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(

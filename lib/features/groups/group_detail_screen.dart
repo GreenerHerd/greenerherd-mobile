@@ -18,7 +18,7 @@ import 'group_breeding_tab.dart';
 import 'group_detail_widgets.dart';
 import 'group_kpis.dart';
 import 'group_mock_extras.dart';
-import 'group_milk_record.dart';
+import 'group_milking_tab.dart';
 import 'group_providers.dart';
 
 enum _GroupSection { overview, animals, nutrition, breeding, milking, health }
@@ -242,10 +242,14 @@ class _GroupTabBody extends ConsumerWidget {
           kpis: kpis,
           groupId: groupId,
         ),
-      _GroupSection.milking => _MilkingTab(
+      _GroupSection.milking => GroupMilkingTab(
           group: group,
           animals: animals,
           kpis: kpis,
+          groupId: groupId,
+          onAnimalsChanged: () {
+            ref.invalidate(groupAnimalsProvider(groupId));
+          },
         ),
       _GroupSection.health => _HealthTab(
           animals: animals,
@@ -429,40 +433,6 @@ class _NutritionTab extends ConsumerWidget {
           },
         );
       },
-    );
-  }
-}
-
-class _MilkingTab extends ConsumerWidget {
-  const _MilkingTab({
-    required this.group,
-    required this.animals,
-    required this.kpis,
-  });
-
-  final AnimalGroup group;
-  final List<Animal> animals;
-  final GroupKpis kpis;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final lactating = lactatingAnimalsInGroup(animals);
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        GroupMilkingVolumeCard(
-          kpis: kpis,
-          onRecord: lactating.isEmpty
-              ? null
-              : () => context.push('/groups/${group.id}/record-milk'),
-        ),
-        const SizedBox(height: 12),
-        GroupTopProducersCard(animals: animals),
-        const SizedBox(height: 12),
-        GroupMilkTrendCard(
-          values: GroupMockExtras.milkTrend30Day(group.id),
-        ),
-      ],
     );
   }
 }

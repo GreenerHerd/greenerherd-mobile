@@ -102,7 +102,7 @@ class HerdGroupsStrip extends ConsumerWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: selected
-                        ? GhColors.primaryLight.withOpacity(0.45)
+                        ? GhColors.primaryLight.withValues(alpha: 0.45)
                         : GhColors.surface,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(

@@ -121,8 +121,13 @@ class WizardTestHelpers {
     WidgetTester tester, {
     String headCount = '2',
   }) async {
-    final countField = find.widgetWithText(TextField, 'Number in group');
-    if (countField.evaluate().isNotEmpty) {
+    final countField = find.widgetWithText(TextField, 'Head count');
+    if (countField.evaluate().isEmpty) {
+      final alt = find.widgetWithText(TextField, 'Number in group');
+      if (alt.evaluate().isNotEmpty) {
+        await tester.enterText(alt, headCount);
+      }
+    } else {
       await tester.enterText(countField, headCount);
     }
     await tapContinue(tester);

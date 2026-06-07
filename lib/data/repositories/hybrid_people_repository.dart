@@ -82,7 +82,7 @@ class HybridPeopleRepository implements PeopleRepository {
     );
     _offline.users.add(member);
     final link =
-        '${AppConfig.inviteAppLinkBaseUrl}?invite=mock-${id}&farm=${_farmId}';
+        '${AppConfig.inviteAppLinkBaseUrl}?invite=mock-$id&farm=$_farmId';
     final farmName = request.farmName ?? _offline.farm.name;
     final message =
         'Hi ${request.name},\n\nYou have been invited to join $farmName on GreenerHerd.\n\n$link';

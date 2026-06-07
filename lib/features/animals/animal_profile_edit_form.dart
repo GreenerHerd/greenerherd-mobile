@@ -125,7 +125,7 @@ class AnimalProfileEditFormState extends ConsumerState<AnimalProfileEditForm> {
               ? '—'
               : _ageLabelCtrl.text.trim();
 
-      final updated = widget.animal.copyWith(
+      var updated = widget.animal.copyWith(
         tag: _tagCtrl.text.trim(),
         name: _nameCtrl.text.trim(),
         breed: _breedCtrl.text.trim().isEmpty ? '—' : _breedCtrl.text.trim(),
@@ -143,6 +143,11 @@ class AnimalProfileEditFormState extends ConsumerState<AnimalProfileEditForm> {
         clearDam: _damCtrl.text.trim().isEmpty,
       );
 
+      updated = await syncAnimalReadyToBreedWithGroup(
+        ref,
+        updated,
+        context: context,
+      );
       await ref.read(animalRepositoryProvider).updateAnimal(updated);
       if (!mounted) return;
       ref.invalidate(animalProvider(widget.animal.id));
@@ -216,7 +221,7 @@ class AnimalProfileEditFormState extends ConsumerState<AnimalProfileEditForm> {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _sex,
+            initialValue: _sex,
             decoration: const InputDecoration(labelText: 'Sex'),
             items: const [
               DropdownMenuItem(value: 'Female', child: Text('Female')),
@@ -276,7 +281,7 @@ class AnimalProfileEditFormState extends ConsumerState<AnimalProfileEditForm> {
           const SizedBox(height: 12),
           if (groups.isNotEmpty)
             DropdownButtonFormField<String?>(
-              value: _groupId,
+              initialValue: _groupId,
               decoration: const InputDecoration(labelText: 'Group'),
               items: [
                 const DropdownMenuItem<String?>(

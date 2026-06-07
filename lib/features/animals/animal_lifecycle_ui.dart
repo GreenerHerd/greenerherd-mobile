@@ -3,9 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/l10n/l10n_extensions.dart';
 import '../../data/models/cull_reasons.dart';
+import '../../data/models/models.dart';
 import '../../shared/widgets/gh_design_icon.dart';
 import '../../shared/widgets/gh_design_icons.dart';
+import 'record_treatment_screen.dart';
 import 'widgets/cull_reason_picker_dialog.dart';
+
+export 'record_treatment_screen.dart' show TreatmentDetails;
 
 void showPregnancyOutcomePicker(BuildContext context, String animalId) {
   showModalBottomSheet<void>(
@@ -54,133 +58,28 @@ void showPregnancyOutcomePicker(BuildContext context, String animalId) {
   );
 }
 
-/// Illness symptoms and medicine details entered when recording treatment.
-class TreatmentDetails {
-  const TreatmentDetails({
-    required this.illnessNote,
-    this.treatmentNote,
-  });
-
-  final String illnessNote;
-  final String? treatmentNote;
-}
-
-/// Dialog for illness + medicine details; controllers live until route is disposed.
-class _TreatmentDetailsDialog extends StatefulWidget {
-  const _TreatmentDetailsDialog({
-    this.initialIllnessNote,
-    this.initialTreatmentNote,
-  });
-
-  final String? initialIllnessNote;
-  final String? initialTreatmentNote;
-
-  @override
-  State<_TreatmentDetailsDialog> createState() =>
-      _TreatmentDetailsDialogState();
-}
-
-class _TreatmentDetailsDialogState extends State<_TreatmentDetailsDialog> {
-  late final TextEditingController _illnessController;
-  late final TextEditingController _medicineController;
-
-  @override
-  void initState() {
-    super.initState();
-    _illnessController = TextEditingController(
-      text: widget.initialIllnessNote ?? '',
-    );
-    _medicineController = TextEditingController(
-      text: widget.initialTreatmentNote ?? '',
-    );
-  }
-
-  @override
-  void dispose() {
-    _illnessController.dispose();
-    _medicineController.dispose();
-    super.dispose();
-  }
-
-  void _save() {
-    final illness = _illnessController.text.trim();
-    final medicine = _medicineController.text.trim();
-    Navigator.pop(
-      context,
-      TreatmentDetails(
-        illnessNote: illness.isEmpty ? 'Under treatment' : illness,
-        treatmentNote: medicine.isEmpty ? null : medicine,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return AlertDialog(
-      title: Text(l10n.recordTreatment),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: _illnessController,
-              decoration: InputDecoration(
-                labelText: l10n.illnessSymptomsLabel,
-                hintText: 'Symptoms, diagnosis, observations…',
-              ),
-              maxLines: 3,
-              autofocus: true,
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: _medicineController,
-              decoration: InputDecoration(
-                labelText: l10n.treatmentMedicineLabel,
-                hintText: 'Medicine, dose, route, duration…',
-              ),
-              maxLines: 3,
-              textInputAction: TextInputAction.done,
-              onSubmitted: (_) => _save(),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(l10n.cancel),
-        ),
-        FilledButton(
-          onPressed: _save,
-          child: Text(l10n.save),
-        ),
-      ],
-    );
-  }
-}
-
-Future<TreatmentDetails?> _showTreatmentDetailsDialog(
+Future<TreatmentDetails?> _openRecordTreatment(
   BuildContext context, {
+  required String animalId,
   String? initialIllnessNote,
-  String? initialTreatmentNote,
+  AnimalTreatmentDetails? initialTreatment,
 }) {
-  return showDialog<TreatmentDetails>(
-    context: context,
-    builder: (ctx) => _TreatmentDetailsDialog(
-      initialIllnessNote: initialIllnessNote,
-      initialTreatmentNote: initialTreatmentNote,
-    ),
+  return context.push<TreatmentDetails>(
+    '/animals/$animalId/record-treatment',
+    extra: {
+      'illnessNote': initialIllnessNote,
+      'treatment': initialTreatment,
+    },
   );
 }
 
 /// Start illness treatment, update details, or mark animal cured.
 Future<void> showTreatmentSheet(
   BuildContext context, {
+  required String animalId,
   required bool isSick,
   String? illnessNote,
-  String? treatmentNote,
+  AnimalTreatmentDetails? initialTreatment,
   required Future<void> Function(TreatmentDetails details) onRecordTreatment,
   required Future<void> Function() onMarkCured,
 }) async {
@@ -209,10 +108,11 @@ Future<void> showTreatmentSheet(
                 subtitle: Text(l10n.updateTreatmentSubtitle),
                 onTap: () async {
                   Navigator.pop(ctx);
-                  final details = await _showTreatmentDetailsDialog(
+                  final details = await _openRecordTreatment(
                     context,
+                    animalId: animalId,
                     initialIllnessNote: illnessNote,
-                    initialTreatmentNote: treatmentNote,
+                    initialTreatment: initialTreatment,
                   );
                   if (details == null || !context.mounted) return;
                   await onRecordTreatment(details);
@@ -235,7 +135,12 @@ Future<void> showTreatmentSheet(
     return;
   }
 
-  final details = await _showTreatmentDetailsDialog(context);
+  final details = await _openRecordTreatment(
+    context,
+    animalId: animalId,
+    initialIllnessNote: illnessNote,
+    initialTreatment: initialTreatment,
+  );
   if (details == null || !context.mounted) return;
   await onRecordTreatment(details);
 }

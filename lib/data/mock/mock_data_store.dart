@@ -4,6 +4,7 @@ import '../models/lactation_models.dart';
 import '../models/models.dart';
 import '../models/notification_preference.dart';
 import '../services/animal_mapper.dart';
+import '../services/dashboard_milk_metrics.dart';
 import '../services/reproduction_status_rules.dart';
 import '../services/supplement_nutrition.dart';
 import 'mock_seed_data.dart';
@@ -27,7 +28,7 @@ class MockDataStore {
       id: 'pr1',
       purchaseDate: DateTime(2026, 4, 1),
       totalAmount: 12000,
-      animalIds: ['legacy-1'],
+      animalIds: const ['legacy-1'],
     ));
     final now = DateTime.now();
     vaccinationEvents.addAll([
@@ -87,6 +88,11 @@ class MockDataStore {
   void addMilkRecord(String animalId, MilkYieldRecord record) {
     _milkHistory.putIfAbsent(animalId, () => []).add(record);
     _milkHistory[animalId]!.sort((a, b) => a.date.compareTo(b.date));
+  }
+
+  void setMilkHistory(String animalId, List<MilkYieldRecord> records) {
+    _milkHistory[animalId] = List.from(records)
+      ..sort((a, b) => a.date.compareTo(b.date));
   }
 
   List<Animal> get animals => List.unmodifiable(_animals);
@@ -211,8 +217,14 @@ class MockDataStore {
           .length,
       sick: filtered.where((a) => a.tags.contains(AnimalTagType.sick)).length,
       cullFlagged: filtered.where((a) => a.tags.contains(AnimalTagType.cull)).length,
-      lactating:
-          filtered.where((a) => a.tags.contains(AnimalTagType.lactating)).length,
+      lactating: filtered.where(DashboardMilkMetrics.isLactatingAnimal).length,
+      avgLactatingMilkLitres: DashboardMilkMetrics.herdAvgLactatingDailyMilk(
+        animals: filtered,
+        historyFor: milkHistoryFor,
+      ),
+      weaning: filtered
+          .where(ReproductionStatusRules.isWeaningForDashboard)
+          .length,
       tasksOverdue: _tasks.where((t) => t.overdue).length,
       tasksToday: _tasks.where((t) => t.dueBucket == 'today').length,
       tasksThisWeek: _tasks.where((t) => t.dueBucket == 'week').length,

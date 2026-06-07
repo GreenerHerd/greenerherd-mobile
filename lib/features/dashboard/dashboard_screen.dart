@@ -67,6 +67,13 @@ String? _readySubtitle(AppLocalizations l10n, DashboardStats stats) {
   return l10n.readyToBreedEligibleNotTagged(stats.readyToBreedEligibleUntagged);
 }
 
+String? _lactatingSubtitle(AppLocalizations l10n, DashboardStats stats) {
+  if (stats.lactating == 0) return null;
+  final avg = stats.avgLactatingMilkLitres;
+  if (avg == null) return l10n.dashboardKpiLactatingNoMilkData;
+  return l10n.dashboardKpiLactatingAvgMilk(avg.toStringAsFixed(1));
+}
+
 String _profileInitials(String? displayName) {
   final parts = displayName?.trim().split(RegExp(r'\s+')) ?? [];
   if (parts.isEmpty) return 'YA';
@@ -237,6 +244,7 @@ class DashboardScreen extends ConsumerWidget {
                                     ? _pregnantSubtitle(animalList)
                                     : null,
                                 readySubtitle: _readySubtitle(l10n, s),
+                                lactatingSubtitle: _lactatingSubtitle(l10n, s),
                               ),
                               if (speciesFilter != null) ...[
                                 const SizedBox(height: 16),

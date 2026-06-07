@@ -263,10 +263,10 @@ class _RollingChartCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Row(
+          const Row(
             children: [
               _LegendDot(color: GhColors.primary, label: 'Income'),
-              const SizedBox(width: 16),
+              SizedBox(width: 16),
               _LegendDot(color: GhColors.secondaryLight, label: 'Expense'),
             ],
           ),

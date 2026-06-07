@@ -3,7 +3,9 @@ import '../models/enums.dart';
 import '../models/invite_models.dart';
 import '../models/inventory_models.dart';
 import '../models/lactation_models.dart';
+import '../models/milking_session.dart';
 import '../models/models.dart';
+import '../services/milk_record_service.dart';
 import '../services/finance_summary_apply.dart';
 import '../repositories/hybrid_nutrition_repository.dart';
 import '../repositories/local_inventory_repository.dart';
@@ -13,7 +15,6 @@ import '../services/supplement_nutrition.dart';
 import '../services/animal_lifecycle_service.dart';
 import '../services/animal_mapper.dart';
 import 'mock_data_store.dart';
-import 'mock_seed_data.dart';
 
 class MockAuthRepository implements AuthRepository {
   MockAuthRepository(this._store);
@@ -311,23 +312,48 @@ class MockLactationRepository implements LactationRepository {
     required double litres,
     DateTime? onDate,
   }) async {
-    final date = onDate ?? DateTime.now();
+    await recordMilk(
+      animalId: animalId,
+      litres: litres,
+      onDate: onDate ?? DateTime.now(),
+      session: MilkingSession.daily,
+    );
+  }
+
+  @override
+  Future<void> recordMilk({
+    required String animalId,
+    required double litres,
+    required DateTime onDate,
+    required MilkingSession session,
+  }) async {
+    final day = DateTime(onDate.year, onDate.month, onDate.day);
     final cycle = _store.lactationCycleFor(animalId);
-    final dim = cycle?.daysInMilk(date) ?? 0;
-    _store.addMilkRecord(
+    final dim = cycle?.daysInMilk(day) ?? 0;
+    final record = MilkYieldRecord(
+      date: day,
+      litres: litres,
+      lactationDay: dim,
+      milkingSession: session.wire,
+    );
+    final history = _store.milkHistoryFor(animalId);
+    _store.setMilkHistory(
       animalId,
-      MilkYieldRecord(
-        date: DateTime(date.year, date.month, date.day),
-        litres: litres,
-        lactationDay: dim,
-        milkingSession: 'AM',
+      MilkRecordService.upsertRecord(
+        history: history,
+        record: record,
+        session: session,
       ),
     );
     final animal = _store.animalById(animalId);
-    if (animal != null) {
-      _store.updateAnimal(
-        animal.copyWith(milkTodayLitres: litres),
+    if (animal != null && MilkRecordService.isSameDay(day, DateTime.now())) {
+      final total = MilkRecordService.totalLitresForDay(
+        _store.milkHistoryFor(animalId),
+        day,
       );
+      if (total != null) {
+        _store.updateAnimal(animal.copyWith(milkTodayLitres: total));
+      }
     }
   }
 }

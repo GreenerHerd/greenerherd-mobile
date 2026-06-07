@@ -1,5 +1,7 @@
 import '../models/enums.dart';
+import '../models/lactation_models.dart';
 import '../models/models.dart';
+import 'dashboard_milk_metrics.dart';
 import 'reproduction_status_rules.dart';
 
 /// Builds dashboard KPIs from live animal and task lists (API or cache).
@@ -11,6 +13,7 @@ class DashboardStatsBuilder {
     required List<TaskItem> tasks,
     List<AnimalGroup> groups = const [],
     Species? speciesFilter,
+    List<MilkYieldRecord> Function(String animalId)? milkHistoryFor,
   }) {
     final active = animals.where((a) => a.status == AnimalStatus.active);
     final filtered = speciesFilter == null
@@ -59,11 +62,30 @@ class DashboardStatsBuilder {
       sick: filtered.where((a) => a.tags.contains(AnimalTagType.sick)).length,
       cullFlagged:
           filtered.where((a) => a.tags.contains(AnimalTagType.cull)).length,
-      lactating:
-          filtered.where((a) => a.tags.contains(AnimalTagType.lactating)).length,
+      lactating: filtered.where(DashboardMilkMetrics.isLactatingAnimal).length,
+      avgLactatingMilkLitres: milkHistoryFor == null
+          ? _avgMilkFromTodayOnly(filtered)
+          : DashboardMilkMetrics.herdAvgLactatingDailyMilk(
+              animals: filtered,
+              historyFor: milkHistoryFor,
+            ),
+      weaning: filtered
+          .where(ReproductionStatusRules.isWeaningForDashboard)
+          .length,
       tasksOverdue: tasks.where((t) => t.overdue).length,
       tasksToday: tasks.where((t) => t.dueBucket == 'today').length,
       tasksThisWeek: tasks.where((t) => t.dueBucket == 'week').length,
     );
+  }
+
+  static double? _avgMilkFromTodayOnly(List<Animal> animals) {
+    final litres = animals
+        .where(DashboardMilkMetrics.isLactatingAnimal)
+        .map((a) => a.milkTodayLitres)
+        .whereType<double>()
+        .where((l) => l > 0)
+        .toList();
+    if (litres.isEmpty) return null;
+    return litres.reduce((a, b) => a + b) / litres.length;
   }
 }

@@ -55,7 +55,7 @@ class BurgerMenu extends ConsumerWidget {
       children: [
         GestureDetector(
           onTap: () => ref.read(burgerMenuOpenProvider.notifier).state = false,
-          child: Container(color: Colors.black.withOpacity(0.32)),
+          child: Container(color: Colors.black.withValues(alpha: 0.32)),
         ),
         SafeArea(
           child: Material(
@@ -163,7 +163,7 @@ class _Row extends StatelessWidget {
         width: 38,
         height: 38,
         decoration: BoxDecoration(
-          color: context.ghPrimaryLight.withOpacity(0.4),
+          color: context.ghPrimaryLight.withValues(alpha: 0.4),
           borderRadius: BorderRadius.circular(10),
         ),
         child: leadingWidget ??

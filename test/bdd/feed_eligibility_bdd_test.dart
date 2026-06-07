@@ -16,14 +16,14 @@ void main() {
       tags: ['positive'],
       body: () async {
         TestWidgetsFlutterBinding.ensureInitialized();
-        final gap = NutritionGap(
+        const gap = NutritionGap(
           groupId: 'g-dry',
           dryMatterActualKg: 10,
           dryMatterTargetKg: 20,
           energyActualMj: 50,
           energyTargetMj: 100,
         );
-        final dryCow = Animal(
+        const dryCow = Animal(
           id: 'd1',
           tag: '1001',
           name: 'Dry',
@@ -52,14 +52,14 @@ void main() {
       tags: ['positive'],
       body: () async {
         TestWidgetsFlutterBinding.ensureInitialized();
-        final gap = NutritionGap(
+        const gap = NutritionGap(
           groupId: 'g-lac',
           dryMatterActualKg: 10,
           dryMatterTargetKg: 20,
           energyActualMj: 50,
           energyTargetMj: 100,
         );
-        final lactating = Animal(
+        const lactating = Animal(
           id: 'l1',
           tag: '0444',
           name: 'Sara',
@@ -69,7 +69,7 @@ void main() {
           weightKg: 344,
           ageLabel: '42m',
           groupId: 'g-lac',
-          tags: const [AnimalTagType.lactating],
+          tags: [AnimalTagType.lactating],
           productionPurpose: SpeciesPurpose.milk,
           monthsSinceCalving: 5,
         );

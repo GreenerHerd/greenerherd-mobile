@@ -70,7 +70,7 @@ class GroupPurposeDescriptionCard extends StatelessWidget {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: GhColors.primaryLight.withOpacity(0.45),
+                        color: GhColors.primaryLight.withValues(alpha: 0.45),
                         borderRadius: BorderRadius.circular(99),
                       ),
                       child: Text(
@@ -537,7 +537,7 @@ class _EnergyGapInsightCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withOpacity(0.55),
+        color: GhColors.primaryLight.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -582,7 +582,7 @@ class _EnergyGapInsightCard extends StatelessWidget {
 typedef FeedWeightSaver = Future<void> Function();
 
 class GroupTodaysFeedCard extends ConsumerStatefulWidget {
-  const GroupTodaysFeedCard({
+  const GroupTodaysFeedCard({super.key, 
     required this.entries,
     required this.groupId,
     this.onRecord,
@@ -975,7 +975,7 @@ class _HerdRequirementRow extends StatelessWidget {
 }
 
 class GroupDailyCostCard extends StatelessWidget {
-  const GroupDailyCostCard({required this.gap});
+  const GroupDailyCostCard({super.key, required this.gap});
 
   final NutritionGap gap;
 
@@ -1092,7 +1092,7 @@ class GroupMilkingVolumeCard extends StatelessWidget {
 }
 
 class GroupTopProducersCard extends StatelessWidget {
-  const GroupTopProducersCard({required this.animals});
+  const GroupTopProducersCard({super.key, required this.animals});
 
   final List<Animal> animals;
 
@@ -1168,7 +1168,7 @@ class _ProducerRow extends StatelessWidget {
 }
 
 class GroupMilkTrendCard extends StatelessWidget {
-  const GroupMilkTrendCard({required this.values});
+  const GroupMilkTrendCard({super.key, required this.values});
 
   final List<double> values;
 
@@ -1210,7 +1210,7 @@ class GroupMilkTrendCard extends StatelessWidget {
 }
 
 class GroupHealthStatusRow extends StatelessWidget {
-  const GroupHealthStatusRow({
+  const GroupHealthStatusRow({super.key, 
     required this.sick,
     required this.onWithdrawal,
     this.avgWithdrawalDays,
@@ -1295,7 +1295,7 @@ class GroupHealthStatusRow extends StatelessWidget {
 }
 
 class GroupHealthAlertCard extends StatelessWidget {
-  const GroupHealthAlertCard({required this.alert});
+  const GroupHealthAlertCard({super.key, required this.alert});
 
   final GroupHealthAlert alert;
 
@@ -1361,7 +1361,7 @@ class GroupHealthAlertCard extends StatelessWidget {
 }
 
 class GroupTasksPreviewCard extends StatelessWidget {
-  const GroupTasksPreviewCard({required this.preview});
+  const GroupTasksPreviewCard({super.key, required this.preview});
 
   final GroupTaskPreview preview;
 
