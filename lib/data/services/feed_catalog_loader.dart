@@ -16,6 +16,7 @@ class FeedCatalogProduct {
     this.crudeProteinPercent,
     this.nemMcalPerKg,
     this.ndfPercent,
+    this.imageUrl,
     this.eligibilityRules = const [],
   });
 
@@ -27,6 +28,7 @@ class FeedCatalogProduct {
   final double? crudeProteinPercent;
   final double? nemMcalPerKg;
   final double? ndfPercent;
+  final String? imageUrl;
   final List<FeedEligibilityRule> eligibilityRules;
 
   String displayName(Locale locale) =>
@@ -52,6 +54,7 @@ class MarketplaceFeedProduct {
     this.ndfPercent,
     this.packSizeKg,
     this.inStock = true,
+    this.imageUrl,
     this.eligibilityRules = const [],
   });
 
@@ -72,6 +75,7 @@ class MarketplaceFeedProduct {
   final double? ndfPercent;
   final double? packSizeKg;
   final bool inStock;
+  final String? imageUrl;
   final List<FeedEligibilityRule> eligibilityRules;
 
   String displayName(Locale locale) {
@@ -106,6 +110,7 @@ class MarketplaceFeedProduct {
       ndfPercent: (json['ndf_percent'] as num?)?.toDouble(),
       packSizeKg: (json['pack_size_kg'] as num?)?.toDouble(),
       inStock: json['in_stock'] as bool? ?? true,
+      imageUrl: json['product_image_url'] as String?,
       eligibilityRules: rules,
     );
   }
@@ -137,14 +142,13 @@ class FeedCatalogLoader {
         crudeProteinPercent: (map['cp_percent'] as num?)?.toDouble(),
         nemMcalPerKg: (map['nem_mcal_kg'] as num?)?.toDouble(),
         ndfPercent: (map['ndf_percent'] as num?)?.toDouble(),
+        imageUrl: map['product_image_url'] as String?,
         eligibilityRules: rules,
       );
     }).toList();
   }
 
-  static Future<List<MarketplaceFeedProduct>> loadMarketplaceProducts({
-    String countryCode = 'SA',
-  }) async {
+  static Future<List<MarketplaceFeedProduct>> _loadAllMarketplaceProducts() async {
     final raw = await rootBundle
         .loadString('assets/data/marketplace_feed_products.json');
     final json = jsonDecode(raw) as Map<String, dynamic>;
@@ -157,16 +161,42 @@ class FeedCatalogLoader {
       for (final p in standard) _normalizeCatalogName(p.nameEn): p,
     };
     return products
-        .map((p) => _enrichMarketplaceProduct(
-              MarketplaceFeedProduct.fromJson(
-                Map<String, dynamic>.from(p as Map),
-              ),
-              standardByNumber: standardByNumber,
-              standardByName: standardByName,
-              standard: standard,
-            ))
-        .where((p) => p.countryCode == countryCode)
+        .map(
+          (p) => _enrichMarketplaceProduct(
+            MarketplaceFeedProduct.fromJson(
+              Map<String, dynamic>.from(p as Map),
+            ),
+            standardByNumber: standardByNumber,
+            standardByName: standardByName,
+            standard: standard,
+          ),
+        )
         .toList();
+  }
+
+  static Future<Map<int, String>> loadStandardImageUrlsByNumber() async {
+    final products = await loadStandardProducts();
+    return {
+      for (final p in products)
+        if (p.imageUrl != null && p.imageUrl!.trim().isNotEmpty)
+          p.productNumber: p.imageUrl!.trim(),
+    };
+  }
+
+  static Future<Map<String, String>> loadMarketplaceImageUrlsById() async {
+    final products = await _loadAllMarketplaceProducts();
+    return {
+      for (final p in products)
+        if (p.imageUrl != null && p.imageUrl!.trim().isNotEmpty)
+          p.id: p.imageUrl!.trim(),
+    };
+  }
+
+  static Future<List<MarketplaceFeedProduct>> loadMarketplaceProducts({
+    String countryCode = 'SA',
+  }) async {
+    final products = await _loadAllMarketplaceProducts();
+    return products.where((p) => p.countryCode == countryCode).toList();
   }
 
   static String _normalizeCatalogName(String name) =>
@@ -273,6 +303,7 @@ class FeedCatalogLoader {
       ndfPercent: product.ndfPercent ?? linked.ndfPercent,
       packSizeKg: product.packSizeKg,
       inStock: product.inStock,
+      imageUrl: product.imageUrl ?? linked.imageUrl,
       eligibilityRules: rules,
     );
   }

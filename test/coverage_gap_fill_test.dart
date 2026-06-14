@@ -308,6 +308,17 @@ void main() {
   });
 
   group('FeedCatalogLoader enrichment', () {
+    test('standard products load catalogue image URLs when present', () async {
+      final catalog = await FeedCatalogLoader.loadStandardProducts();
+      final withImages =
+          catalog.where((p) => p.imageUrl != null && p.imageUrl!.isNotEmpty);
+      expect(withImages, isNotEmpty);
+      expect(
+        withImages.first.imageUrl,
+        startsWith('https://'),
+      );
+    });
+
     test('MarketplaceFeedProduct fromJson and Arabic displayName', () {
       final product = MarketplaceFeedProduct.fromJson({
         'id': 'mp-1',

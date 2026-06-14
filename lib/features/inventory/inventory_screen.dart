@@ -5,8 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
+import '../../core/theme/gh_typography.dart';
 import '../../data/models/inventory_models.dart';
+import '../../data/services/feed_catalog_loader.dart';
 import '../../data/services/feed_nutrition_facts.dart';
+import '../../shared/io/local_image.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import '../../shared/widgets/gh_card.dart';
 import '../../shared/widgets/gh_design_icon.dart';
@@ -22,6 +25,20 @@ final _medicalProvider = FutureProvider<List<MedicalInventoryItem>>((ref) async 
 
 final _lowStockProvider = FutureProvider<List<FeedInventoryItem>>((ref) async {
   return ref.watch(inventoryRepositoryProvider).listLowStock();
+});
+
+typedef FeedImageIndex = ({
+  Map<int, String> standardByNumber,
+  Map<String, String> marketplaceById,
+});
+
+final _feedImageIndexProvider = FutureProvider<FeedImageIndex>((ref) async {
+  final standardByNumber = await FeedCatalogLoader.loadStandardImageUrlsByNumber();
+  final marketplaceById = await FeedCatalogLoader.loadMarketplaceImageUrlsById();
+  return (
+    standardByNumber: standardByNumber,
+    marketplaceById: marketplaceById,
+  );
 });
 
 class InventoryScreen extends ConsumerStatefulWidget {
@@ -48,6 +65,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     final lowStock = ref.watch(_lowStockProvider);
 
     return Scaffold(
+      backgroundColor: context.ghPageBackground,
       appBar: GhAppBar(title: l10n.inventory),
       floatingActionButton: _tab == 2
           ? null
@@ -60,7 +78,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                   },
                   icon: const Icon(Icons.add),
                   label: Text(l10n.addFeedProduct),
-                  backgroundColor: GhColors.primary,
+                  backgroundColor: context.ghPrimary,
                 )
               : FloatingActionButton.extended(
                   onPressed: () async {
@@ -70,7 +88,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                   },
                   icon: const Icon(Icons.add),
                   label: Text(l10n.addMedicine),
-                  backgroundColor: GhColors.primary,
+                  backgroundColor: context.ghPrimary,
                 ),
       body: Column(
         children: [
@@ -78,8 +96,8 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
             data: (items) {
               if (items.isEmpty) return const SizedBox.shrink();
               return MaterialBanner(
-                backgroundColor: Colors.orange.shade50,
-                leading: Icon(Icons.warning_amber, color: Colors.orange.shade800),
+                backgroundColor: context.ghWarningLight,
+                leading: Icon(Icons.warning_amber, color: context.ghWarning),
                 content: Text(l10n.lowStockFeedBanner(items.length)),
                 actions: [
                   TextButton(
@@ -143,7 +161,12 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           Expanded(
             child: switch (_tab) {
               0 => feed.when(
-                  data: (items) => _feedList(items),
+                  data: (items) => ref.watch(_feedImageIndexProvider).when(
+                        data: (imageIndex) =>
+                            _feedList(items, imageIndex: imageIndex),
+                        loading: () => _feedList(items),
+                        error: (_, __) => _feedList(items),
+                      ),
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   error: (e, _) => Center(child: Text('$e')),
@@ -162,7 +185,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     );
   }
 
-  Widget _feedList(List<FeedInventoryItem> items) {
+  Widget _feedList(List<FeedInventoryItem> items, {FeedImageIndex? imageIndex}) {
     final l10n = context.l10n;
     if (items.isEmpty) {
       return Center(
@@ -209,7 +232,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
         );
 
         return Card(
-          color: item.lowStock ? Colors.orange.shade50 : null,
+          color: item.lowStock ? context.ghWarningLight : null,
           margin: const EdgeInsets.only(bottom: 8),
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
@@ -223,9 +246,12 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
               child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 2),
-                  child: Icon(Icons.grass, color: GhColors.primary),
+                Padding(
+                  padding: const EdgeInsets.only(top: 2),
+                  child: _FeedListThumbnail(
+                    item: item,
+                    catalogImageUrl: _catalogImageUrlForItem(item, imageIndex),
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -234,15 +260,12 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                     children: [
                       Text(
                         item.name,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                        style: context.textH04,
                       ),
                       const SizedBox(height: 4),
                       Text(
                         meta,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: GhColors.textSecondary,
-                        ),
+                        style: context.textMuted.copyWith(fontSize: 12),
                       ),
                       if (nutritionFacts.isNotEmpty) ...[
                         const SizedBox(height: 8),
@@ -267,23 +290,20 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
                   children: [
                     Text(
                       '${item.quantityKg.toStringAsFixed(0)} ${item.unit}',
-                      style: const TextStyle(fontWeight: FontWeight.w700),
+                      style: context.textH04,
                     ),
                     if (item.unitCost != null && item.unitCost! > 0)
                       Text(
                         l10n.inventoryCostPerKg(
                           item.unitCost!.toStringAsFixed(2),
                         ),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: GhColors.textSecondary,
-                        ),
+                        style: context.textMuted.copyWith(fontSize: 12),
                       ),
                     if (item.lowStock)
                       Text(
                         l10n.lowStock,
                         style: TextStyle(
-                          color: Colors.orange.shade800,
+                          color: context.ghWarning,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
@@ -299,6 +319,22 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
     );
   }
 
+  String? _catalogImageUrlForItem(
+    FeedInventoryItem item,
+    FeedImageIndex? imageIndex,
+  ) {
+    if (imageIndex == null) return null;
+    final feedProductNumber = item.feedProductNumber;
+    if (feedProductNumber != null) {
+      return imageIndex.standardByNumber[feedProductNumber];
+    }
+    final marketplaceProductId = item.marketplaceProductId;
+    if (marketplaceProductId != null) {
+      return imageIndex.marketplaceById[marketplaceProductId];
+    }
+    return null;
+  }
+
   Widget _animalsTab(BuildContext context) {
     final l10n = context.l10n;
     return ListView(
@@ -309,18 +345,24 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           child: Column(
             children: [
               ListTile(
-                leading: const Icon(Icons.add_circle_outline, color: GhColors.primary),
-                title: Text(l10n.buyAnimals),
-                subtitle: Text(l10n.buyAnimalsInventorySubtitle),
-                trailing: const Icon(Icons.chevron_right),
+                leading: Icon(Icons.add_circle_outline, color: context.ghPrimary),
+                title: Text(l10n.buyAnimals, style: context.textBody),
+                subtitle: Text(
+                  l10n.buyAnimalsInventorySubtitle,
+                  style: context.textMuted.copyWith(fontSize: 12),
+                ),
+                trailing: Icon(Icons.chevron_right, color: context.ghTextFaint),
                 onTap: () => context.push('/inventory/buy'),
               ),
-              const Divider(height: 1, color: GhColors.border),
+              Divider(height: 1, color: context.ghBorder),
               ListTile(
                 leading: const GhDesignListIcon(assetPath: GhDesignIcons.sale),
-                title: Text(l10n.sellAnimals),
-                subtitle: Text(l10n.sellAnimalsInventorySubtitle),
-                trailing: const Icon(Icons.chevron_right),
+                title: Text(l10n.sellAnimals, style: context.textBody),
+                subtitle: Text(
+                  l10n.sellAnimalsInventorySubtitle,
+                  style: context.textMuted.copyWith(fontSize: 12),
+                ),
+                trailing: Icon(Icons.chevron_right, color: context.ghTextFaint),
                 onTap: () => context.push('/inventory/sell'),
               ),
             ],
@@ -342,26 +384,23 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
         return Card(
           child: ListTile(
             leading: const GhDesignListIcon(assetPath: GhDesignIcons.medication),
-            title: Text(
-              item.name,
-              style: const TextStyle(fontWeight: FontWeight.w700),
+            title: Text(item.name, style: context.textH04),
+            subtitle: Text(
+              item.purpose ?? item.medicineType,
+              style: context.textMuted.copyWith(fontSize: 12),
             ),
-            subtitle: Text(item.purpose ?? item.medicineType),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   '${item.quantity.toStringAsFixed(0)} ${item.unit}',
-                  style: const TextStyle(fontWeight: FontWeight.w700),
+                  style: context.textH04,
                 ),
                 if (item.unitCost != null && item.unitCost! > 0)
                   Text(
                     '${item.unitCost!.toStringAsFixed(2)} SAR/${item.unit}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: GhColors.textSecondary,
-                    ),
+                    style: context.textMuted.copyWith(fontSize: 12),
                   ),
               ],
             ),
@@ -383,19 +422,19 @@ class _NutritionChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: GhColors.primaryLight.withValues(alpha: 0.45),
+        color: context.ghAccentSurfaceSubtle,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: GhColors.primary.withValues(alpha: 0.15)),
+        border: Border.all(color: context.ghPrimary.withValues(alpha: 0.15)),
       ),
       child: Text.rich(
         TextSpan(
-          style: const TextStyle(fontSize: 11, color: GhColors.textPrimary),
+          style: TextStyle(fontSize: 11, color: context.ghTextPrimary),
           children: [
             TextSpan(
               text: '$label ',
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w600,
-                color: GhColors.textSecondary,
+                color: context.ghTextSecondary,
               ),
             ),
             TextSpan(
@@ -405,6 +444,50 @@ class _NutritionChip extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FeedListThumbnail extends StatelessWidget {
+  const _FeedListThumbnail({
+    required this.item,
+    this.catalogImageUrl,
+  });
+
+  final FeedInventoryItem item;
+  final String? catalogImageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 44.0;
+    final displayPath = resolveProductImagePath(
+      userPhotoPath: item.photoPath,
+      catalogImageUrl: catalogImageUrl,
+    );
+    if (productImageResolvable(displayPath)) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: buildProductImage(
+          path: displayPath!,
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => _fallback(context),
+        ),
+      );
+    }
+    return _fallback(context);
+  }
+
+  Widget _fallback(BuildContext context) {
+    return Container(
+      width: 44,
+      height: 44,
+      decoration: BoxDecoration(
+        color: context.ghAccentSurface,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Icon(Icons.grass, color: context.ghPrimary),
     );
   }
 }
