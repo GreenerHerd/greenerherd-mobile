@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/router/router_navigation.dart';
 import '../../core/l10n/l10n_extensions.dart';
 import '../../core/providers/providers.dart';
 import '../../core/theme/gh_colors.dart';
 import '../../core/theme/gh_typography.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/models.dart';
+import '../../shared/io/local_image.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import '../../shared/widgets/nutrition_today_vs_requirement_panel.dart';
 import '../tasks/task_item_extensions.dart';
@@ -42,9 +45,9 @@ class _SupplementDosageCapHint extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
-          color: GhColors.warningLight.withValues(alpha: 0.7),
+          color: context.ghWarningLight.withValues(alpha: 0.85),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: GhColors.warning.withValues(alpha: 0.35)),
+          border: Border.all(color: context.ghWarning.withValues(alpha: 0.35)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,23 +55,23 @@ class _SupplementDosageCapHint extends StatelessWidget {
             if (option.isDosageCapped)
               Text(
                 l10n.supplementDosageCappedHint,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
-                  color: GhColors.textSecondary,
+                  color: context.ghTextPrimary,
                 ),
               ),
             if (perAnimal != null) ...[
               if (option.isDosageCapped) const SizedBox(height: 4),
               Text(
                 l10n.supplementDosageCapPerAnimal(_formatDosageKg(perAnimal)),
-                style: const TextStyle(fontSize: 11, color: GhColors.textSecondary),
+                style: TextStyle(fontSize: 11, color: context.ghTextPrimary),
               ),
             ],
             if (groupCap != null)
               Text(
                 l10n.supplementDosageCapGroup(_formatDosageKg(groupCap)),
-                style: const TextStyle(fontSize: 11, color: GhColors.textSecondary),
+                style: TextStyle(fontSize: 11, color: context.ghTextPrimary),
               ),
           ],
         ),
@@ -279,11 +282,18 @@ class _FeedRecommendationsScreenState
     final supplementsAsync = ref.watch(gapSupplementsProvider(_supplementsKey));
 
     return Scaffold(
+      backgroundColor: context.ghPageBackground,
       appBar: GhAppBar(
         title: l10n.fixTheGap,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, _applied.isNotEmpty),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop(_applied.isNotEmpty);
+            } else {
+              context.popGroupOrShellHome();
+            }
+          },
         ),
       ),
       body: gapAsync.when(
@@ -304,6 +314,7 @@ class _FeedRecommendationsScreenState
                 padding: const EdgeInsets.all(16),
                 children: [
                   nutritionTodaySectionCard(
+                    context,
                     child: NutritionTodayVsRequirementPanel(
                       gap: gap,
                       hasLoggedFeedToday: feed.isNotEmpty,
@@ -316,7 +327,7 @@ class _FeedRecommendationsScreenState
                       child: _MarketSupplementBanner(gap: gap),
                     ),
                   const SizedBox(height: 16),
-                  Text(l10n.addSupplement, style: GhTypography.h03),
+                  Text(l10n.addSupplement, style: context.textH03),
                   const SizedBox(height: 10),
                   _SourceTabs(
                     source: _source,
@@ -328,7 +339,7 @@ class _FeedRecommendationsScreenState
                       padding: const EdgeInsets.symmetric(vertical: 24),
                       child: Text(
                         l10n.nothingForFilter,
-                        style: const TextStyle(color: GhColors.textSecondary),
+                        style: TextStyle(color: context.ghTextPrimary),
                         textAlign: TextAlign.center,
                       ),
                     )
@@ -390,8 +401,8 @@ class _SourceTabs extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: GhColors.border),
+        color: context.ghSurface,
+        border: Border.all(color: context.ghBorder),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -404,7 +415,7 @@ class _SourceTabs extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 4),
                   child: Material(
                     color: source == tab.$1
-                        ? GhColors.primary
+                        ? context.ghPrimary
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                     child: InkWell(
@@ -425,7 +436,7 @@ class _SourceTabs extends StatelessWidget {
                                 fontSize: 13,
                                 color: source == tab.$1
                                     ? Colors.white
-                                    : GhColors.textPrimary,
+                                    : context.ghTextPrimary,
                               ),
                             ),
                             const SizedBox(height: 2),
@@ -438,7 +449,7 @@ class _SourceTabs extends StatelessWidget {
                                 fontSize: 10,
                                 color: source == tab.$1
                                     ? Colors.white.withValues(alpha: 0.85)
-                                    : GhColors.textSecondary,
+                                    : context.ghTextPrimary,
                               ),
                             ),
                           ],
@@ -481,22 +492,70 @@ class _SupplementNutrientSummary extends StatelessWidget {
       children: [
         Text(
           l10n.recommendedFeedWeight(_formatKg(kg)),
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 13,
-            color: GhColors.textPrimary,
+            color: context.ghTextPrimary,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           l10n.supplementNutrientsAtWeight(energy, protein),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: GhColors.primary,
+            color: context.ghNutritionGreen,
           ),
         ),
       ],
+    );
+  }
+}
+
+class _SupplementProductThumbnail extends StatelessWidget {
+  const _SupplementProductThumbnail({
+    required this.option,
+    required this.size,
+  });
+
+  final GapSupplementOption option;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final displayPath = option.displayImagePath;
+    final hasPhoto = productImageResolvable(displayPath);
+
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: option.isTopPick ? context.ghPrimary : context.ghPrimaryLight,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: option.isTopPick ? context.ghPrimary : context.ghBorder,
+        ),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: hasPhoto
+          ? buildProductImage(
+              path: displayPath!,
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => _fallbackIcon(context),
+            )
+          : _fallbackIcon(context),
+    );
+  }
+
+  Widget _fallbackIcon(BuildContext context) {
+    return Center(
+      child: Icon(
+        Icons.eco_outlined,
+        size: size * 0.5,
+        color: option.isTopPick ? Colors.white : context.ghPrimary,
+      ),
     );
   }
 }
@@ -524,11 +583,12 @@ class _SupplementCard extends StatelessWidget {
     final maxKg = _maxKgForOption(option);
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
+      color: context.ghSurface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: option.isTopPick
-            ? const BorderSide(color: GhColors.primary, width: 1.5)
-            : BorderSide.none,
+            ? BorderSide(color: context.ghPrimary, width: 1.5)
+            : BorderSide(color: context.ghBorder),
       ),
       child: Padding(
         padding: const EdgeInsets.all(14),
@@ -538,21 +598,7 @@ class _SupplementCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: option.isTopPick
-                        ? GhColors.primary
-                        : GhColors.primaryLight,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.eco_outlined,
-                    size: 20,
-                    color: option.isTopPick ? Colors.white : GhColors.primary,
-                  ),
-                ),
+                _SupplementProductThumbnail(option: option, size: 40),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -563,9 +609,10 @@ class _SupplementCard extends StatelessWidget {
                           Flexible(
                             child: Text(
                               option.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
+                                color: context.ghTextPrimary,
                               ),
                             ),
                           ),
@@ -577,15 +624,15 @@ class _SupplementCard extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: GhColors.primaryLight,
+                                color: context.ghPrimaryLight,
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 l10n.topPick,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
-                                  color: GhColors.primary,
+                                  color: context.ghPrimary,
                                 ),
                               ),
                             ),
@@ -595,9 +642,9 @@ class _SupplementCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         option.tag,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
-                          color: GhColors.textSecondary,
+                          color: context.ghTextPrimary,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -609,9 +656,9 @@ class _SupplementCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         option.costLabel,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
-                          color: GhColors.textSecondary,
+                          color: context.ghTextPrimary,
                         ),
                       ),
                     ],
@@ -622,11 +669,11 @@ class _SupplementCard extends StatelessWidget {
                   onPressed: busy ? null : onToggle,
                   style: OutlinedButton.styleFrom(
                     backgroundColor:
-                        isPicked ? GhColors.primary : Colors.white,
+                        isPicked ? context.ghPrimary : context.ghSurface,
                     foregroundColor:
-                        isPicked ? Colors.white : GhColors.textPrimary,
+                        isPicked ? Colors.white : context.ghTextPrimary,
                     side: BorderSide(
-                      color: isPicked ? GhColors.primary : GhColors.border,
+                      color: isPicked ? context.ghPrimary : context.ghBorder,
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -648,17 +695,17 @@ class _SupplementCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: GhColors.pageBackground,
+                  color: context.ghPageBackground,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
                   children: [
                     Text(
                       l10n.quantity,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
-                        color: GhColors.textSecondary,
+                        color: context.ghTextPrimary,
                       ),
                     ),
                     const Spacer(),
@@ -670,9 +717,10 @@ class _SupplementCard extends StatelessWidget {
                     ),
                     Text(
                       '${kgPerDay == kgPerDay.roundToDouble() ? kgPerDay.toInt() : kgPerDay.toStringAsFixed(1)} ${l10n.kgPerDay}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16,
+                        color: context.ghTextPrimary,
                       ),
                     ),
                     IconButton(
@@ -705,6 +753,7 @@ class _CostSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Card(
+      color: context.ghSurface,
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
@@ -715,17 +764,18 @@ class _CostSummaryCard extends StatelessWidget {
               children: [
                 Text(
                   l10n.projectedDailyCost,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: GhColors.textSecondary,
+                    color: context.ghTextPrimary,
                   ),
                 ),
                 Text(
                   '${projectedCost.toStringAsFixed(2)} SAR',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 18,
+                    color: context.ghTextPrimary,
                   ),
                 ),
               ],
@@ -734,9 +784,9 @@ class _CostSummaryCard extends StatelessWidget {
             Text(
               hint,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: GhColors.textSecondary,
+                color: context.ghTextPrimary,
               ),
             ),
           ],
@@ -754,13 +804,17 @@ class _MarketSupplementBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: GhColors.warningLight,
+      color: context.ghWarningLight,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Text(
           gap.fixGapMessage ??
               'Catalog feeds may not close all nutrient gaps. Add market supplements as needed.',
-          style: const TextStyle(fontSize: 13),
+          style: TextStyle(
+            fontSize: 13,
+            color: context.ghTextPrimary,
+            height: 1.35,
+          ),
         ),
       ),
     );

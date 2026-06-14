@@ -57,7 +57,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/AlfaAlfa.jpg"
     },
     {
       "id": "5a01f7b1-af45-5aa4-8ecf-574902370ba9",
@@ -116,7 +117,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/toxin-binder.jpeg"
     },
     {
       "id": "551ae2a8-1132-57e3-b9a3-4bfabc58f365",
@@ -175,7 +177,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": 60,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/toxin-binder.jpeg"
     },
     {
       "id": "e6051e12-c6d5-52dd-a604-0c95d931caf2",
@@ -234,7 +237,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": 45,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/toxin-binder.jpeg"
     },
     {
       "id": "b9b8897b-5abb-5dce-9367-a9cdc93a102d",
@@ -293,7 +297,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": 30,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/toxin-binder.jpeg"
     },
     {
       "id": "05ae9534-0acc-5b76-9842-1975fbfaebe8",
@@ -352,7 +357,8 @@
       "vitamin_b12_iu_kg": 0.05,
       "vitamin_d3_iu_kg": 2500,
       "vitamin_e_mg_kg": 40,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/alfa-alfa-hay.jpg"
     },
     {
       "id": "a6279937-2967-59cb-9e71-5f17b3e98f3f",
@@ -529,7 +535,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Barley.jpeg"
     },
     {
       "id": "8440095a-80b2-50a0-8c73-497f5effc917",
@@ -588,7 +595,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/barley-grain.jpg"
     },
     {
       "id": "f2c78cd1-5891-5ca2-9c69-2d51b1f8ec92",
@@ -647,7 +655,8 @@
       "vitamin_b12_iu_kg": 0.02,
       "vitamin_d3_iu_kg": 1000,
       "vitamin_e_mg_kg": 10,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/barley-grain.jpg"
     },
     {
       "id": "8304b508-0d03-5cc7-baec-0c9cf4253ea2",
@@ -724,7 +733,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/barley-flakes.jpg"
     },
     {
       "id": "e0d063e2-96c7-53bf-b1a0-da96171a1e6b",
@@ -801,7 +811,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Barley.jpeg"
     },
     {
       "id": "22ff0c6c-9939-5073-b763-32e33bce6211",
@@ -860,7 +871,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/beet-pulp.jpeg"
     },
     {
       "id": "4b53edd2-f3d4-5367-ab37-22020fe3c23d",
@@ -937,7 +949,8 @@
       "vitamin_b12_iu_kg": 0.03,
       "vitamin_d3_iu_kg": 1600,
       "vitamin_e_mg_kg": 22,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/sugar-beat-pulp.jpg"
     },
     {
       "id": "68c30988-d295-589e-aaa5-29b97778969a",
@@ -1173,7 +1186,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/corn-grain.JPG"
     },
     {
       "id": "cb4d5063-4dc9-5367-a115-294f2ffd524e",
@@ -1232,7 +1246,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/corn-grain.JPG"
     },
     {
       "id": "e9ea6714-aae9-5c8b-8df0-15bb11916906",
@@ -1309,7 +1324,8 @@
       "vitamin_b12_iu_kg": 0.03,
       "vitamin_d3_iu_kg": 1500,
       "vitamin_e_mg_kg": 20,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/corn-gluten-meal.jpg"
     },
     {
       "id": "fba0d321-bb19-5410-814c-aa492549a396",
@@ -1368,7 +1384,8 @@
       "vitamin_b12_iu_kg": 0.03,
       "vitamin_d3_iu_kg": 1800,
       "vitamin_e_mg_kg": 25,
-      "source": "Both (Standard + Alex)"
+      "source": "Both (Standard + Alex)",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/corn-silage.jpg"
     },
     {
       "id": "f38c34f8-eae5-59f8-b32e-c290b00a2db2",
@@ -1427,7 +1444,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/cotton-seeds.jpeg"
     },
     {
       "id": "8779e017-18cd-5466-bf0b-eec74d5fd335",
@@ -1504,7 +1522,8 @@
       "vitamin_b12_iu_kg": 0.035,
       "vitamin_d3_iu_kg": 1800,
       "vitamin_e_mg_kg": 25,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/cotton-seed-meal.jpg"
     },
     {
       "id": "3acf6320-406e-530d-a313-a6aea32dfda2",
@@ -1563,7 +1582,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/cotton-seed-meal.jpg"
     },
     {
       "id": "921ae688-46f8-5523-8d39-5fd476e1695a",
@@ -1622,7 +1642,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/corn-silage.jpg"
     },
     {
       "id": "91a97c3b-643a-57bc-ba0f-a715afe0abb8",
@@ -1758,7 +1779,8 @@
       "vitamin_b12_iu_kg": 0.002,
       "vitamin_d3_iu_kg": 100,
       "vitamin_e_mg_kg": 2,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/limestone.jpg"
     },
     {
       "id": "0c49df1f-e85e-50fc-9aaa-81f4f8c05513",
@@ -1817,7 +1839,8 @@
       "vitamin_b12_iu_kg": 0.015,
       "vitamin_d3_iu_kg": 800,
       "vitamin_e_mg_kg": 8,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/milled-maize-grain.jpg"
     },
     {
       "id": "7d6660fa-6e52-5a33-8842-ffd7cbced980",
@@ -1953,7 +1976,8 @@
       "vitamin_b12_iu_kg": 0.01,
       "vitamin_d3_iu_kg": 500,
       "vitamin_e_mg_kg": 5,
-      "source": "Both (Standard + Alex)"
+      "source": "Both (Standard + Alex)",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/molasses.jpg"
     },
     {
       "id": "0714b3a5-6af7-58cb-842f-fa5e82dd91e5",
@@ -2012,7 +2036,8 @@
       "vitamin_b12_iu_kg": 0.035,
       "vitamin_d3_iu_kg": 1700,
       "vitamin_e_mg_kg": 28,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/oat-hay.jpg"
     },
     {
       "id": "fcc06ca2-f06b-5320-b69a-5cde37649f02",
@@ -2366,7 +2391,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/red-hay.JPG"
     },
     {
       "id": "9fb3a780-2d25-5a32-9345-39d944de1494",
@@ -2738,7 +2764,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/sesame-seed-husk.jpg"
     },
     {
       "id": "413627bd-c2cb-5393-bca2-850257246882",
@@ -2856,7 +2883,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/soybean.JPG"
     },
     {
       "id": "45a680da-e63a-5b9e-808c-cc744ab24a7a",
@@ -2915,7 +2943,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/soybean-hulls.JPG"
     },
     {
       "id": "e1811fe0-72a9-574d-ba37-4e2a5b8221c2",
@@ -2974,7 +3003,8 @@
       "vitamin_b12_iu_kg": 0.04,
       "vitamin_d3_iu_kg": 2000,
       "vitamin_e_mg_kg": 30,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/soybean-husk.jpg"
     },
     {
       "id": "11222cee-fb2d-58b7-9b11-3abd1e422701",
@@ -3051,7 +3081,8 @@
       "vitamin_b12_iu_kg": 0.045,
       "vitamin_d3_iu_kg": 2200,
       "vitamin_e_mg_kg": 35,
-      "source": "Both (Standard + Alex)"
+      "source": "Both (Standard + Alex)",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/soybean-meal.jpg"
     },
     {
       "id": "45e66620-c6c1-5024-831a-db8ddd3dba39",
@@ -3128,7 +3159,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/steamed-barley-flakes.jpg"
     },
     {
       "id": "97b7957e-1370-5c65-b1aa-0bfb8462d3d4",
@@ -3205,7 +3237,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/steamed-corn-flakes.jpg"
     },
     {
       "id": "03eeb666-af82-5cd0-9cc3-e34207b3ae07",
@@ -3264,7 +3297,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/beet-pulp.jpeg"
     },
     {
       "id": "507c4c88-d116-53f3-85d6-124f950f834e",
@@ -3382,7 +3416,8 @@
       "vitamin_b12_iu_kg": 0.025,
       "vitamin_d3_iu_kg": 1100,
       "vitamin_e_mg_kg": 15,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/triticale-silage.jpg"
     },
     {
       "id": "2fdbc420-1a1b-5af8-8f40-75b5354be3f2",
@@ -3518,7 +3553,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/wheat.jpeg"
     },
     {
       "id": "b14d81d0-54f1-5f68-916e-807a440736b3",
@@ -3577,7 +3613,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Alex Generic Products"
+      "source": "Alex Generic Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/wheat.jpeg"
     },
     {
       "id": "c41ee6f9-5f20-5db9-bede-50228b93ef0a",
@@ -3636,7 +3673,8 @@
       "vitamin_b12_iu_kg": 0.02,
       "vitamin_d3_iu_kg": 1000,
       "vitamin_e_mg_kg": 10,
-      "source": "Both (Standard + Alex)"
+      "source": "Both (Standard + Alex)",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/wheat-straw.jpg"
     },
     {
       "id": "910a0171-d814-5a63-80a2-0042925634ec",
@@ -3713,7 +3751,8 @@
       "vitamin_b12_iu_kg": 0.03,
       "vitamin_d3_iu_kg": 1500,
       "vitamin_e_mg_kg": 20,
-      "source": "Both (Standard + Alex)"
+      "source": "Both (Standard + Alex)",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/Aidco/wheat-bran.jpg"
     },
     {
       "id": "26f0c1f3-3e51-5bd2-9594-4c2eddfeda34",
@@ -3772,7 +3811,8 @@
       "vitamin_b12_iu_kg": 0.025,
       "vitamin_d3_iu_kg": 1100,
       "vitamin_e_mg_kg": 15,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/wheat-grain.jpg"
     },
     {
       "id": "64420fbe-98ee-59ea-8285-ccb39275debb",
@@ -3831,7 +3871,8 @@
       "vitamin_b12_iu_kg": null,
       "vitamin_d3_iu_kg": null,
       "vitamin_e_mg_kg": null,
-      "source": "Standard Products"
+      "source": "Standard Products",
+      "product_image_url": "https://uatenvgh.blob.core.windows.net/product-images/wheat-hay.JPG"
     }
   ],
   "meta": {

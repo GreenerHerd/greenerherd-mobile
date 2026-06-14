@@ -7,6 +7,7 @@ import '../../data/models/models.dart';
 import '../../data/services/feed_catalog_loader.dart';
 import '../../data/services/feed_eligibility_service.dart';
 import '../../data/services/supplement_nutrition.dart';
+import '../../shared/io/local_image.dart';
 
 enum GapSupplementSource { inventory, standard, marketplace }
 
@@ -52,6 +53,8 @@ class GapSupplementOption {
     this.perAnimalDosageCapKg,
     this.groupDosageCapKg,
     this.uncappedSuggestedKg,
+    this.photoPath,
+    this.catalogImageUrl,
   });
 
   final String id;
@@ -79,6 +82,15 @@ class GapSupplementOption {
   final double? groupDosageCapKg;
   /// Uncapped gap-based suggestion before eligibility dosage limits.
   final double? uncappedSuggestedKg;
+  /// User-uploaded inventory photo, when available.
+  final String? photoPath;
+  /// Catalogue image URL from standard or marketplace product data.
+  final String? catalogImageUrl;
+
+  String? get displayImagePath => resolveProductImagePath(
+        userPhotoPath: photoPath,
+        catalogImageUrl: catalogImageUrl,
+      );
 
   bool get hasDosageCap => groupDosageCapKg != null;
 
@@ -142,11 +154,13 @@ class GapSupplementRecommendations {
           gap: gap,
           locale: locale,
           groupMembers: groupMembers,
+          inventory: inventory,
         ),
       GapSupplementSource.marketplace => _fromMarketplace(
           gap: gap,
           locale: locale,
           groupMembers: groupMembers,
+          inventory: inventory,
         ),
     };
   }
@@ -223,6 +237,12 @@ class GapSupplementRecommendations {
           ndf: nutrition.ndfPercent,
           dm: nutrition.dryMatterPercent,
           inventoryItemId: item.id,
+          photoPath: item.photoPath,
+          catalogImageUrl: _catalogImageForInventoryItem(
+            item,
+            standard: standard,
+            marketplace: marketplace,
+          ),
         ),
       );
     }
@@ -273,6 +293,12 @@ class GapSupplementRecommendations {
             ndf: nutrition.ndfPercent,
             dm: nutrition.dryMatterPercent,
             isTopPick: rec.isTopPick,
+            photoPath: matched.photoPath,
+            catalogImageUrl: _catalogImageForInventoryItem(
+              matched,
+              standard: standard,
+              marketplace: marketplace,
+            ),
           ),
         );
         continue;
@@ -313,16 +339,45 @@ class GapSupplementRecommendations {
           ndf: catalogNutrition.ndfPercent,
           dm: catalogNutrition.dryMatterPercent,
           isTopPick: rec.isTopPick,
+          photoPath: _inventoryPhotoForProduct(inventory, name: rec.name),
+          catalogImageUrl: product?.imageUrl,
         ),
       );
     }
     return _rankAndLimit(gap, options);
   }
 
+  static String? _inventoryPhotoForProduct(
+    List<FeedInventoryItem> inventory, {
+    int? feedProductNumber,
+    String? marketplaceProductId,
+    String? name,
+  }) {
+    if (feedProductNumber != null) {
+      for (final item in inventory) {
+        if (item.feedProductNumber == feedProductNumber) {
+          return item.photoPath;
+        }
+      }
+    }
+    if (marketplaceProductId != null) {
+      for (final item in inventory) {
+        if (item.marketplaceProductId == marketplaceProductId) {
+          return item.photoPath;
+        }
+      }
+    }
+    if (name != null) {
+      return _matchInventoryItem(inventory, name)?.photoPath;
+    }
+    return null;
+  }
+
   static Future<List<GapSupplementOption>> _fromStandard({
     required NutritionGap gap,
     required Locale locale,
     List<Animal> groupMembers = const [],
+    List<FeedInventoryItem> inventory = const [],
   }) async {
     final catalog = await FeedCatalogLoader.loadStandardProducts();
     final eligible =
@@ -353,6 +408,12 @@ class GapSupplementRecommendations {
         ndf: p.ndfPercent,
         dm: p.dryMatterPercent,
         catalogProductNumber: p.productNumber,
+        photoPath: _inventoryPhotoForProduct(
+          inventory,
+          feedProductNumber: p.productNumber,
+          name: p.displayName(locale),
+        ),
+        catalogImageUrl: p.imageUrl,
       );
     }).toList();
     return _rankAndLimit(gap, options);
@@ -362,6 +423,7 @@ class GapSupplementRecommendations {
     required NutritionGap gap,
     required Locale locale,
     List<Animal> groupMembers = const [],
+    List<FeedInventoryItem> inventory = const [],
   }) async {
     final products = await FeedCatalogLoader.loadMarketplaceProducts();
     final eligible = FeedEligibilityService.filterMarketplaceProductsForAnimals(
@@ -392,6 +454,13 @@ class GapSupplementRecommendations {
         dm: p.dryMatterPercent,
         marketplaceProductId: p.id,
         supplierName: p.supplierName,
+        photoPath: _inventoryPhotoForProduct(
+          inventory,
+          marketplaceProductId: p.id,
+          feedProductNumber: p.standardProductNumber,
+          name: p.displayName(locale),
+        ),
+        catalogImageUrl: p.imageUrl,
       );
     }).toList();
     return _rankAndLimit(gap, options);
@@ -415,6 +484,8 @@ class GapSupplementRecommendations {
     String? marketplaceProductId,
     String? supplierName,
     bool isTopPick = false,
+    String? photoPath,
+    String? catalogImageUrl,
   }) {
     final kg = suggested.kg;
     return GapSupplementOption(
@@ -440,6 +511,8 @@ class GapSupplementRecommendations {
       perAnimalDosageCapKg: suggested.perAnimalDosageCapKg,
       groupDosageCapKg: suggested.groupDosageCapKg,
       uncappedSuggestedKg: suggested.uncappedKg,
+      photoPath: photoPath,
+      catalogImageUrl: catalogImageUrl,
     );
   }
 
@@ -474,8 +547,34 @@ class GapSupplementRecommendations {
       perAnimalDosageCapKg: first.perAnimalDosageCapKg,
       groupDosageCapKg: first.groupDosageCapKg,
       uncappedSuggestedKg: first.uncappedSuggestedKg,
+      photoPath: first.photoPath,
+      catalogImageUrl: first.catalogImageUrl,
     );
     return limited;
+  }
+
+  static String? _catalogImageForInventoryItem(
+    FeedInventoryItem item, {
+    required List<FeedCatalogProduct> standard,
+    required List<MarketplaceFeedProduct> marketplace,
+  }) {
+    final feedProductNumber = item.feedProductNumber;
+    if (feedProductNumber != null) {
+      for (final product in standard) {
+        if (product.productNumber == feedProductNumber) {
+          return product.imageUrl;
+        }
+      }
+    }
+    final marketplaceProductId = item.marketplaceProductId;
+    if (marketplaceProductId != null) {
+      for (final product in marketplace) {
+        if (product.id == marketplaceProductId) {
+          return product.imageUrl;
+        }
+      }
+    }
+    return null;
   }
 
   static double _score(NutritionGap gap, GapSupplementOption o) {

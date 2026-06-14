@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../core/l10n/gen/app_localizations.dart';
 import '../../core/l10n/l10n_extensions.dart';
@@ -15,6 +14,7 @@ import '../../data/services/feed_catalog_loader.dart';
 import '../../data/services/feed_eligibility_service.dart';
 import '../../data/services/meal_stock_analyzer.dart';
 import '../../shared/io/local_image.dart';
+import '../../shared/widgets/image_pick_helpers.dart';
 import '../../shared/widgets/gh_app_bar.dart';
 import 'add_feed_route_args.dart';
 import 'feed_eligibility_ui.dart';
@@ -253,46 +253,15 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
     });
   }
 
-  Future<void> _pickPhoto(ImageSource source) async {
-    final picked = await ImagePicker().pickImage(
-      source: source,
-      maxWidth: 1200,
-      imageQuality: 85,
-    );
-    if (picked != null && mounted) {
-      setState(() => _photoPath = picked.path);
+  Future<void> _pickPhoto() async {
+    final path = await pickLocalImagePath(context);
+    if (path != null && mounted) {
+      setState(() => _photoPath = path);
     }
   }
 
   void _showPhotoOptions() {
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text('Take a photo'),
-              subtitle: const Text(
-                  'Capture the feed bag label with supplier & product name'),
-              onTap: () {
-                Navigator.pop(ctx);
-                _pickPhoto(ImageSource.camera);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text('Choose from gallery'),
-              onTap: () {
-                Navigator.pop(ctx);
-                _pickPhoto(ImageSource.gallery);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    _pickPhoto();
   }
 
   @override
@@ -784,7 +753,39 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (_photoPath == null) ...[
+        _buildPhotoSection(),
+        const SizedBox(height: 12),
+        TextField(
+          controller: _name,
+          decoration: InputDecoration(labelText: l10n.productName),
+          onChanged: (_) => setState(() {}),
+        ),
+      ],
+    );
+  }
+
+  String? get _selectedCatalogImageUrl {
+    if (_source == InventorySourceType.standard) {
+      return _catalogProduct?.imageUrl;
+    }
+    if (_source == InventorySourceType.marketplace) {
+      return _selectedMpProduct?.imageUrl;
+    }
+    return null;
+  }
+
+  String? get _displayImagePath => resolveProductImagePath(
+        userPhotoPath: _photoPath,
+        catalogImageUrl: _selectedCatalogImageUrl,
+      );
+
+  Widget _buildPhotoSection() {
+    final displayPath = _displayImagePath;
+    final hasDisplay = productImageResolvable(displayPath);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (!hasDisplay) ...[
           InkWell(
             onTap: _showPhotoOptions,
             borderRadius: BorderRadius.circular(12),
@@ -830,8 +831,8 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: buildLocalFileImage(
-                  path: _photoPath!,
+                child: buildProductImage(
+                  path: displayPath!,
                   width: double.infinity,
                   height: 180,
                   fit: BoxFit.cover,
@@ -847,11 +848,13 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
                       icon: Icons.refresh,
                       onTap: _showPhotoOptions,
                     ),
-                    const SizedBox(width: 6),
-                    _PhotoActionButton(
-                      icon: Icons.close,
-                      onTap: () => setState(() => _photoPath = null),
-                    ),
+                    if (_photoPath != null) ...[
+                      const SizedBox(width: 6),
+                      _PhotoActionButton(
+                        icon: Icons.close,
+                        onTap: () => setState(() => _photoPath = null),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -859,11 +862,6 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
           ),
           const SizedBox(height: 12),
         ],
-        TextField(
-          controller: _name,
-          decoration: InputDecoration(labelText: l10n.productName),
-          onChanged: (_) => setState(() {}),
-        ),
       ],
     );
   }
@@ -998,6 +996,10 @@ class _AddFeedScreenState extends ConsumerState<AddFeedScreen> {
             _buildMarketplaceSection(locale),
           ] else ...[
             _buildCustomFeedSection(l10n),
+          ],
+          if (_source != InventorySourceType.custom) ...[
+            const SizedBox(height: 12),
+            _buildPhotoSection(),
           ],
           ..._buildExistingStockHint(l10n),
           const SizedBox(height: 12),
